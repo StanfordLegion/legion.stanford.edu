@@ -37,10 +37,6 @@ If using GASNet, ensure that [GASNet has been properly configured and
 optimized](/gasnet/). GASNet can be important for performance on
 multi-node runs.
 
-Legion Prof outputs its logs in a compressed binary format using `ZLIB`.
-If you don't have `ZLIB` on your system, you can set `USE_ZLIB=0` in
-your Makefile.
-
 ## Legion Prof
 
 Before taking steps towards optimizing a program, it is usually
@@ -51,6 +47,10 @@ Legion Prof is compiled into all builds by default, so no additional
 compile-time flags are required. However, it is always recommended to
 compile Legion in release mode (i.e. `DEBUG=0`) before measuring
 performance.
+
+Legion Prof outputs its logs in a compressed binary format using `ZLIB`.
+If you don't have `ZLIB` on your system, you can set `USE_ZLIB=0` in
+your Makefile.
 
 ### Generating a Profile
 

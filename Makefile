@@ -28,7 +28,7 @@ messages: legion
 	rm -rf design_patterns glossary messages
 	mkdir -p messages
 	bash ./_legion/doc/crossIndex.bash
-	cd messages && find ../_legion/doc/glossary/markdown > ../_glossary.txt
+	cd messages && ls -1 ../_legion/doc/glossary/markdown > ../_glossary.txt
 	cd messages && find ../_legion/runtime -name '*.cc' | python ../_legion/tools/collate_messages.py --prefix="https://github.com/StanfordLegion/legion/blob/$(shell git -C _legion rev-parse HEAD)/runtime" --strip=3 --glossaryFile ../_glossary.txt --glossaryURL "//legion.stanford.edu/"
 	mv ./_legion/doc/publish/design_patterns .
 	mv ./_legion/doc/publish/glossary .

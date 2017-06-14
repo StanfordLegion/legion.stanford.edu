@@ -62,11 +62,11 @@ a separate file. For example, data from node 0 will be saved in
 `<logfile>0.gz`, data from node 1 in `<logfile>1.gz`, etc. Finally, pass
 the resulting log files to `legion_prof.py`.
 
-```bash
- DEBUG=0 make
- ./app -hl:prof kN> -hl:prof_logfile prof_log
- $LG_RT_DIR/../tools/legion_prof.py prof_log*
-```
+{% highlight bash %}
+DEBUG=0 make
+./app -hl:prof <N> -hl:prof_logfile prof_log
+$LG_RT_DIR/../tools/legion_prof.py prof_log*
+{% endhighlight %}
 
 This will generate a subdirectory called `legion_prof` under the
 current directory, including a file named `index.html`. Open this file
@@ -74,10 +74,10 @@ in a browser.
 
 A sample of Legion Prof's output is shown below.
 
-![](/images/collapsed_profile.png)
+![](/images/profiling/collapsed_profile.png)
 
 This profile shows the utilization graph of the memories and processors
-during the run. However, Legion Prof also can also dispaly  more detailed
+during the run. However, Legion Prof also can also display  more detailed
 information, as described in
 [Interacting with a Profile](#interacting-with-a-profile).
 
@@ -90,26 +90,26 @@ the profile can display more detailed information. This will uncollapse the
 corresponding line to show the actual events that happened during the application.
 For example, after clicking on the triangle for `node 0 (CPU)`:
 
-![](/images/uncollapsed_profile.gif)
+![](/images/profiling/uncollapsed_profile.gif)
 
 Hovering over a box in this more detailed view will display relevant information
 such as the name of the task, the start and end time, and the total duration
 of the task. The color of the box will be lighter if the task was waiting or
 ready to be scheduled, but was not actually executing.
 
-![](/images/box_hover_profile.gif)
+![](/images/profiling/box_hover_profile.gif)
 
-Some of the boxes in the profile are grey. These are groups of tasks that are 
+Some of the boxes in the profile are gray. These are groups of tasks that are 
 too small to be viewed at the current zoom level. To zoom in, click and drag the 
 mouse over a region of interest.
 
-![](/images/zoom_profile.gif)
+![](/images/profiling/zoom_profile.gif)
 
 After zooming in on a section, you can return to the previous zoom level by
 pressing `u` on the keyboard. You can also reset the zoom level by pressing `0`.
 For other options, use the `?` key to show a help message.
 
-![](/images/help_profile.png)
+![](/images/profiling/help_profile.png)
 
 Press `esc` or `?` to exit the help message.
 
@@ -117,7 +117,7 @@ One of the options in the help message was searching for tasks. To search for
 a task, press `s`, type a search query, and press enter. Legion Prof will
 highlight the matched tasks in red. To clear the search, press `c`.
 
-![](/images/search_profile.gif)
+![](/images/profiling/search_profile.gif)
 
 
 ### Advanced Features
@@ -128,36 +128,36 @@ To take advantage of this feature, run your application with both Legion Prof an
 [Legion Spy](/debugging/#legion-spy) logging enabled. Then pass both the Legion Prof
 and [Legion Spy](/debugging/#legion-spy) traces to `legion_prof.py`.
 
-```bash
- DEBUG=0 make
- ./app -hl:prof <N> -hl:spy -logfile spy_log% -hl:prof_logfile prof_log
- $LG_RT_DIR/../tools/legion_prof.py prof_log* spy_log*
-```
+{% highlight bash %}
+DEBUG=0 make
+./app -hl:prof <N> -hl:spy -logfile spy_log% -hl:prof_logfile prof_log
+$LG_RT_DIR/../tools/legion_prof.py prof_log* spy_log*
+{% endhighlight %}
 
 After Legion Prof creates the profile, you will be able to click on tasks that
 have dependency data. Left-clicking will draw solid lines to tasks that depend
 on the current task as well as from tasks that the current task depends on.
-Hovering over a line will show which way the depedency flows.
+Hovering over a line will show which way the dependency flows.
 
-![](/images/dependency_profile.gif)
+![](/images/profiling/dependency_profile.gif)
 
 Similarly, right-clicking will draw the parent/child relationships for the 
 current task.
 
-![](/images/parent_child_profile.gif)
+![](/images/profiling/parent_child_profile.gif)
 
 You can deselect the current task by either clicking on a different task or
 left/right clicking on the current task to remove dependency and parent/child
 relationship lines, respectively.
 
-![](/images/deselect_profile.gif)
+![](/images/profiling/deselect_profile.gif)
 
-Finally, pressing `a` will draw the criticial path of dependencies in the
+Finally, pressing `a` will draw the critical path of dependencies in the
 application. Inspecting this line can be helpful to determine where optimizations
 should be made to improve the performance of the application. To remove the 
 critical path line, simply press `a` again.
 
-![](/images/critical_path_profile.gif)
+![](/images/profiling/critical_path_profile.gif)
 
 ### Legion Prof Troubleshooting
 
@@ -167,10 +167,10 @@ Chrome. We recommend using Firefox or Safari, or accessing your profile
 over a remote web server. Alternately, you can spin up a simple web server
 locally:
 
-```bash
- cd legion_prof
- python -m SimpleHTTPServer
-```
+{% highlight bash %}
+cd legion_prof
+python -m SimpleHTTPServer
+{% endhighlight %}
 
 and then open `localhost:80000` from Chrome. One final option if you want
 to use Chrome on local profiles is to launch Chrome with 
@@ -210,7 +210,7 @@ which processors are under-utilized as well as when there
 are bubbles in task execution. While this is useful, it
 doesn't always suggest why there are bubbles. Legion Prof
 does not show data movement operations and therefore bubbles
-can be caused either by critical path dependences, or by
+can be caused either by critical path dependencies, or by
 pending data movement operations. We currently rely on
 application specific information to discern the cause.
 

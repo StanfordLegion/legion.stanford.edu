@@ -77,8 +77,8 @@ A sample of Legion Prof's output is shown below.
 ![](/images/profiling/collapsed_profile.png)
 
 This profile shows the utilization graph of the memories and processors
-during the run. However, Legion Prof also can also display  more detailed
-information, as described in
+during the run. Legion Prof also can also display  more detailed
+information as described in
 [Interacting with a Profile](#interacting-with-a-profile).
 
 ### Interacting with a Profile
@@ -161,7 +161,7 @@ critical path line, simply press `a` again.
 
 ### Legion Prof Troubleshooting
 
-If you access try to access `index.html` locally (by opening 
+If you try to access `index.html` locally (by opening 
 `file:///.../index.html`), you may run into issues if you use Google
 Chrome. We recommend using Firefox or Safari, or accessing your profile
 over a remote web server. Alternately, you can spin up a simple web server

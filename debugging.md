@@ -15,17 +15,17 @@ Generally speaking, users should start by trying these tools
  * [Freeze On Error](#freeze-on-error) (`LEGION_FREEZE_ON_ERROR=1 ./app`)
  * [Privilege Checks](#privilege-checks) (`CC_FLAGS=-DPRIVILEGE_CHECKS make; ./app`)
  * [Bounds Checks](#bounds-checks) (`CC_FLAGS=-DBOUNDS_CHECKS make; ./app`)
- * [Disjointness Checks](#disjointness-checks) (`./app -hl:disjointness`)
- * [Legion Spy](#legion-spy) (`./app -hl:spy -logfile spy_%.log; ./legion_spy.py -dez spy_*.log`)
+ * [Disjointness Checks](#disjointness-checks) (`./app -lg:disjointness`)
+ * [Legion Spy](#legion-spy) (`./app -lg:spy -logfile spy_%.log; ./legion_spy.py -dez spy_*.log`)
 
 The following tools are typically used after the initial debugging
 tools have been exhausted or in special circumstances:
 
  * [Logging Infrastructure](#logging-infrastructure)
  * [Debug Tasks](#debug-tasks)
- * [In-Order Execution](#in-order-execution) (`./app -hl:inorder`)
+ * [In-Order Execution](#in-order-execution) (`./app -lg:inorder`)
  * [Full-Size Instances](#full-size-instances)
- * [Separate Runtime Instances](#separate-runtime-instances) (`./app -hl:separate -ll:util 0`)
+ * [Separate Runtime Instances](#separate-runtime-instances) (`./app -lg:separate -ll:util 0`)
 
 ## Try These First
 
@@ -155,7 +155,7 @@ experimented with more complicated coloring schemes, we've
 noticed an increasing number of cases where colorings are
 claimed to be disjoint when they actually are not.
 
-To address this problem, we provide the `-hl:disjointness`
+To address this problem, we provide the `-lg:disjointness`
 command line flag which instructs the Legion high-level
 runtime to verify the disjointness of all colorings which
 are claimed to be disjoint and report a runtime error if
@@ -163,7 +163,7 @@ they are not. Depending on the size and type of coloring
 as well as the number of colors, these checks can take
 arbitrarily long and may degrade performance. Due to the
 extreme performance cost associated with these checks,
-the `-hl:disjointness` flag will only perform the checks
+the `-lg:disjointness` flag will only perform the checks
 when the runtime is compiled in debug mode, and will
 result in a runtime warning if it is used with a release
 build of the runtime.
@@ -181,14 +181,14 @@ the runtime itself.
 These modes have slightly different usage patterns, as a full check of
 the runtime analysis is relatively expensive.
 
-To use visualize dependencies, run the application with `-hl:spy
+To use visualize dependencies, run the application with `-lg:spy
 -logfile spy_%.log`. (No special compile-time flags are necessary.)
 This will produce one log file per node. Then run the post-processing
 script `legion_spy.py` on the log files to generate PDF files of the
 various visualizations in the current directory.
 
 {% highlight bash %}
-./app -hl:spy -logfile spy_%.log
+./app -lg:spy -logfile spy_%.log
 $LG_RT_DIR/tools/legion_spy.py -dez spy_*.log
 {% endhighlight %}
 
@@ -314,7 +314,7 @@ useful to know that operations are actually executed
 in the order in which they are issued. This can be useful
 both for debugging Legion application code, as well as
 for investigating runtime bugs. To enable this feature,
-execute the application with the command-line flag `-hl:inorder`.
+execute the application with the command-line flag `-lg:inorder`.
 When running
 in this mode sub-tasks and other operations launched
 within a parent task will be issued and run to completion
@@ -380,6 +380,6 @@ would be in the truly distributed case). This
 allows a single debugger to be attached
 to a process on a single node and observe
 the different runtime instances. This setting
-can be enabled by passing the flags `-hl:separate -ll:util 0`
+can be enabled by passing the flags `-lg:separate -ll:util 0`
 on the command line. (The `-ll:util 0` is required because this mode
 does not support execution with explicit utility processors.)

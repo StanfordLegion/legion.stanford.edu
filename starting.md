@@ -95,8 +95,8 @@ parameters. Below are some of the more commonly used flags:
   * `-ll:rsize <int>`: size of GASNet registered RDMA memory available per process (in MB)
   * `-ll:fsize <int>`: size of framebuffer memory for each GPU (in MB)
   * `-ll:zsize <int>`: size of zero-copy memory for each GPU (in MB)
-  * `-hl:window <int>`: maximum number of tasks that can be created in a parent task window
-  * `-hl:sched <int>`: minimum number of tasks to try to schedule for each invocation of the scheduler
+  * `-lg:window <int>`: maximum number of tasks that can be created in a parent task window
+  * `-lg:sched <int>`: minimum number of tasks to try to schedule for each invocation of the scheduler
 
 The default mapper also has several flags for controlling the default mapping.
 See `default_mapper.cc` for more details.

@@ -54,17 +54,17 @@ your Makefile.
 
 ### Generating a Profile
 
-To profile an application, run with `-hl:prof <N>` where `N` is the
+To profile an application, run with `-lg:prof <N>` where `N` is the
 number of nodes to be profiled. (`N` can be less than the total number
 of nodes---this profiles a subset of the nodes.) Use the 
-`-hl:prof_logfile <logfile>` flag to save the output from each node to
+`-lg:prof_logfile <logfile>` flag to save the output from each node to
 a separate file. For example, data from node 0 will be saved in
 `<logfile>0.gz`, data from node 1 in `<logfile>1.gz`, etc. Finally, pass
 the resulting log files to `legion_prof.py`.
 
 {% highlight bash %}
 DEBUG=0 make
-./app -hl:prof <N> -hl:prof_logfile prof_log
+./app -lg:prof <N> -lg:prof_logfile prof_log
 $LG_RT_DIR/../tools/legion_prof.py prof_log*
 {% endhighlight %}
 
@@ -130,7 +130,7 @@ and [Legion Spy](/debugging/#legion-spy) traces to `legion_prof.py`.
 
 {% highlight bash %}
 DEBUG=0 make
-./app -hl:prof <N> -hl:spy -logfile spy_log% -hl:prof_logfile prof_log
+./app -lg:prof <N> -lg:spy -logfile spy_log% -lg:prof_logfile prof_log
 $LG_RT_DIR/../tools/legion_prof.py prof_log* spy_log*
 {% endhighlight %}
 
@@ -350,10 +350,10 @@ surprisingly many of these flags are related to parameters which
 are tuned by hardware architects in out-of-order processors. Since
 Legion is built in software though, users have the direct ability
 to tune these parameters to their particular application. In keeping
-with the naming scheme used above, all high-level runtime flags
-are prefixed by `-hl:`.
+with the naming scheme used above, all Legion runtime flags
+are prefixed by `-lg:`.
 
- * `-hl:window` - Specify the maximum number of operations that 
+ * `-lg:window` - Specify the maximum number of operations that 
     can be outstanding in a given task context (e.g. how many
     sub-tasks and operations can a task issue) before the 
     task is stalled. This upper bound provides one way of 
@@ -361,7 +361,7 @@ are prefixed by `-hl:`.
     them from running too far in advance. In many ways this
     value is analogous to the size of a re-order buffer (ROB)
     in hardware processors.  The default value is 1024.
- * `-hl:sched` - Set the maximum number of ready tasks which
+ * `-lg:sched` - Set the maximum number of ready tasks which
     must be available to run on a low-level processor before
     the high-level runtime stops invoking the mapper to 
     schedule more tasks. This controls how far in advance
@@ -370,14 +370,14 @@ are prefixed by `-hl:`.
     tasks require longer to map. In many ways this value is
     analogous to the number of entries available at reservation 
     stations for hardware resource units. The default value is 1.
- * `-hl:width` - Indicate the number of operations which the
+ * `-lg:width` - Indicate the number of operations which the
     high-level runtime should consider when making a scheduling
     pass. The wider this is, the more operations will be touched
     in a scheduling pass.  This can increase throughput, but also
     increase latency of scheduling on processors. This value
     is analogous to the super-scalar width of modern processors.
     The default value is 4.
- * `-hl:message` - Specify the maximum size of messages in bytes that
+ * `-lg:message` - Specify the maximum size of messages in bytes that
     can be sent between two instances of the high-level runtime.
     Smaller message sizes can decrease the latency of communication
     by pipelining communication, but can achieve lower interconnect
@@ -386,7 +386,7 @@ are prefixed by `-hl:`.
     to ensure reasonable latency and bandwidth by ensuring medium
     size GASNet active messages are used on both Infiniband and
     Cray GASNet conduits.
- * `-hl:filter` - This flag is more subtle and we only encourage
+ * `-lg:filter` - This flag is more subtle and we only encourage
     users to make use of it after gaining some understanding of
     how the Legion runtime operates. In some application, there are
     many live operations that are non-interfering in different

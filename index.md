@@ -66,7 +66,7 @@ High Performance Computing Research Center, and NVIDIA.
 </tr>
 
 <tr>
-<td>Kartik Srinavasa Murthy</td>
+<td>Karthik Srinivasa Murthy</td>
 <td>  </td>
 <td>Jonathan Graham</td>
 </tr>

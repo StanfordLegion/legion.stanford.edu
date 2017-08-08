@@ -15,6 +15,10 @@ title: Resources
   * [Gitlab CI](https://gitlab.com/StanfordLegion/legion/pipelines)
   * [Performance](/perf/)
 
+## Internals
+
+  * See [internals documentation](/documentation/#internals)
+
 ## S3D Traces
 
   * [S3D Traces](/traces/) (for use with SSTMacro)

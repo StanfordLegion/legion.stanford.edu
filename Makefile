@@ -19,6 +19,10 @@ deploy: doxygen messages build
 
 	# rm -rf doxygen _site
 
+.PHONY: local
+local: doxygen messages build
+	echo "Result is in _site"
+
 .PHONY: doxygen
 doxygen: legion
 	doxygen

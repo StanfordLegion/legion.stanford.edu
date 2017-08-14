@@ -52,4 +52,4 @@ kramdown:
   auto_ids: true
 
 include: [".htaccess"]
-exclude: [".gitignore", "README.md", "lib", "config.rb", "Capfile", "config", "Doxyfile", "log", "Rakefile", "Rakefile.rb", "tmp", "less", "*.sublime-project", "*.sublime-workspace", "test", "spec", "Gruntfile.js", "package.json", "node_modules"]
+exclude: [".gitignore", "Doxyfile", "LICENSE.txt", "Makefile", "README.md"]

@@ -1,5 +1,11 @@
+# Deploy locally
+.PHONY: local
+local: doxygen messages build
+	echo "Result is in _site"
+
+# Deploy to Sapling
 .PHONY: deploy
-deploy: doxygen messages build
+deploy: local
 
 	sudo rsync --recursive /scratch/www/htdocs/ \
 	/scratch/www/htdocs.backup-$(shell date '+%Y-%m-%d')/
@@ -19,10 +25,21 @@ deploy: doxygen messages build
 
 	# rm -rf doxygen _site
 
-.PHONY: local
-local: doxygen messages build
-	echo "Result is in _site"
+# Deploy to GitHub
+.PHONY: github
+github: local
+	@if [ -d _github ]; then git -C _github pull --ff-only; else git clone -b master https://github.com/StanfordLegion/StanfordLegion.github.io.git _github; fi
+	@if (! (git -C _github diff-index --quiet --cached HEAD --)) || (! (git -C _github diff-files --quiet)) || (git -C _github ls-files --others --error-unmatch . &> /dev/null); then echo The _github directory has uncommitted changes, please resolve; exit 1; fi
+	rsync --recursive --delete \
+	--exclude .git \
+	--exclude .nojekyll \
+	--exclude CNAME \
+	_site/ _github/
+	git -C _github add -A .
+	git -C _github commit --message "Deploy $(shell date)."
+	git -C _github push
 
+# Build steps:
 .PHONY: doxygen
 doxygen: legion
 	doxygen
@@ -39,11 +56,7 @@ messages: legion
 
 .PHONY: legion
 legion:
-ifneq ($(wildcard _legion/.),)
-	git -C _legion pull --ff-only
-else
-	git clone -b master https://github.com/StanfordLegion/legion.git _legion
-endif
+	@if [ -d _legion ]; then git -C _legion pull --ff-only; else git clone -b master https://github.com/StanfordLegion/legion.git _legion; fi
 
 .PHONY: build
 build:

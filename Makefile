@@ -1,8 +1,8 @@
 .PHONY: deploy
 deploy: doxygen messages build
 
-	sudo rsync --recursive /local/www/htdocs/ \
-	/local/www/htdocs.backup-$(shell date '+%Y-%m-%d')/
+	sudo rsync --recursive /scratch/www/htdocs/ \
+	/scratch/www/htdocs.backup-$(shell date '+%Y-%m-%d')/
 
 	sudo rsync --recursive --delete \
 	--exclude /cg \
@@ -15,7 +15,7 @@ deploy: doxygen messages build
 	--exclude /s3d \
 	--exclude /software_lunch \
 	--exclude /s3dtraces \
-	_site/ /local/www/htdocs/
+	_site/ /scratch/www/htdocs/
 
 	# rm -rf doxygen _site
 

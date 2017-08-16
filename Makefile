@@ -1,7 +1,7 @@
 # Deploy locally
 .PHONY: local
 local: doxygen messages build
-	echo "Result is in _site"
+	@echo "Result is in _site"
 
 # Deploy to Sapling
 .PHONY: deploy
@@ -28,13 +28,18 @@ deploy: local
 # Deploy to GitHub
 .PHONY: github
 github: local
-	@if [ -d _github ]; then git -C _github pull --ff-only; else git clone -b master https://github.com/StanfordLegion/StanfordLegion.github.io.git _github; fi
-	@if (! (git -C _github diff-index --quiet --cached HEAD --)) || (! (git -C _github diff-files --quiet)) || (git -C _github ls-files --others --error-unmatch . &> /dev/null); then echo The _github directory has uncommitted changes, please resolve; exit 1; fi
+	@if [ -d _github ]; then git -C _github pull --ff-only; else git clone -b master git@github.com:StanfordLegion/StanfordLegion.github.io.git _github; fi
+
+	@if ! git -C _github diff-index --quiet --cached HEAD --; then echo "The _github directory has staged (uncommitted) files, please resolve"; exit 1; fi
+	@if ! git -C _github diff-files --quiet; then echo "The _github directory has dirty files, please resolve"; exit 1; fi
+	@if git -C _github ls-files --others --error-unmatch . 1> /dev/null 2> /dev/null; then echo "The _github directory has untracked files, please resolve"; exit 1; fi
+
 	rsync --recursive --delete \
 	--exclude .git \
 	--exclude .nojekyll \
 	--exclude CNAME \
 	_site/ _github/
+
 	git -C _github add -A .
 	git -C _github commit --message "Deploy $(shell date)."
 	git -C _github push

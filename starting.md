@@ -63,10 +63,10 @@ make`) or at the top of each application's Makefile.
     dynamic checks which are too expensive for release builds.
   * `OUTPUT_LEVEL=<level_name>`: controls the compile-time [logging
     level](/debugging/#logging-infrastructure).
-  * `USE_CUDA=<0,1>`: enables CUDA support.
-  * `USE_GASNET=<0,1>`: enables GASNet support (see [installation instructions](/gasnet/)).
-  * `USE_LLVM=<0,1>`: enables LLVM support.
-  * `USE_HDF=<0,1>`: enables HDF5 support.
+  * `USE_CUDA=<0,1>`: enables CUDA support. If enabled, `CUDA` (or `CUDA_TOOLKITHOME`) should be set to the CUDA install location (e.g. `/usr/local/cuda`).
+  * `USE_GASNET=<0,1>`: enables GASNet support (see [installation instructions](/gasnet/)). If enabled, `GASNET` (or `GASNET_ROOT`) should be set to the GASNet installation location, and `CONDUIT` must be set to the desired GASNet conduit (e.g. ibv, gemini, aries).
+  * `USE_LLVM=<0,1>`: enables LLVM support. If enabled, and an `llvm-config` binary is not in your path, specify its location with `LLVM_CONFIG`.
+  * `USE_HDF=<0,1>`: enables HDF5 support. If enabled, and HDF5 is not installed in the standard include/library directories, specify the install location using `HDF_ROOT`.
 
 ## Build Flags
 

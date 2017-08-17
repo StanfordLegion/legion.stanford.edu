@@ -27,14 +27,18 @@ on installed drivers. However, the configure script can be misled
 especially if drivers are not visible in a user's path or are not
 loaded by the operating system. For example, if a cluster has
 Infiniband hardware, but the drivers are not loaded by the OS then the
-GASNet configure script will not build the Infiniband conduit. __BE
-SURE THE CONFIGURE SCRIPT BUILDS THE CORRECT CONDUIT__.
+GASNet configure script will not build the Infiniband conduit. The summary
+printed at the completion of the configure script lists the detected
+conduits. __BE SURE THE CONFIGURE SCRIPT BUILDS THE CORRECT CONDUIT__.
 
 We have tested Legion on four different conduits on a wide variety of
 machines ranging from our own personal Infiniband cluster to the Titan
 supercomputer with a Gemini interconnect to a collection of Amazon AWS
-nodes in the cloud using ethernet. Below are some useful configure
-flags that we use when building our own versions of GASNet:
+nodes in the cloud using ethernet. The full list of flags for GASNet
+configuration can be obtained via `configure --help`, but below are some
+useful ones we use when building our own versions of GASNet.  (Some of these
+are actually the defaults, but we specify them explicitly in case the GASNet
+defaults ever change.)
 
 * `--enable-gemini`: force GASNet to build the Gemini conduit for Cray interconnects.
 * `--enable-ibv`: force GASNet to build the Infiniband conduit.
@@ -46,16 +50,10 @@ flags that we use when building our own versions of GASNet:
     for Legion applications which interact with MPI applications.
 * `--enable-segment-fast`: necessary for supporting one-sided RDMA operations.
 * `--disable-aligned-segments`: remove the requirement for aligned pinned memory.
-* `--disable-pshm`: there should only ever be one GASNet process per node
-    in a Legion application.
-* `--enable-pshm`: used only when Legion GASNet applications will interoperate
-    with MPI applications with more than one process per node.
-* `--with-segment-mmap-max=<#>GB`: specify a block size for GASNet to use
-    when discovering the amount of available memory by gradually allocating
-    blocks. Default is 1MB which results in GASNet start-up times of several
-    MINUTES with large (e.g. 48 GB) address spaces.
-* `--enable-cross-compile`: necessary when targeting machines like
-    Titan which employ different compilers for user-nodes and compute-nodes.
+* `--disable-pshm`: there should normally only be one GASNet process per node
+    in a Legion application.  (Use `--enable-pshm` only when Legion GASNet
+    applications will interoperate
+    with MPI applications with more than one process per node.)
 
 After following the instructions to build and install GASNet, there
 will be a GASNet library and a binary used for running
@@ -87,12 +85,15 @@ configuring GASNet for different architectures. We caution readers
 that the examples shown here demonstrate some of the GASNet features
 necessary for performance but are in no way comprehensive. In all
 cases users should always consult the [GASNet
-Documentation](http://gasnet.lbl.gov/) to ensure that they ascertain
+Documentation](http://gasnet.lbl.gov/) to ensure that they obtain
 the highest possible performance installation for their target
 machine.
 
 Below is a configure command that we use for our installation of
 GASNet on the [Keeneland supercomputer](http://keeneland.gatech.edu/).
+(Note that this example uses a very old version of GASNet. Please use the most
+recent GASNet release if possible, and keep in mind scripts or options may now
+be named differently than what is shown below.)
 
 {% highlight bash %}
 ./configure --prefix=/nics/d/home/sequoia/gasnet-1.22.0/ --enable-ibv \
@@ -129,8 +130,7 @@ performs the same operation so we disable the GASNet thread with the
 installation of Linux with memory layout randomization we pass the
 `--disable-aligned-segments` flag to guarantee correct execution by
 GASNet. The `--disable-pshm` and `--disable-fca` flags disable shared
-memory and fast atomic operations which are unnecessary for Legion and
-can sometimes degrade performance.
+memory and fast atomic operations which are unnecessary for Legion.
 
 While our installation for Keeneland is fairly straight-forward, some
 machines require more complex GASNet installations. As an example, our
@@ -168,10 +168,12 @@ In addition to the configure time settings, GASNet also supports a
 myriad array of environment variables that can influence the
 performance of an application. When performance tuning an application
 these variables should be properly set to match the communication
-patterns of the target application. While there are many environment
-variables that can be set, we cover some of the more important
-performance ones here. We first look at the environment variables for
-the Infiniband conduit, and then look at the ones for a Cray Gemini
+patterns of the target application. There are many environment
+variables that can be set.  They are documented in the main and per-conduit
+GASNet README files, and can be listed at run time by setting
+`GASNET_VERBOSEENV=1`.  We cover some of the more important
+performance ones here, looking first at the environment variables for
+the Infiniband conduit, and then the ones for a Cray Gemini
 conduit.
 
 The documentation for the GASNet Infiniband conduit can be found
@@ -192,10 +194,9 @@ environment variables.
     credits are sent back to the node that sent them.
   * `GASNET_AMRDMA_MAX_PEERS` - Control the number of nodes which
     support the faster path for active messages by using RDMA.
-    In some cases we have found this variable needs to be set
-    to zero in order to guarantee correct execution of Legion
-    with the Infiniband conduit. (We have an outstanding bug
-    registered with the GASNet developers regarding this issue.)
+    We usually set this to `0` as the heuristics used within GASNet to
+    guess which peers to switch to the faster path are often confused by
+    Legion's message passing behavior.
 
 The documentation for the GASNet Gemini conduit can be found
 [here](http://gasnet.lbl.gov/dist/gemini-conduit/README). We regularly
@@ -212,7 +213,7 @@ Gemini conduit.
   * `GASNET_GNI_MEMREG` - Specify the number of pinned memory
     allocations available for GASNet to use.  Most often
     needed when running applications without the -ll:rsize
-    flag (see below).
+    flag (see [here](/starting/#command-line-flags)).
 
 In order to tune these variables we regularly employ a simple script
 which sweeps the parameter space, records the performance of our

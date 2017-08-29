@@ -16,6 +16,7 @@ title: Publications
   * [Realm (PACT 2014)](#pact2014) \[[PDF](/pdfs/realm2014.pdf)]
       * [Sean Treichler's Thesis (2016)](#treichler_thesis) \[[PDF](/pdfs/treichler_thesis.pdf)]
   * [Regent (SC 2015)](#sc2015) \[[PDF](/pdfs/regent2015.pdf)]
+      * [Elliott Slaughter's Thesis (2017)](#slaughter_thesis) \[[PDF](/pdfs/slaughter_thesis.pdf)]
   * DSLs:
       * [Singe (PPoPP 2014)](#ppopp2014) \[[PDF](/pdfs/singe2014.pdf)]
       * [Scout (WOLFHPC 2014)](#wolfhpc2014) \[[PDF](/pdfs/scout2014.pdf)]
@@ -320,3 +321,48 @@ to existing "non-blocking" approaches. Finally, performance of Legion
 applications at full-scale show how Realm's composable asynchrony and
 support for heterogeneity benefit the overall Legion system on a
 variety of modern supercomputers.
+
+<a name="slaughter_thesis"></a>**Regent: A High-Productivity Programming Language for Implicit Parallelism with Logical Regions** [PDF](/pdfs/slaughter_thesis.pdf)<br/>
+*Elliott Slaughter*<br/>
+August 2017<br/>
+**Abstract:** Modern supercomputers are dominated by distributed-memory
+machines. State of the art high-performance scientific applications
+targeting these machines are typically written in low-level,
+explicitly parallel programming models that enable maximal performance
+but expose the user to programming hazards such as data races and
+deadlocks. Conversely, implicitly parallel models isolate the user
+from these hazards by providing easy-to-use sequential semantics and
+place responsibility for parallelism and data movement on the
+system. However, traditional implementations of implicit parallelism
+suffer from substantial limitations: static, compiler-based
+implementations restrict the programming model to exclude dynamic
+features needed for unstructured applications, while dynamic,
+runtime-based approaches suffer from a sequential bottleneck that
+limits the scalability of the system.
+
+We present Regent, a programming language designed to enable a hybrid
+static and dynamic analysis of implicit parallelism. Regent programs
+are composed of tasks (functions with annotated data usage). Program
+data is stored in regions (hierarchical collections); regions are
+dynamic, first-class values, but are named statically in the type
+system to ensure correct usage and analyzability of programs. Tasks
+may execute in parallel when they are mutually independent as
+determined by the annotated usage (read, write, etc.) of regions
+passed as task arguments. A Regent implementation is responsible for
+automatically discovering parallelism in a Regent program by analyzing
+the executed tasks in program order.
+
+A naive implementation of Regent would suffer from a sequential
+bottleneck as tasks must be analyzed sequentially at runtime to
+discover parallelism, limiting scalability. We present an optimizing
+compiler for Regent which transforms implicitly parallel programs into
+efficient explicitly parallel code. By analyzing the region arguments
+to tasks, the compiler is able to determine the data movement implied
+by the sequence of task calls, even in the presence of unstructured
+and data-dependent application behavior. The compiler can then replace
+the implied data movement with explicit communication and
+synchronization for efficient execution on distributed-memory
+machines. We measure the performance and scalability of several Regent
+programs on large supercomputers and demonstrate that optimized Regent
+programs perform comparably to manually optimized explicitly parallel
+programs.

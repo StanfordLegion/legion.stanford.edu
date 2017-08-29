@@ -16,6 +16,7 @@ title: Publications
   * [Realm (PACT 2014)](#pact2014) \[[PDF](/pdfs/realm2014.pdf)]
       * [Sean Treichler's Thesis (2016)](#treichler_thesis) \[[PDF](/pdfs/treichler_thesis.pdf)]
   * [Regent (SC 2015)](#sc2015) \[[PDF](/pdfs/regent2015.pdf)]
+      * [Control Replication (SC 2017)](#cr2017) \[[PDF](/pdfs/cr2017.pdf)]
       * [Elliott Slaughter's Thesis (2017)](#slaughter_thesis) \[[PDF](/pdfs/slaughter_thesis.pdf)]
   * DSLs:
       * [Singe (PPoPP 2014)](#ppopp2014) \[[PDF](/pdfs/singe2014.pdf)]
@@ -207,6 +208,31 @@ Furthermore, we show that a distributed implementation incorporated
 into the the Legion runtime system allows partitioning of data sets
 that are too large to fit on a single node and yields an additional
 29X speedup of partitioning operations on 64 nodes.
+
+
+<a name="cr2017"></a>__Control Replication: Compiling Implicit Parallelism to Efficient SPMD with Logical Regions__ [PDF](/pdfs/cr2017.pdf) <br/>
+_Elliott Slaughter, Wonchan Lee, Sean Treichler, Wen Zhang, Michael Bauer, Galen Shipman, Patrick McCormick and Alex Aiken_ <br/>
+In the International Conference on Supercomputing ([SC 2017](http://sc17.supercomputing.org/presentation/?id=pap417&sess=sess165)) <br/>
+__Abstract:__ We present control replication, a technique for generating
+high-performance and scalable SPMD code from implicitly parallel
+programs. In contrast to traditional parallel programming models that
+require the programmer to explicitly manage threads and the
+communication and synchronization between them, implicitly parallel
+programs have sequential execution semantics and by their nature avoid
+the pitfalls of explicitly parallel programming. However, without
+optimizations to distribute control overhead, scalability is often
+poor.
+
+Performance on distributed-memory machines is especially sensitive to
+communication and synchronization in the program, and thus optimizations
+for these machines require an intimate understanding of a program's memory
+accesses. Control replication achieves particularly effective
+and predictable results by leveraging language support for first-class
+data partitioning in the source programming model. We evaluate an
+implementation of control replication for Regent and show that it
+achieves up to 99% parallel efficiency at 1024
+nodes with absolute performance comparable to hand-written MPI(+X)
+codes.
 
 
 ## Theses

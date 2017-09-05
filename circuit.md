@@ -7,7 +7,7 @@ The first of our full program examples describes some
 of the features used to implement the canonical
 circuit example covered in many of our 
 [publications](/publications/index.html). The source
-code for this example can also be found in `examples/full_circuit`
+code for this example can also be found in `examples/circuit`
 directory of the Legion repository. The circuit example
 simulates an arbitrary graph of integrated circuit
 components. Components are represented by nodes, and wires

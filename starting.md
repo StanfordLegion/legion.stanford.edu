@@ -29,7 +29,7 @@ To test, find an example you'd like to try and run `make`. For example:
 
 {% highlight bash %}
 export LG_RT_DIR="$PWD/legion/runtime"
-cd legion/examples/full_circuit
+cd legion/examples/circuit
 make
 ./ckt_sim
 {% endhighlight %}

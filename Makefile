@@ -53,7 +53,7 @@ doxygen: legion
 .PHONY: messages
 messages: legion
 	rm -rf design_patterns glossary messages
-	cd ./_legion/doc && bash ./makeAllTheThings.bash
+	cd ./_legion/doc && LG_RT_DIR=$(dir $(realpath $(lastword $(MAKEFILE_LIST))))_legion/runtime bash ./makeAllTheThings.bash
 	mv ./_legion/doc/publish/design_patterns .
 	mv ./_legion/doc/publish/glossary .
 	mv ./_legion/doc/publish/messages .

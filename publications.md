@@ -13,7 +13,9 @@ title: Publications
   * Programming Model:
       * [Partitioning Type System (OOPSLA 2013)](#oopsla2013) \[[PDF](/pdfs/oopsla2013.pdf)]
       * [Dependent Partitioning (OOPSLA 2016)](#dpl2016) \[[PDF](/pdfs/dpl2016.pdf)]
-  * [Realm (PACT 2014)](#pact2014) \[[PDF](/pdfs/realm2014.pdf)]
+  * Realm:
+      * [Overview (PACT 2014)](#pact2014) \[[PDF](/pdfs/realm2014.pdf)]
+      * [I/O (HiPC 2017)](#hipc2017)
       * [Sean Treichler's Thesis (2016)](#treichler_thesis) \[[PDF](/pdfs/treichler_thesis.pdf)]
   * [Regent (SC 2015)](#sc2015) \[[PDF](/pdfs/regent2015.pdf)]
       * [Control Replication (SC 2017)](#cr2017) \[[PDF](/pdfs/cr2017.pdf)]
@@ -233,6 +235,30 @@ implementation of control replication for Regent and show that it
 achieves up to 99% parallel efficiency at 1024
 nodes with absolute performance comparable to hand-written MPI(+X)
 codes.
+
+
+<a name="hipc2017"></a>__Integrating External Resources with a Task-Based Programming Model__ <br/>
+_Zhihao Jia, Sean Treichler, Galen Shipman, Michael Bauer, Noah Watkins, Carlos Maltzahn, Patrick McCormick and Alex Aiken_ <br/>
+To appear in the International Conference on High Performance Computing, Data, and Analytics (HiPC 2017) <br/>
+__Abstract:__ Accessing external resources (e.g., loading input
+data, checkpointing snapshots, and out-of-core processing) can
+have a significant impact on the performance of applications. However, no existing programming systems for high-performance computing directly manage and optimize external
+accesses. As a result, users must explicitly manage external
+accesses alongside their computation at the application level,
+which can result in both correctness and performance issues.
+
+We address this limitation by introducing Iris, a task-based
+programming model with semantics for external resources.
+Iris allows applications to describe their access requirements
+to external resources and the relationship of those accesses
+to the computation. Iris incorporates external I/O into a
+deferred execution model, reschedules external I/O to overlap
+I/O with computation, and reduces external I/O when possible.
+We evaluate Iris on three microbenchmarks representative of
+important workloads in HPC and a full combustion simulation,
+S3D. We demonstrate that the Iris implementation of S3D
+reduces the external I/O overhead by up to 20x, compared
+to the Legion and the Fortran implementations.
 
 
 ## Theses

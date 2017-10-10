@@ -15,7 +15,7 @@ title: Publications
       * [Dependent Partitioning (OOPSLA 2016)](#dpl2016) \[[PDF](/pdfs/dpl2016.pdf)]
   * Realm:
       * [Overview (PACT 2014)](#pact2014) \[[PDF](/pdfs/realm2014.pdf)]
-      * [I/O (HiPC 2017)](#hipc2017)
+      * [I/O Subsystem (HiPC 2017)](#hipc2017)
       * [Sean Treichler's Thesis (2016)](#treichler_thesis) \[[PDF](/pdfs/treichler_thesis.pdf)]
   * [Regent (SC 2015)](#sc2015) \[[PDF](/pdfs/regent2015.pdf)]
       * [Control Replication (SC 2017)](#cr2017) \[[PDF](/pdfs/cr2017.pdf)]

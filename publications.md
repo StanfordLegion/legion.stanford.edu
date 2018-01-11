@@ -286,12 +286,12 @@ achieves fast graph processing by exploiting the aggregate memory
 bandwidth of multiple GPUs and taking advantage of locality in the
 memory hierarchy of multi-GPU clusters. Lux provides two execution
 models that optimize algorithmic efficiency and enable important GPU
-optimizations, respec- tively. Lux also uses a novel dynamic load
+optimizations, respectively. Lux also uses a novel dynamic load
 balancing strategy that is cheap and achieves good load balance across
 GPUs. In addition, we present a performance model that quantitatively
 predicts the execution times and automatically selects the runtime
 configurations for Lux applications. Experiments show that Lux
-achieves up to 20× speedup over state-of-the-art shared memory systems
+achieves up to 20&times; speedup over state-of-the-art shared memory systems
 and up to two orders of magnitude speedup over distributed systems.
 
 

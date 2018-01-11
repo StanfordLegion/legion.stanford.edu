@@ -241,7 +241,7 @@ codes.
 
 <a name="hipc2017"></a>__Integrating External Resources with a Task-Based Programming Model__ [PDF](/pdfs/hipc2017.pdf) <br/>
 _Zhihao Jia, Sean Treichler, Galen Shipman, Michael Bauer, Noah Watkins, Carlos Maltzahn, Patrick McCormick and Alex Aiken_ <br/>
-To appear in the International Conference on High Performance Computing, Data, and Analytics (HiPC 2017) <br/>
+In the International Conference on High Performance Computing, Data, and Analytics (HiPC 2017) <br/>
 __Abstract:__ Accessing external resources (e.g., loading input
 data, checkpointing snapshots, and out-of-core processing) can
 have a significant impact on the performance of applications. However, no existing programming systems for high-performance computing directly manage and optimize external
@@ -265,7 +265,7 @@ to the Legion and the Fortran implementations.
 
 <a name="isav2017"></a>__*In Situ* Visualization with Task-based Parallelism__ [PDF](/pdfs/isav2017.pdf) <br/>
 _Alan Heirich, Elliott Slaughter, Manolis Papadakis, Wonchan Lee, Tim Biedert and Alex Aiken_ <br/>
-To appear in the In Situ Infrastructures for Enabling Extreme-scale Analysis and Visualization (ISAV 2017) <br/>
+In the Workshop on In Situ Infrastructures for Enabling Extreme-scale Analysis and Visualization (ISAV 2017) <br/>
 __Abstract:__ This short paper describes an experimental prototype of *in situ*
 visualization in a task-based parallel programming framework. A
 set of reusable visualization tasks were composed with an existing

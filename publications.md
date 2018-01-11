@@ -22,6 +22,7 @@ title: Publications
       * [Elliott Slaughter's Thesis (2017)](#slaughter_thesis) \[[PDF](/pdfs/slaughter_thesis.pdf)]
   * Case Studies:
       * [Visualization (ISAV 2017)](#isav2017) \[[PDF](/pdfs/isav2017.pdf)]
+      * [Graph Processesing (VLDB 2018)](#vldb2018) \[[PDF](/pdfs/vldb2018.pdf)]
   * DSLs:
       * [Singe (PPoPP 2014)](#ppopp2014) \[[PDF](/pdfs/singe2014.pdf)]
       * [Scout (WOLFHPC 2014)](#wolfhpc2014) \[[PDF](/pdfs/scout2014.pdf)]
@@ -275,6 +276,23 @@ weak scaling tests were run on up to 512 nodes of the Piz Daint
 supercomputer. Benchmarks showed that the visualization components scaled and did not reduce the simulation throughput. The
 compositor latency increased logarithmically with increasing node
 count.
+
+
+<a name="vldb2018"></a>__A Distributed Multi-GPU System for Fast Graph Processing__ [PDF](/pdfs/vldb2018.pdf) <br/>
+_Zhihao Jia, Yongkee Kwon, Galen Shipman, Pat McCormick, Mattan Erez and Alex Aiken_ <br/>
+To appear in the International Conference on Very Large Data Bases (VLDB 2018) <br/>
+__Abstract:__ We present Lux, a distributed multi-GPU system that
+achieves fast graph processing by exploiting the aggregate memory
+bandwidth of multiple GPUs and taking advantage of locality in the
+memory hierarchy of multi-GPU clusters. Lux provides two execution
+models that optimize algorithmic efficiency and enable important GPU
+optimizations, respec- tively. Lux also uses a novel dynamic load
+balancing strategy that is cheap and achieves good load balance across
+GPUs. In addition, we present a performance model that quantitatively
+predicts the execution times and automatically selects the runtime
+configurations for Lux applications. Experiments show that Lux
+achieves up to 20× speedup over state-of-the-art shared memory systems
+and up to two orders of magnitude speedup over distributed systems.
 
 
 ## Theses

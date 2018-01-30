@@ -54,7 +54,7 @@ found [here](/doxygen/annotated.html).
 On lines 6-8 we define an enumeration for storing the IDs that
 we will direct the Legion runtime to associate with each task.  In this example
 we only need the single ID which we will associate with our task
-that will print 'Hello World'.  Lines 19-23 show how to register 
+that will print 'Hello World'.  Lines 20-24 show how to register 
 a Legion task with a `void` return type with the Legion runtime.
 In the [next example](/tutorial/tasks_and_futures.html) we'll see how
 to register tasks with non-void return types.  The static method 

@@ -118,36 +118,40 @@ Previous Example: [Tasks and Futures](/tutorial/tasks_and_futures.html)
 #include <cassert>
 #include <cstdlib>
 #include "legion.h"
-using namespace LegionRuntime::HighLevel;
+using namespace Legion;
 
 enum TaskIDs {
   TOP_LEVEL_TASK_ID,
-  HELLO_WORLD_INDEX_ID,
+  INDEX_SPACE_TASK_ID,
 };
 
 void top_level_task(const Task *task,
                     const std::vector<PhysicalRegion> &regions,
-                    Context ctx, HighLevelRuntime *runtime) {
+                    Context ctx, Runtime *runtime) {
   int num_points = 4;
-  const InputArgs &command_args = HighLevelRuntime::get_input_args();
-  if (command_args.argc > 1) {
-    num_points = atoi(command_args.argv[1]);
+  const InputArgs &command_args = Runtime::get_input_args();
+  for (int i = 1; i < command_args.argc; i++) {
+    if (command_args.argv[i][0] == '-') {
+      i++;
+      continue;
+    }
+
+    num_points = atoi(command_args.argv[i]);
     assert(num_points > 0);
+    break;
   }
   printf("Running hello world redux for %d points...\n", num_points);
 
-  Rect<1> launch_bounds(Point<1>(0),Point<1>(num_points-1));
-  Domain launch_domain = Domain::from_rect<1>(launch_bounds);
+  Rect<1> launch_bounds(0,num_points-1);
 
   ArgumentMap arg_map;
   for (int i = 0; i < num_points; i++) {
     int input = i + 10;
-    arg_map.set_point(DomainPoint::from_point<1>(Point<1>(i)),
-        TaskArgument(&input,sizeof(input)));
+    arg_map.set_point(i, TaskArgument(&input, sizeof(input)));
   }
 
-  IndexLauncher index_launcher(HELLO_WORLD_INDEX_ID,
-                               launch_domain,
+  IndexLauncher index_launcher(INDEX_SPACE_TASK_ID,
+                               launch_bounds,
                                TaskArgument(NULL, 0),
                                arg_map);
 
@@ -157,7 +161,7 @@ void top_level_task(const Task *task,
   bool all_passed = true;
   for (int i = 0; i < num_points; i++) {
     int expected = 2*(i+10);
-    int received = fm.get_result<int>(DomainPoint::from_point<1>(Point<1>(i)));
+    int received = fm.get_result<int>(i);
     if (expected != received) {
       printf("Check failed for point %d: %d != %d\n", i, expected, received);
       all_passed = false;
@@ -169,21 +173,30 @@ void top_level_task(const Task *task,
 
 int index_space_task(const Task *task,
                      const std::vector<PhysicalRegion> &regions,
-                     Context ctx, HighLevelRuntime *runtime) {
+                     Context ctx, Runtime *runtime) {
   assert(task->index_point.get_dim() == 1); 
-  printf("Hello world from task %d!\n", task->index_point.point_data[0]);
+  printf("Hello world from task %lld!\n", task->index_point.point_data[0]);
   assert(task->local_arglen == sizeof(int));
   int input = *((const int*)task->local_args);
   return (2*input);
 }
 
 int main(int argc, char **argv) {
-  HighLevelRuntime::set_top_level_task_id(TOP_LEVEL_TASK_ID);
-  HighLevelRuntime::register_legion_task<top_level_task>(TOP_LEVEL_TASK_ID,
-      Processor::LOC_PROC, true/*single*/, false/*index*/);
-  HighLevelRuntime::register_legion_task<int, index_space_task>(HELLO_WORLD_INDEX_ID,
-      Processor::LOC_PROC, false/*single*/, true/*index*/);
+  Runtime::set_top_level_task_id(TOP_LEVEL_TASK_ID);
 
-  return HighLevelRuntime::start(argc, argv);
+  {
+    TaskVariantRegistrar registrar(TOP_LEVEL_TASK_ID, "top_level");
+    registrar.add_constraint(ProcessorConstraint(Processor::LOC_PROC));
+    Runtime::preregister_task_variant<top_level_task>(registrar, "top_level");
+  }
+
+  {
+    TaskVariantRegistrar registrar(INDEX_SPACE_TASK_ID, "index_space_task");
+    registrar.add_constraint(ProcessorConstraint(Processor::LOC_PROC));
+    registrar.set_leaf();
+    Runtime::preregister_task_variant<int, index_space_task>(registrar, "index_space_task");
+  }
+
+  return Runtime::start(argc, argv);
 }
 {% endhighlight %}

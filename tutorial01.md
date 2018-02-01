@@ -231,7 +231,7 @@ Previous Example: [Hello World](/tutorial/hello_world.html)
 #include <cassert>
 #include <cstdlib>
 #include "legion.h"
-using namespace LegionRuntime::HighLevel;
+using namespace Legion;
 
 enum TaskIDs {
   TOP_LEVEL_TASK_ID,
@@ -241,12 +241,19 @@ enum TaskIDs {
 
 void top_level_task(const Task *task,
                     const std::vector<PhysicalRegion> &regions,
-                    Context ctx, HighLevelRuntime *runtime) {
+                    Context ctx, Runtime *runtime) {
   int num_fibonacci = 7; // Default value
-  const InputArgs &command_args = HighLevelRuntime::get_input_args();
-  if (command_args.argc > 1) {
-    num_fibonacci = atoi(command_args.argv[1]);
+  const InputArgs &command_args = Runtime::get_input_args();
+  for (int i = 1; i < command_args.argc; i++) {
+    // Skip any legion runtime configuration parameters
+    if (command_args.argv[i][0] == '-') {
+      i++;
+      continue;
+    }
+
+    num_fibonacci = atoi(command_args.argv[i]);
     assert(num_fibonacci >= 0);
+    break;
   }
   printf("Computing the first %d Fibonacci numbers...\n", num_fibonacci);
 
@@ -260,13 +267,13 @@ void top_level_task(const Task *task,
     int result = fib_results[i].get_result<int>(); 
     printf("Fibonacci(%d) = %d\n", i, result);
   }
-  
+
   fib_results.clear();
 }
 
 int fibonacci_task(const Task *task,
                    const std::vector<PhysicalRegion> &regions,
-                   Context ctx, HighLevelRuntime *runtime) {
+                   Context ctx, Runtime *runtime) {
   assert(task->arglen == sizeof(int));
   int fib_num = *(const int*)task->args; 
   if (fib_num == 0)
@@ -294,7 +301,7 @@ int fibonacci_task(const Task *task,
 
 int sum_task(const Task *task,
              const std::vector<PhysicalRegion> &regions,
-             Context ctx, HighLevelRuntime *runtime) {
+             Context ctx, Runtime *runtime) {
   assert(task->futures.size() == 2);
   Future f1 = task->futures[0];
   int r1 = f1.get_result<int>();
@@ -305,15 +312,27 @@ int sum_task(const Task *task,
 }
               
 int main(int argc, char **argv) {
-  HighLevelRuntime::set_top_level_task_id(TOP_LEVEL_TASK_ID);
-  HighLevelRuntime::register_legion_task<top_level_task>(TOP_LEVEL_TASK_ID,
-      Processor::LOC_PROC, true/*single*/, false/*index*/);
-  HighLevelRuntime::register_legion_task<int,fibonacci_task>(FIBONACCI_TASK_ID,
-      Processor::LOC_PROC, true/*single*/, false/*index*/);
-  HighLevelRuntime::register_legion_task<int,sum_task>(SUM_TASK_ID,
-      Processor::LOC_PROC, true/*single*/, false/*index*/, 
-      AUTO_GENERATE_ID, TaskConfigOptions(true/*leaf*/), "sum_task");
+  Runtime::set_top_level_task_id(TOP_LEVEL_TASK_ID);
 
-  return HighLevelRuntime::start(argc, argv);
+  {
+    TaskVariantRegistrar registrar(TOP_LEVEL_TASK_ID, "top_level");
+    registrar.add_constraint(ProcessorConstraint(Processor::LOC_PROC));
+    Runtime::preregister_task_variant<top_level_task>(registrar, "top_level");
+  }
+
+  {
+    TaskVariantRegistrar registrar(FIBONACCI_TASK_ID, "fibonacci");
+    registrar.add_constraint(ProcessorConstraint(Processor::LOC_PROC));
+    Runtime::preregister_task_variant<int, fibonacci_task>(registrar, "fibonacci");
+  }
+
+  {
+    TaskVariantRegistrar registrar(SUM_TASK_ID, "sum");
+    registrar.add_constraint(ProcessorConstraint(Processor::LOC_PROC));
+    registrar.set_leaf(true);
+    Runtime::preregister_task_variant<int, sum_task>(registrar, "sum");
+  }
+
+  return Runtime::start(argc, argv);
 }
 {% endhighlight %}

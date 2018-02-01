@@ -3,6 +3,7 @@ layout: page
 permalink: /tutorial/hello_world.html
 title: Hello World 
 ---
+
 No tutorial would be complete without a Hello World example. 
 Below is the source code for writing Hello World using
 the Legion C++ runtime interface. The source code can also

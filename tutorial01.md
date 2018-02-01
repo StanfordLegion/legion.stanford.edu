@@ -3,6 +3,7 @@ layout: page
 permalink: /tutorial/tasks_and_futures.html
 title: Tasks and Futures
 ---
+
 In this example, we'll introduce task launches and futures
 in Legion. To do so, we'll implement a simple program to 
 compute the first `N` Fibonacci numbers. We note this is

@@ -111,4 +111,3 @@ the top-level task completes, the Legion runtime will tear itself down
 gracefully (abiding by GASNet or MPI conventions when necessary) and exit.
 
 Next Example: [Tasks and Futures](/tutorial/tasks_and_futures.html)
-

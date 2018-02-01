@@ -216,7 +216,7 @@ have occurred automatically when the vector went out of
 scope, but we do so explicitly to show the users have
 control over when references are removed.
 
-Next Example: [Index Space Tasks](/tutorial/index_tasks.html) \
+Next Example: [Index Space Tasks](/tutorial/index_tasks.html)  
 Previous Example: [Hello World](/tutorial/hello_world.html)
 
 {% highlight cpp linenos %}#include <cstdio>

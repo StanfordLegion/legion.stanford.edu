@@ -101,7 +101,7 @@ does some simple computation on the input value and then
 returns it. The resulting value is set in the `Future`
 for the corresponding point in the `FutureMap`.
 
-Next Example: [Hybrid Model](/tutorial/hybrid.html) \
+Next Example: [Hybrid Model](/tutorial/hybrid.html)  
 Previous Example: [Tasks and Futures](/tutorial/tasks_and_futures.html)
 
 {% highlight cpp linenos %}#include <cstdio>

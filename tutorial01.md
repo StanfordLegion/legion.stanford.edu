@@ -19,37 +19,30 @@ tasks: a top-level task, a task for performing the
 recursive Fibonacci computation, and a helper task for
 summing futures. Both the Fibonacci and sum tasks
 will return an integer value and therefore require a
-slightly modified registration call. Lines 82-86 show
-the `register_legion_task` calls for these tasks. For
-tasks which have non-void return types
-the `register_legion_task` is templated first on the
+slightly modified registration call. Lines 97 and 104 show
+the `preregister_task_variant` calls for these tasks. For
+tasks which have non-`void` return types
+the `preregister_task_variant` is templated first on the
 return type (`int` in this case) followed by function 
 pointer for the task.
 
-The registration for the summation task on lines 84-86
+The registration for the summation task on lines 101-104
 also illustrates several new parameters which can be
 passed when registering a task with the Legion runtime.
 First, Legion allows applications to register multiple,
-functionally equivalent _variants_ of a task. The fifth
-optional parameter to `register_legion_task` allows the
+functionally equivalent _variants_ of a task. The optional
+third parameter to `preregister_task_variant` allows the
 application to specify the `VariantID` for the task. The
 default value is `AUTO_GENERATE_ID` which instructs the
 runtime to pick an un-used `VariantID` and return the 
 chosen ID from the registration call.
 
-The sixth optional parameter to the `register_legion_task`
-is the `TaskConfigOptions` structure. This structure
-allows applications to specify certain static properties
-of tasks. In this example, we register the `sum_task`
-as being a _leaf_ task because it makes no Legion runtime
+A number of additional methods of `TaskVariantRegistrar` allow further
+customization of the task. In this example, we use `set_leaf(true)` to
+mark `sum_task` as being a _leaf_ task that makes no Legion runtime
 calls in its implementation. Knowing that the `sum_task`
 is a leaf task allows the Legion runtime to optimize the
 execution of the task.
-
-The seventh parameter to the `register_legion_task` is an
-optional string to use for naming the task. Legion will use
-the string in all warnings and error messages. If
-no string is specified, tasks are identified by their task ID.
 
 #### Command Line Arguments ####
 
@@ -57,13 +50,13 @@ For our Legion implementation of Fibonacci, we want to be
 able to pass a command line argument that specifies
 the number of Fibonacci numbers to compute. The Legion
 runtime makes the command line arguments available
-via a static method `get_input_args` on the `HighLevelRuntime`
+via a static method `get_input_args` on the `Runtime`
 class. This returns an immutable reference to an
 `InputArgs` struct which describes the original command
 line arguments to the application. Even in distributed
 applications, Legion will make the command line arguments
 available on all nodes so they can be accessed in any task 
-at any time. Lines 17-21 show how the the command line arguments 
+at any time. Lines 17-28 show how the the command line arguments
 are parsed in our Fibonacci program.
 
 #### Launching Tasks ####
@@ -102,7 +95,7 @@ the next task launch immediately once the preceding
 
 There are several examples of task launches in the Fibonacci
 example. We call attention to the one in the `for` loop on
-lines 25-28. We create a launcher in our top-level task
+lines 32-35. We create a launcher in our top-level task
 which launches one sub-task for each Fibonacci number that
 we want to compute. Each launcher is assigned the 
 `FIBONACCI_TASK_ID` as the task ID and passes an integer
@@ -115,19 +108,19 @@ that is returned in a vector.
 Futures are objects which represent a pending return value
 from a task. There are two ways to use future values. First,
 applications can explicitly request the value of the future
-using the `get_result` method as can be seen on line 31. The 
+using the `get_result` method as can be seen on line 38. The
 `get_result` method is templated on the type of the return
 value which instructs the Legion runtime how to interpret the
 bits being returned. This is a blocking call which will cause 
 the task in which it is executed to pause until the sub-task 
-which is completing the future returns.<br/> 
-<br/>
+which is completing the future returns.
+
 There is a second way of using futures which does not require
 blocking to wait for future values. In our Fibonacci task,
 rather than waiting for the two Future values, we instead
 launch a sum task which will compute the sum of the two futures.
 Notice that the we can explicitly pass the futures as a special
-kind of argument in the `TaskLauncher` object on lines 59-60.
+kind of argument in the `TaskLauncher` object on lines 66-67.
 Legion will ensure that the sum task does not begin until both
 futures are complete and the future values are available
 wherever the sum task is mapped. Future values should always
@@ -140,10 +133,10 @@ Task arguments that are passed in through the `TaskArgument`
 field in a launcher object are available in a Legion task through
 the `args` and `arglen` fields on the `Task` object. The
 `Task` type is the common interface that Legion presents to
-both the application and mappers for describing tasks. Lines 41-42
+both the application and mappers for describing tasks. Lines 48-49
 show the Fibonacci task extracting its arguments from the `Task`
 object. Since there is no type checking when using the runtime
-API (a benefit provided by our Legion compiler) we encourage
+API (a benefit provided by the Regent compiler) we encourage
 applications to explicitly check that they are getting the
 arguments that they expect when unpacking them from the `Task`
 object before casting them.
@@ -157,16 +150,15 @@ return value defines the methods `legion_buffer_size`,
 `legion_serialize`, and `legion_deserializer`, then 
 Legion automatically will invoke them to support deep
 copies of more complex data types (see the `ColoringSerializer`
-class in legion.h for an example used by the Legion
-compiler).<br/> 
-<br/>
+class in `legion.h` for an example).
+
 The `Future` type is not permitted as return value
 for a task. Attempting to do so will result in a 
 compile-time assertion failure. Futures are not allowed
 to escape the context in which they are created. Instead
 applications should explicitly get the value of the
 Future and return it directly as is done at the end of
-the Fibonacci task on line 63.
+the Fibonacci task on line 70.
 
 #### Performance Considerations ####
 
@@ -201,7 +193,7 @@ utilized and maximizes overall task throughput (consistent
 with the Cilk work-first principle).
 
 In the sum task we invoke the `get_result` method on
-the two futures passed as arguments (lines 71 and 73). 
+the two futures passed as arguments (lines 78 and 80).
 Since these futures are passed explicitly, the Legion 
 runtime will not start the sum task until both these 
 futures have completed. Invoking `get_result` on futures 
@@ -216,15 +208,14 @@ delete their resource when there are no longer any
 references. The `Future` type is actually a light-weight
 handle which simply contains a pointer to the actual
 future implementation, which makes copying future
-values inexpensive. Line 35 explicitly clears the future
+values inexpensive. Line 42 explicitly clears the future
 vector which will invoke the `Future` destructor on
 all the future values and remove references. This would
 have occurred automatically when the vector went out of
 scope, but we do so explicitly to show the users have
 control over when references are removed.
 
-Next Example: [Index Space Tasks](/tutorial/index_tasks.html)
-<br/>
+Next Example: [Index Space Tasks](/tutorial/index_tasks.html) \
 Previous Example: [Hello World](/tutorial/hello_world.html)
 
 {% highlight cpp linenos %}#include <cstdio>
@@ -330,7 +321,7 @@ int main(int argc, char **argv) {
     TaskVariantRegistrar registrar(SUM_TASK_ID, "sum");
     registrar.add_constraint(ProcessorConstraint(Processor::LOC_PROC));
     registrar.set_leaf(true);
-    Runtime::preregister_task_variant<int, sum_task>(registrar, "sum");
+    Runtime::preregister_task_variant<int, sum_task>(registrar, "sum", AUTO_GENERATE_ID);
   }
 
   return Runtime::start(argc, argv);

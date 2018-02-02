@@ -79,7 +79,7 @@ One important detail to be cognizant of when
 writing Legion applications is that function
 pointers are another form of global variable.
 Function pointer values, such as the pointer
-to the function `foo` (line 16), can have
+to the function `foo` (line 19), can have
 different values in different processes
 executing in a distributed system. Therefore
 passing function pointers around Legion
@@ -96,7 +96,7 @@ There are several other restrictions regarding
 the usage of C and C++ features in Legion
 applications. In general, Legion applications
 should not allocate memory directly using
-C or C++ conventions (lines 29-30).
+C or C++ conventions (lines 35-36).
 Instead logical regions should be used for storing
 data that needs to be persistent across sub-tasks
 or escapes from a task's context. The one exception

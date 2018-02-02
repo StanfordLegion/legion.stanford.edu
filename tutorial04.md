@@ -8,7 +8,7 @@ Logical regions are the core abstraction in
 Legion since they provide the mechanism for
 describing the structure of program data.
 Logical regions are constructed by taking
-the cross product of an index space with a 
+the cross product of an index space with a
 field space. This example shows how to create
 index spaces, field spaces, and logical
 regions. It also shows how to dynamically
@@ -22,7 +22,7 @@ logical regions and how to access data.
 Index spaces are the Legion abstraction used
 for describing row entries in logical regions.
 Index spaces are created by invoking one of
-several overloaded variants of the 
+several overloaded variants of the
 `create_index_space` method on an instance
 of the `HighLevelRuntime`. All versions of
 the `create_index_space` method return an
@@ -32,7 +32,7 @@ the index space.
 Users can create both _structured_ and
 _unstructured_ index spaces. Structured index
 spaces are created from `Rect` objects which
-were introduced in the 
+were introduced in the
 [index space example](/tutorial/index_tasks.html).
 An example of creating a structured index space
 can be seen on lines 23-24 where we pass the task's
@@ -41,8 +41,8 @@ back a handle to the index space.
 
 Users can also create unstructured index spaces
 by calling `create_index_space` with the task's
-context and an upper bound on the number of 
-elements that may be allocated in the index 
+context and an upper bound on the number of
+elements that may be allocated in the index
 space (line 19). We realize that specifying an
 upper bound on elements is mildly restrictive
 but it significantly simplifies and improves
@@ -95,12 +95,12 @@ By default no fields are allocated inside of a
 field space. Fields are dynamically allocated
 and freed in field spaces using `FieldAllocator`
 objects which are analogous to `IndexAllocator`
-objects for index spaces (line 43). For performance 
+objects for index spaces (line 43). For performance
 reasons there is a compile-time upper bound placed on
 the maximum number of fields that can be allocated
 in a field space. The user has access to this
 compile-time limit and can modify it by changing
-the value assigned to `MAX_FIELDS` in the 
+the value assigned to `MAX_FIELDS` in the
 legion_types.h header file. If a program attempts
 to exceed this maximum then the Legion runtime
 will report an error and exit. There is no limit
@@ -109,15 +109,15 @@ in a Legion program and therefore the total number
 of fields in an application is unbounded.
 
 Fields are allocated by invoking the `allocate_field`
-method on a `FieldAllocator` (line 44). When a 
-field is allocated the application must specify 
+method on a `FieldAllocator` (line 44). When a
+field is allocated the application must specify
 the required data size for a field entry in bytes.
 The `allocate_field` method will return a `FieldID`
-which is used to name the field. Users may optionally 
-specify the ID to be associated with the field being 
-allocated using the second parameter to `allocate_field`. 
+which is used to name the field. Users may optionally
+specify the ID to be associated with the field being
+allocated using the second parameter to `allocate_field`.
 If this is done, then it is the responsibility of the
-user to ensure that each `FieldID` is used only once 
+user to ensure that each `FieldID` is used only once
 for a each field space. Legion supports parallel field
 allocation in the same field space by different tasks,
 but undefined behavior will result if the same `FieldID`
@@ -138,12 +138,12 @@ associated with row entries.
 
 Every call to `create_logical_region` will create a new
 logical region even when the same index space and field
-space are passed as arguments. Logical regions are 
+space are passed as arguments. Logical regions are
 uniquely defined by a triple consisting of the index
 space, field space, and _region tree ID_. These three
 values for every logical region can be obtained using
-the `get_index_space` (line 54), `get_field_space` 
-(line 55), and  `get_tree_id` (line 56) methods 
+the `get_index_space` (line 54), `get_field_space`
+(line 55), and  `get_tree_id` (line 56) methods
 on `LogicalRegion` types. On lines 65-66 we create
 a second logical region using the structured index
 space with the same field space and then on line 67
@@ -154,7 +154,7 @@ the first structured logical region.
 
 Index spaces, field spaces, and logical regions are all
 resources that the Legion runtime makes available to
-applications. When applications are done using 
+applications. When applications are done using
 resources they should be returned to the runtime.
 The `destroy_logical_region` (line 69), `destroy_field_space`
 (line 72), and `destroy_index_space` (line 73) methods
@@ -164,26 +164,26 @@ Legion operates with a deferred execution model, the
 runtime is smart enough to know how to defer deletions
 until they are safe to perform. This means that users
 do not need to wait for tasks that use logical regions
-to finish before issuing deletions commands to 
+to finish before issuing deletions commands to
 reclaim resources.
 
 `IndexAllocator` and `FieldAllocator` objects are also
-resources, but, are similar to `Future` objects, in that they 
-are reference counted. When the objects go out of the scope 
-the destructor is invoked and references are removed. This is 
-why allocators are placed in explicit C++ scopes so that 
-the resources are reclaimed as soon as they are done being 
+resources, but, are similar to `Future` objects, in that they
+are reference counted. When the objects go out of the scope
+the destructor is invoked and references are removed. This is
+why allocators are placed in explicit C++ scopes so that
+the resources are reclaimed as soon as they are done being
 used (lines 26-33 and 42-49).
 
-Next Example: [Physical Regions](/tutorial/physical_regions.html)
-<br/>
+Next Example: [Physical Regions](/tutorial/physical_regions.html)  
 Previous Example: [Hybrid Model](/tutorial/hybrid.html)
 
-{% highlight cpp linenos %}#include <cstdio>
+{% highlight cpp linenos %}
+#include <cstdio>
 #include <cassert>
 #include <cstdlib>
 #include "legion.h"
-using namespace LegionRuntime::HighLevel;
+using namespace Legion;
 
 enum TaskIDs {
   TOP_LEVEL_TASK_ID,
@@ -196,26 +196,20 @@ enum FieldIDs {
 
 void top_level_task(const Task *task,
                     const std::vector<PhysicalRegion> &regions,
-                    Context ctx, HighLevelRuntime *runtime) {
-  IndexSpace unstructured_is = runtime->create_index_space(ctx, 1024); 
-  printf("Created unstructured index space %x\n", unstructured_is.id);
+                    Context ctx, Runtime *runtime) {
+  const Domain domain(DomainPoint(0), DomainPoint(1023));
+  IndexSpace untyped_is = runtime->create_index_space(ctx, domain);
+  printf("Created untyped index space %x\n", untyped_is.get_id());
 
-  Rect<1> rect(Point<1>(0),Point<1>(1023));
-  IndexSpace structured_is = runtime->create_index_space(ctx, 
-                                          Domain::from_rect<1>(rect));
-  printf("Created structured index space %x\n", structured_is.id);
+  const Rect<1> rect(0,1023);
+  IndexSpaceT<1> typed_is = runtime->create_index_space(ctx, rect);
+  printf("Created typed index space %x\n", typed_is.get_id());
+
   {
-    IndexAllocator allocator = runtime->create_index_allocator(ctx, 
-                                                    unstructured_is);
-    ptr_t begin = allocator.alloc(1024);
-    assert(!begin.is_null());
-    printf("Allocated elements in unstructured "
-           "space at ptr_t %d\n", begin.value);
-  }
-  {
-    Domain orig_domain = runtime->get_index_space_domain(ctx, structured_is);
-    Rect<1> orig = orig_domain.get_rect<1>();
-    assert(orig == rect);
+    Domain orig_domain = runtime->get_index_space_domain(ctx, untyped_is);
+    assert(orig_domain == domain);
+    Rect<1> orig_rect = runtime->get_index_space_domain(ctx, typed_is);
+    assert(orig_rect == rect);
   }
 
   FieldSpace fs = runtime->create_field_space(ctx);
@@ -229,38 +223,42 @@ void top_level_task(const Task *task,
     printf("Allocated two fields with Field IDs %d and %d\n", fida, fidb);
   }
 
-  LogicalRegion unstructured_lr = 
-    runtime->create_logical_region(ctx, unstructured_is, fs);
-  printf("Created unstructured logical region (%x,%x,%x)\n",
-      unstructured_lr.get_index_space().id, 
-      unstructured_lr.get_field_space().get_id(),
-      unstructured_lr.get_tree_id());
+  LogicalRegion untyped_lr =
+    runtime->create_logical_region(ctx, untyped_is, fs);
+  printf("Created untyped logical region (%x,%x,%x)\n",
+      untyped_lr.get_index_space().get_id(),
+      untyped_lr.get_field_space().get_id(),
+      untyped_lr.get_tree_id());
 
-  LogicalRegion structured_lr = 
-    runtime->create_logical_region(ctx, structured_is, fs);
-  printf("Created structured logical region (%x,%x,%x)\n",
-      structured_lr.get_index_space().id, 
-      structured_lr.get_field_space().get_id(),
-      structured_lr.get_tree_id());
+  LogicalRegionT<1> typed_lr =
+    runtime->create_logical_region(ctx, typed_is, fs);
+  printf("Created typed logical region (%x,%x,%x)\n",
+      typed_lr.get_index_space().get_id(),
+      typed_lr.get_field_space().get_id(),
+      typed_lr.get_tree_id());
 
   LogicalRegion no_clone_lr =
-    runtime->create_logical_region(ctx, structured_is, fs);
-  assert(structured_lr.get_tree_id() != no_clone_lr.get_tree_id());
+    runtime->create_logical_region(ctx, typed_is, fs);
+  assert(typed_lr.get_tree_id() != no_clone_lr.get_tree_id());
 
-  runtime->destroy_logical_region(ctx, unstructured_lr);
-  runtime->destroy_logical_region(ctx, structured_lr);
+  runtime->destroy_logical_region(ctx, untyped_lr);
+  runtime->destroy_logical_region(ctx, typed_lr);
   runtime->destroy_logical_region(ctx, no_clone_lr);
   runtime->destroy_field_space(ctx, fs);
-  runtime->destroy_index_space(ctx, unstructured_is);
-  runtime->destroy_index_space(ctx, structured_is);
+  runtime->destroy_index_space(ctx, untyped_is);
+  runtime->destroy_index_space(ctx, typed_is);
   printf("Successfully cleaned up all of our resources\n");
 }
 
 int main(int argc, char **argv) {
-  HighLevelRuntime::set_top_level_task_id(TOP_LEVEL_TASK_ID);
-  HighLevelRuntime::register_legion_task<top_level_task>(TOP_LEVEL_TASK_ID,
-      Processor::LOC_PROC, true/*single*/, false/*index*/);
+  Runtime::set_top_level_task_id(TOP_LEVEL_TASK_ID);
 
-  return HighLevelRuntime::start(argc, argv);
+  {
+    TaskVariantRegistrar registrar(TOP_LEVEL_TASK_ID, "top_level");
+    registrar.add_constraint(ProcessorConstraint(Processor::LOC_PROC));
+    Runtime::preregister_task_variant<top_level_task>(registrar, "top_level");
+  }
+
+  return Runtime::start(argc, argv);
 }
 {% endhighlight %}

@@ -17,7 +17,7 @@ will show how how to access data in logical regions by making
 If a logical region is a table, then the index space for that region
 is the set of rows in the table. Or to be more precise: rows are
 implicitly (or explicitly) assigned numbers, or indices, and the index
-space if the set of these indices.
+space is the set of these indices.
 
 Indices can be plain numbers, or they can be multi-dimensional (2-D,
 3-D, etc.). Thus the set of points in an index space is a `Rect`

@@ -49,7 +49,7 @@ partitioning is covered in a subsequent tutorial.
 
 Legion provides a number of API calls that can be used to retrieve
 information about an index space, such as the `Domain` or `Rect` that
-was used to create the index space. Lines 28 and 31 show examples of
+was used to create it. Lines 28 and 31 show examples of
 such calls.
 
 #### Field Spaces ####
@@ -133,13 +133,12 @@ index or field space), it will implicitly flow up to the parent task
 that called it. Thus, it will not be automatically deleted when the
 task finishes.
 
-`IndexAllocator` and `FieldAllocator` objects are also
+`FieldAllocator` objects are also
 resources, but, are similar to `Future` objects, in that they
 are reference counted. When the objects go out of the scope
-the destructor is invoked and references are removed. This is
-why allocators are placed in explicit C++ scopes so that
-the resources are reclaimed as soon as they are done being
-used (lines 26-33 and 42-49).
+the destructor is invoked and references are removed. The use of the
+explicit C++ scope at line 36 is to ensure that the allocator is
+reclaimed as soon as it is done being used.
 
 Next Example: [Physical Regions](/tutorial/physical_regions.html)  
 Previous Example: [Hybrid Model](/tutorial/hybrid.html)

@@ -29,29 +29,36 @@ between logical regions and physical instances to
 new Legion users. In many ways the relationship
 between logical regions and physical instances
 is isomorphic to that of variables and registers
-in the C language. A logical region/variable in C
+in the C language. A logical region (variable in C)
 gives a name to data. This data can be mutated
-over time. While a logical region/variable name
-uniquely identifies, the Legion runtime/C compiler
-can store data in different physical instances/registers
+over time. While a logical region (variable name)
+uniquely identifies data, the Legion runtime (C compiler)
+can store data in different physical instances (registers)
 throughout the execution of the application.
 
-Writing to the Legion runtime API, is therefore
+Writing to the Legion runtime API is therefore
 analogous to writing inline assembly code in C as
 the user is explicitly responsible for managing
-the mapping from logical regions/variable names to
-physical instances/registers. Similarly, writing in Regent is directly
+the mapping from logical regions (variable names) to
+physical instances (registers).
+
+There is also a programming language called
+[Regent](http://regent-lang.org/) that makes this easier. Writing in Regent is
 analogous to writing in C, as Regent makes no distinction
 between logical and physical regions. Instead the
 Regent compiler automatically manages the mapping from
 logical regions to physical instances just like the
 C compiler automatically manages the mapping from a
 variable name to different registers. Users targeting
-the runtime API should be aware that they
+the Legion runtime API should be aware that they
 are effectively writing low-level Legion code and
 are therefore responsible for managing the mapping
 from logical regions to physical instances. We'll
 cover how to handle this responsibility in this example.
+
+Interested users can compare the code below to the [equivalent Regent
+code](http://regent-lang.org/tutorial/05_physical_regions/) to see how
+managing regions differs between the two approaches.
 
 #### Region Strategy ####
 

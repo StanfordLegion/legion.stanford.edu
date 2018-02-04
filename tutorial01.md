@@ -10,7 +10,7 @@ compute the first `N` Fibonacci numbers. We note this is
 not the fastest way to compute Fibonacci numbers, but it
 will demonstrate the functional nature of Legion tasks.
 Code for this example is at the bottom of the page and
-can also be found the 'examples' directory of the 
+can also be found in the 'examples' directory of the 
 Legion repository.
 
 #### Registering Tasks Redux ####

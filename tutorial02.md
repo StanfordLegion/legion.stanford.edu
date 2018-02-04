@@ -7,23 +7,25 @@ title: Index Space Tasks
 This example illustrates how to launch a large
 number of _non-interfering_ tasks in Legion using
 a single _index space_ task launch. (We discuss
-what it means to be non-interfering in a later example.)
+what it means to be non-interfering in a 
+[later example](/tutorial/privileges.html).)
 It also describes the basic Legion types for arrays,
-domains, and points and gives examples of how they work.
+domains, and points and give examples of how they work.
 
 #### Rectangles and Domains ####
 
 To aid in describing structured data, Legion supports
 a `Rect` type which is used to describe an arbitrary-dimensional
 dense arrays of points. `Rect` types are templated on the number
-of dimensions that they describe. To specify a `Rect` a
+of dimensions that they describe as well as a coordinate type
+which defaults to 64 bit signed integers. To specify a `Rect` a
 user gives two `Point` objects which specify the lower and
 upper bounds in all dimensions respectively. Similar to
 the `Rect` type, a `Point` type is templated on the
-number of dimensions it stores. In this example we create
-a 1-D `Rect` for which we'll launch an array of tasks
-with one task per point (line 29). Note that the
-bounds on `Rect` objects are inclusive.
+number of dimensions it stores and the coordinate type. 
+In this example we create a 1-D `Rect` for which we'll 
+launch an array of tasks with one task per point (line 29). 
+Note that the bounds on `Rect` objects are inclusive.
 
 It can be useful to be able to refer to a rectangle where the number
 of dimensions is not known at compile time. The `Domain` class is used
@@ -43,7 +45,12 @@ is intelligent about only passing arguments to tasks
 which have arguments assigned. In this example we
 create an `ArgumentMap` (line 31) and then pass in
 different integer arguments associated with each
-point (lines 32-35).
+point (lines 32-35). `ArgumentMap` objects copy 
+their values on calls to `set_point`, but the actual
+`ArgumentMap` itself will not be copied until the
+task is launched. Legion is smart about copying
+`ArgumentMap` values so that data is not copied
+unnecessarily.
 
 Legion also provides `FutureMap` types as a mechanism
 for managing the many return values that are returned
@@ -69,11 +76,11 @@ for all the point tasks to complete.
 
 Index space tasks are launched in a similar manner to
 individual tasks using a launcher object which has
-the type `IndexLauncher` (lines 37-40). `IndexLauncher` objects take
+the type `IndexTaskLauncher` (lines 37-40). `IndexTaskLauncher` objects take
 some of the same arguments as `TaskLauncher` objects
 such as the ID of the task to launch and a `TaskArgument`
 which is passed by value as a global argument to all
-the points in the index space launch. The `IndexLauncher`
+the points in the index space launch. The `IndexTaskLauncher`
 objects also take the additional arguments of an
 `ArgumentMap` and a `Rect` which describes the set
 of tasks to create (one for each point). Index space
@@ -83,7 +90,7 @@ index space task launches are performed asynchronously.
 
 #### Index Space Tasks ####
 
-Index space tasks are registered the same as single
+Index space task variants are registered the same as single
 tasks.
 
 Additional fields on the `Task` object are defined
@@ -91,7 +98,7 @@ when executing as an index space task. First, the
 `index_space_task` field is set to true. Next,
 index space tasks can find the point they are responsible
 for executing in the `index_point` field. The `index_point`
-field is a `DomainPoint` which is the general form of a
+field is a `DomainPoint` which is a type-erased form of a
 `Point` type. Lines 61-62 show how a task can make
 use of the `index_point` field. Finally, the `local_arglen`
 and `local_arg` fields contain the `TaskArgument` values
@@ -140,7 +147,7 @@ void top_level_task(const Task *task,
     arg_map.set_point(i, TaskArgument(&input, sizeof(input)));
   }
 
-  IndexLauncher index_launcher(INDEX_SPACE_TASK_ID,
+  IndexTaskLauncher index_launcher(INDEX_SPACE_TASK_ID,
                                launch_bounds,
                                TaskArgument(NULL, 0),
                                arg_map);

@@ -20,8 +20,8 @@ implicitly (or explicitly) assigned numbers, or indices, and the index
 space is the set of these indices.
 
 Indices can be plain numbers, or they can be multi-dimensional (2-D,
-3-D, etc.). Thus the set of points in an index space is a `Rect`
-templated on the dimensionality of the space.
+3-D, etc.). Thus the set of points in an index space are bounded by
+a `Rect` templated on the dimensionality of the space.
 
 As with `Rect` and `Domain`, which were introduced in the [index space
 example](/tutorial/index_tasks.html), it can be useful to describe an
@@ -43,9 +43,12 @@ tutorial.
 
 Note that in particular, partitioning can result in an index space
 that is *sparse*, i.e. where the set of points contained in the space
-cannot be accurately described by a bounding rectangle. However, all
-index spaces when they are initially created are dense. Again,
-partitioning is covered in a subsequent tutorial.
+cannot be accurately described by a bounding rectangle. Sparse index
+spaces can also be created directly by creating an index space from
+a set of rectangles or a set of points. These calls are documented
+in the API but are not demonstrated here. We walso cover how to 
+partition index spaces into subspaces in a 
+[subsequent tutorial](/tutorial/partitioning.html).
 
 Legion provides a number of API calls that can be used to retrieve
 information about an index space, such as the `Domain` or `Rect` that
@@ -66,10 +69,10 @@ dynamically allocated and freed using a `FieldAllocator` object (line
 placed on the maximum number of fields that can be allocated in a
 single field space. The user has access to this compile-time limit and
 can modify it by changing the value assigned to `MAX_FIELDS` in the
-`legion_config.h` header file. If a program attempts to exceed this
-maximum then the Legion runtime will report an error and exit. There
-is no limit on the number of field spaces that can be created in a
-Legion program and therefore the total number of fields in an
+`legion_config.h` header file (the default is 512). If a program attempts 
+to exceed this maximum then the Legion runtime will report an error and 
+exit. There is no limit on the number of field spaces that can be created 
+in a Legion program and therefore the total number of fields in an
 application is unbounded.
 
 Fields are allocated by invoking the `allocate_field`
@@ -86,6 +89,14 @@ for a each field space. Legion supports parallel field
 allocation in the same field space by different tasks,
 but undefined behavior will result if the same `FieldID`
 is allocated in the same field space by two different tasks.
+
+Currently Legion assumes that the data stored by fields is
+trivially copyable. If this is not the case, users can also
+register custom serialize/deserialize or _serdez_ functors
+with the runtime to aid in copying data in certain fields.
+The `allocate_field` method allows users to specify the ID
+for one of these functors if the data stored in the field
+is not trivally copyable.
 
 #### Logical Regions ####
 

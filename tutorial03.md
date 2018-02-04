@@ -103,11 +103,11 @@ or escapes from a task's context. The one exception
 to this is that tasks can use C and C++ memory
 allocation routines as long as the lifetimes of
 the allocations do not exceed the lifetime of the
-task. Furthermore, any pointers referencing the
-allocation should not be passed to sub-tasks or
-escape the task's context. Violating either
-of the these conditions will result in a Legion
-application with undefined behavior.
+task which performs the allocation. Furthermore, 
+any pointers referencing the allocation should not 
+be passed to sub-tasks or escape the task's context.
+Violating either of the these conditions will result 
+in a Legion application with undefined behavior.
 
 Most other restrictions on the usage of C
 and C++ features are concerned with when it

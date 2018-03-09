@@ -11,8 +11,8 @@ This page lists the collected documentation on Legion and Regent.
   * [Tutorials](/tutorial/): start here if you are new to Legion
   * [Debugging](/debugging/): instructions for debugging Legion programs
   * [Profiling](/profiling/): instructions for profiling and tuning Legion programs
+  * [Mapping](/mapper/): instructions for writing a custom Legion mapper
   * [C++ API Documentation](/doxygen/): complete API documentation
-  * [Mapper API Documentation](/mapper/): instructions for writing a custom mapper
   * [GASNet Installation](/gasnet/): instructions for multi-node builds of Legion
   * [Design Patterns](/design_patterns/): collection of code snippets for various purposes
   * [Glossary](/glossary/): definitions of commonly used Legion terms

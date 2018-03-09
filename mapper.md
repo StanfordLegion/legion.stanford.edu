@@ -29,7 +29,7 @@ By default, the Legion runtime will create one instance of the Legion::Mapping::
 
 Here is an example of replacing the default mapper with a custom mapper. This code belongs in the source file for the custom mapper. 
 
-```c++
+{% highlight cpp linenos %}
 static void create_mappers(Machine machine, HighLevelRuntime *runtime, const std::set &local_procs)
 {
   std::vector* procs_list = new std::vector();
@@ -85,8 +85,7 @@ void register_lifeline_mapper()
 {
   HighLevelRuntime::add_registration_callback(create_mappers);
 }
-
-```
+{% endhighlight %}
 
 Mappers can only be registered for application processors on the “local” node. As part of the registration callback, Legion provides a set of the local application processor names for use in registering mappers. A given mapper object can be registered with one or more local application processors. The mappers registered with an application processor will handle all mapper callbacks related to that application processor. While mapper objects are registered with application processors they most commonly run on “utility” processors that are used for runtime meta-work. If there are multiple utility processors, then there is a tradeoff between parallelism and programmability: registering one mapper for all local processors can make programming easier, but may cause synchronization bottlenecks depending on the mapper synchronization model (see section 3.1). It is up to the user to determine how they would like to develop their mapper and register it for a particular application. 
 
@@ -106,10 +105,10 @@ In order to provide the mapper with context about the machine being targeted, ea
 
 
 
-```c++
-  std::vector proc_mem_affinities;
-  machine.get_proc_mem_affinity(proc_mem_affinities);
-```
+{% highlight cpp linenos %}
+std::vector proc_mem_affinities;
+machine.get_proc_mem_affinity(proc_mem_affinities);
+{% endhighlight %}
 
 
 The machine model is currently static, processors and memories persist from the beginning to the end of the run. In future work the machine model will be dynamic and components can be added or removed during a run. 
@@ -122,11 +121,11 @@ Since multiple callbacks may want to access the same mapper concurrently, we all
 
 Here is an example of defining the synchronization model: 
 
-```c++
+{% highlight cpp linenos %}
   MapperSyncModel get_mapper_sync_model(void) const {
     return SERIALIZED_REENTRANT_MAPPER_MODEL;
 }
-```
+{% endhighlight %}
 
 
 
@@ -135,18 +134,18 @@ Here is an example of defining the synchronization model:
 The lifecycle of a task starts with select_task_options. When a Legion application first launches a task the runtime invokes select_task_options in the mapper for the processor that launched the task. 
 
 
-```c++
+{% highlight cpp linenos %}
   virtual void select_task_options(const MapperContext    ctx,
                                    const Task&            task,
                                    TaskOptions&           output) = 0;
-```
+{% endhighlight %}
 
 If the task is a single task then output.initial_proc defines the processor to launch it on. If output.inline_task is true the task will be inlined directly into the parent task using the parent tasks regions. If output.stealable is true then the task can be stolen for load balancing. If output.map_locally is true then map_task(task) will be called in the current mapper rather than in the mapper for the destination processor. If output.parent_priority is modified then the parent task will change priority if this is permitted by the mapper for the parent task. 
 
 If the task is an index task launch the runtime calls slice_task to divide the index task into a set of slices that contain point tasks. One slice corresponds to one target processor. 
 
 
-```c++
+{% highlight cpp linenos %}
 virtual void slice_task(const MapperContext      ctx,
                           const Task&              task,
                           const SliceTaskInput&    input,
@@ -161,8 +160,7 @@ struct SliceTaskOutput {
   std::vector                 slices;
   bool                                   verify_correctness; // = false
 };
-
-```
+{% endhighlight %}
 
 Each slice identifies an index space, a subregion of the original domain and a target processor. All of the point tasks for the subregion will be mapped by the mapper for the target processor. 
 
@@ -170,14 +168,14 @@ If slice.stealable is true the task can be stolen for load balancing. If slice.r
 
 
 
-```c++
-      TaskSlice slice;
-      slice.domain = slice_subregion;
-      slice.proc = targets[target_proc_index];
-      slice.recurse = false;
-      slice.stealable = true;
-      slices.push_back(slice);
-```
+{% highlight cpp linenos %}
+TaskSlice slice;
+slice.domain = slice_subregion;
+slice.proc = targets[target_proc_index];
+slice.recurse = false;
+slice.stealable = true;
+slices.push_back(slice);
+{% endhighlight %}
 
 
 
@@ -186,7 +184,7 @@ If slice.stealable is true the task can be stolen for load balancing. If slice.r
 If a mapper has one or more tasks that are ready to execute it calls select_tasks_to_map. This method can copy tasks to the map_tasks list to indicate the task should be mapped by this mapper. The method can copy tasks to the relocate_tasks list to indicate the task should be mapped by a mapper for a different processor. If it does neither the task stays in the ready list. 
 
 
-```c++
+{% highlight cpp linenos %}
 virtual void select_tasks_to_map(const MapperContext          ctx,
                                    const SelectMappingInput&    input,
                                    SelectMappingOutput&         output) = 0;
@@ -200,41 +198,41 @@ struct SelectMappingOutput {
   std::map         relocate_tasks;
   MapperEvent                             deferral_event;
 };
-```
+{% endhighlight %}
 
 
 If select_tasks_to_map does not map or relocate any tasks then it must assign a MapperEvent to deferral_event. When another mapper call triggers the MapperEvent the mapper will invoke select_tasks_to_map. The mapper will also invoke select_tasks_to_map if new tasks are added to the ready list. Here is an example of creating a MapperEvent: 
 
 
 
-```c++
+{% highlight cpp linenos %}
 MapperEvent defer_select_tasks_to_map;
-   . . .
-   if (!defer_select_tasks_to_map.exists()) {
-       defer_select_tasks_to_map = runtime->create_mapper_event(ctx);
-   }
-   output.deferral_event = defer_select_tasks_to_map;
-```
+// ...
+if (!defer_select_tasks_to_map.exists()) {
+  defer_select_tasks_to_map = runtime->create_mapper_event(ctx);
+}
+output.deferral_event = defer_select_tasks_to_map;
+{% endhighlight %}
 
 
 Here is sample code for triggering and clearing the event: 
 
 
 
-```c++
-   if(defer_select_tasks_to_map.exists()){
-    MapperEvent temp_event = defer_select_tasks_to_map;
-    defer_select_tasks_to_map = MapperEvent();
-    runtime->trigger_mapper_event(ctx, temp_event);
-  }
-```
+{% highlight cpp linenos %}
+if(defer_select_tasks_to_map.exists()){
+  MapperEvent temp_event = defer_select_tasks_to_map;
+  defer_select_tasks_to_map = MapperEvent();
+  runtime->trigger_mapper_event(ctx, temp_event);
+}
+{% endhighlight %}
 
 
 When a task is ready to execute the runtime invokes map_task. This allows the programmer to select and rank the PhysicalInstances to be mapped and the target processors on which the task may run. Other capabilities are to choose the task variant, to create profiling requests, set the task priority, and indicate that postmap operation is needed. 
 
 
 
-```c++
+{% highlight cpp linenos %}
 virtual void map_task(const MapperContext     ctx,
                       const Task&              task,
                       const MapTaskInput&      input,
@@ -253,34 +251,36 @@ struct MapTaskOutput {
   TaskPriority                                    task_priority;  // = 0
   bool                                            postmap_task; // = false
 };
-```
+{% endhighlight %}
 
 
 Here is example code to create a profiling request to indicate task completion: 
 
 
 
-```c++
+{% highlight cpp linenos %}
 ProfilingRequest completionRequest;
 completionRequest.add_measurement();
 output.task_prof_requests = completionRequest;
+{% endhighlight %}
  
 If map_task sets output.postmap_task = true the runtime invokes postmap_task when the task completes. This lets the programmer create additional copies of the output in different memories. 
  
-       struct PostMapInput {
-        std::vector >     mapped_regions;
-        std::vector >     valid_instances;
-      };
-      
-      struct PostMapOutput {
-        std::vector >     chosen_instances;
-      };
-      
-      virtual void postmap_task(const MapperContext      ctx,
-                                const Task&              task,
-                                const PostMapInput&      input,
-                                PostMapOutput&           output) = 0;
-```
+{% highlight cpp linenos %}
+struct PostMapInput {
+  std::vector >     mapped_regions;
+  std::vector >     valid_instances;
+};
+
+struct PostMapOutput {
+  std::vector >     chosen_instances;
+};
+
+virtual void postmap_task(const MapperContext      ctx,
+                          const Task&              task,
+                          const PostMapInput&      input,
+                          PostMapOutput&           output) = 0;
+{% endhighlight %}
 
 
 ### Load Balancing
@@ -288,39 +288,39 @@ If map_task sets output.postmap_task = true the runtime invokes postmap_task whe
 The mapper supports a work stealing model for load balancing. Mappers that want to steal tasks identify the processors to steal from in select_steal_targets. Processors appear in the blacklist if a previous steal request failed due to lack of available work. Processors are removed from the blacklist automatically when they gain new work. 
 
 
-```c++
-       struct SelectStealingInput {
-        std::set                     blacklist;
-      };
-      
-      struct SelectStealingOutput {
-        std::set                     targets;
-      };
-      
-      virtual void select_steal_targets(const MapperContext         ctx,
-                                        const SelectStealingInput&  input,
-                                        SelectStealingOutput&       output) = 0;
-```
+{% highlight cpp linenos %}
+struct SelectStealingInput {
+  std::set                     blacklist;
+};
+
+struct SelectStealingOutput {
+  std::set                     targets;
+};
+
+virtual void select_steal_targets(const MapperContext         ctx,
+                                  const SelectStealingInput&  input,
+                                  SelectStealingOutput&       output) = 0;
+{% endhighlight %}
 
 
 If a mapper is selected as a steal target the runtime invokes permit_steal_request. This allows the mapper to decide which tasks are to be stolen as a result of the request. 
 
 
 
-```c++
-      struct StealRequestInput {
-        Processor                               thief_proc;
-        std::vector                stealable_tasks;
-      };
-      
-      struct StealRequestOutput {
-        std::set                   stolen_tasks;
-      };
-      
-      virtual void permit_steal_request(const MapperContext         ctx,
-                                        const StealRequestInput&    input,
-                                        StealRequestOutput&         output) = 0;
-```
+{% highlight cpp linenos %}
+struct StealRequestInput {
+  Processor                               thief_proc;
+  std::vector                stealable_tasks;
+};
+
+struct StealRequestOutput {
+  std::set                   stolen_tasks;
+};
+
+virtual void permit_steal_request(const MapperContext         ctx,
+                                  const StealRequestInput&    input,
+                                  StealRequestOutput&         output) = 0;
+{% endhighlight %}
 
 
 ### Message Passing
@@ -328,24 +328,24 @@ If a mapper is selected as a steal target the runtime invokes permit_steal_reque
 Mappers can communicate among themselves using message passing. Messages are guaranteed to be delivered but are not guaranteed to be in order. 
 
 
-```c++
-     void send_message(MapperContext ctx, Processor target, const void *message,
-                        size_t message_size, unsigned message_kind = 0) const;
-                        
-      void broadcast(MapperContext ctx, const void *message, 
-                     size_t message_size, unsigned message_kind = 0, int radix = 4) const;
+{% highlight cpp linenos %}
+void send_message(MapperContext ctx, Processor target, const void *message,
+                  size_t message_size, unsigned message_kind = 0) const;
 
-      struct MapperMessage {
-        Processor                               sender;
-        unsigned                                kind;
-        const void*                             message;
-        size_t                                  size;
-        bool                                    broadcast;
-      };
-      
-      virtual void handle_message(const MapperContext           ctx,
-                                  const MapperMessage&          message) = 0;
-```
+void broadcast(MapperContext ctx, const void *message,
+               size_t message_size, unsigned message_kind = 0, int radix = 4) const;
+
+struct MapperMessage {
+  Processor                               sender;
+  unsigned                                kind;
+  const void*                             message;
+  size_t                                  size;
+  bool                                    broadcast;
+};
+
+virtual void handle_message(const MapperContext           ctx,
+                            const MapperMessage&          message) = 0;
+{% endhighlight %}
 
 
 ### Must Epoch Launches
@@ -355,27 +355,27 @@ If the application uses must epoch launches the runtime invokes map_must_epoch. 
 
 
 
-```c++
-     struct MappingConstraint {
-        std::vector                          constrained_tasks;
-        std::vector                       requirement_indexes;
-      };
-      
-      struct MapMustEpochInput {
-        std::vector                    tasks;
-        std::vector              constraints;
-        MappingTagID                                mapping_tag;
-      };
-      
-      struct MapMustEpochOutput {
-        std::vector                      task_processors;
-        std::vector > constraint_mappings;
-      };
-      
-      virtual void map_must_epoch(const MapperContext           ctx,
-                                  const MapMustEpochInput&      input,
-                                  MapMustEpochOutput&           output) = 0;
-```
+{% highlight cpp linenos %}
+struct MappingConstraint {
+  std::vector                          constrained_tasks;
+  std::vector                       requirement_indexes;
+};
+
+struct MapMustEpochInput {
+  std::vector                    tasks;
+  std::vector              constraints;
+  MappingTagID                                mapping_tag;
+};
+
+struct MapMustEpochOutput {
+  std::vector                      task_processors;
+  std::vector > constraint_mappings;
+};
+
+virtual void map_must_epoch(const MapperContext           ctx,
+                            const MapMustEpochInput&      input,
+                            MapMustEpochOutput&           output) = 0;
+{% endhighlight %}
 
 ### MappableData Annotations
 
@@ -383,13 +383,13 @@ If the application uses must epoch launches the runtime invokes map_must_epoch. 
 Every Mappable object (a Task is a Mappable object) has an auxiliary data field that can be used to hold application-specific data. This is usually used to help in debugging by attaching unique identifiers to the different tasks. Here is an example of assigning a unique id that persists across task stealing operations: 
 
 
-```c++
-  Task task;
-  size_t shiftBits = sizeof(taskSerialId) * sizeof(char);
-  unsigned long long taskId = (local_proc.id << shiftBits) + taskSerialId++;
-  runtime->update_mappable_data(ctx, task, &taskId, sizeof(taskId));
-```
+{% highlight cpp linenos %}
+Task task;
+size_t shiftBits = sizeof(taskSerialId) * sizeof(char);
+unsigned long long taskId = (local_proc.id << shiftBits) + taskSerialId++;
+runtime->update_mappable_data(ctx, task, &taskId, sizeof(taskId));
+{% endhighlight %}
 
-You would normally do this in two places: in select_task_options for newly created tasks; and in map_task for point tasks that are generated from index task launches in slice_task. In the second case it is necessary to distinguish between point tasks and individual tasks using task.is_index_space==true to identify the point tasks. Note that point tasks will enter map_task with mappable data that is copied from the parent index task launch. So you can record the parent task before overwriting the mappable data with the new identifier. 
+You would normally do this in two places: in select_task_options for newly created tasks; and in map_task for point tasks that are generated from index task launches in slice_task. In the second case it is necessary to distinguish between point tasks and individual tasks using `task.is_index_space == true` to identify the point tasks. Note that point tasks will enter map_task with mappable data that is copied from the parent index task launch. So you can record the parent task before overwriting the mappable data with the new identifier. 
 
 

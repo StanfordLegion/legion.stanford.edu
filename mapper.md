@@ -30,16 +30,16 @@ By default, the Legion runtime will create one instance of the Legion::Mapping::
 Here is an example of replacing the default mapper with a custom mapper. This code belongs in the source file for the custom mapper. 
 
 {% highlight cpp linenos %}
-static void create_mappers(Machine machine, HighLevelRuntime *runtime, const std::set &local_procs)
+static void create_mappers(Machine machine, HighLevelRuntime *runtime, const std::set<Processor> &local_procs)
 {
-  std::vector* procs_list = new std::vector();
-  std::vector* sysmems_list = new std::vector();
-  std::map >* sysmem_local_procs =
-  new std::map >();
-  std::map* proc_sysmems = new std::map();
-  std::map* proc_regmems = new std::map();
+  std::vector<Processor>* procs_list = new std::vector<Processor>();
+  std::vector<Memory>* sysmems_list = new std::vector<Memory>();
+  std::map<Memory, std::vector<Processor> >* sysmem_local_procs =
+  new std::map<Memory, std::vector<Processor> >();
+  std::map<Processor, Memory>* proc_sysmems = new std::map<Processor, Memory>();
+  std::map<Processor, Memory>* proc_regmems = new std::map<Processor, Memory>();
   
-  std::vector proc_mem_affinities;
+  std::vector<Machine::ProcessorMemoryAffinity> proc_mem_affinities;
   machine.get_proc_mem_affinity(proc_mem_affinities);
   
   for (unsigned idx = 0; idx < proc_mem_affinities.size(); ++idx) {
@@ -57,17 +57,17 @@ static void create_mappers(Machine machine, HighLevelRuntime *runtime, const std
     }
   }
   
-  for (std::map::iterator it = proc_sysmems->begin();
+  for (std::map<Processor, Memory>::iterator it = proc_sysmems->begin();
        it != proc_sysmems->end(); ++it) {
     procs_list->push_back(it->first);
     (*sysmem_local_procs)[it->second].push_back(it->first);
   }
   
-  for (std::map >::iterator it =
+  for (std::map<Memory, std::vector<Processor> >::iterator it =
        sysmem_local_procs->begin(); it != sysmem_local_procs->end(); ++it)
     sysmems_list->push_back(it->first);
   
-  for (std::set::const_iterator it = local_procs.begin();
+  for (std::set<Processor>::const_iterator it = local_procs.begin();
        it != local_procs.end(); it++)
   {
     LifelineMapper* mapper = new LifelineMapper(runtime->get_mapper_runtime(),
@@ -106,7 +106,7 @@ In order to provide the mapper with context about the machine being targeted, ea
 
 
 {% highlight cpp linenos %}
-std::vector proc_mem_affinities;
+std::vector<Machine::ProcessorMemoryAffinity> proc_mem_affinities;
 machine.get_proc_mem_affinity(proc_mem_affinities);
 {% endhighlight %}
 
@@ -147,9 +147,9 @@ If the task is an index task launch the runtime calls slice_task to divide the i
 
 {% highlight cpp linenos %}
 virtual void slice_task(const MapperContext      ctx,
-                          const Task&              task,
-                          const SliceTaskInput&    input,
-                          SliceTaskOutput&         output) = 0;
+                        const Task&              task,
+                        const SliceTaskInput&    input,
+                        SliceTaskOutput&         output) = 0;
 
 struct SliceTaskInput {
   IndexSpace                             domain_is;
@@ -157,7 +157,7 @@ struct SliceTaskInput {
 };
 
 struct SliceTaskOutput {
-  std::vector                 slices;
+  std::vector<TaskSlice>                 slices;
   bool                                   verify_correctness; // = false
 };
 {% endhighlight %}
@@ -186,16 +186,16 @@ If a mapper has one or more tasks that are ready to execute it calls select_task
 
 {% highlight cpp linenos %}
 virtual void select_tasks_to_map(const MapperContext          ctx,
-                                   const SelectMappingInput&    input,
-                                   SelectMappingOutput&         output) = 0;
+                                 const SelectMappingInput&    input,
+                                 SelectMappingOutput&         output) = 0;
 
 struct SelectMappingInput {
-  std::list                  ready_tasks;
+  std::list<const Task*>                  ready_tasks;
 };
 
 struct SelectMappingOutput {
-  std::set                   map_tasks;
-  std::map         relocate_tasks;
+  std::set<const Task*>                   map_tasks;
+  std::map<const Task*,Processor>         relocate_tasks;
   MapperEvent                             deferral_event;
 };
 {% endhighlight %}
@@ -238,16 +238,17 @@ virtual void map_task(const MapperContext     ctx,
                       const MapTaskInput&      input,
                       MapTaskOutput&           output) = 0;
 struct MapTaskInput {
-   std::vector >     valid_instances;
-   std::vector                           premapped_regions;
+  std::vector<std::vector<PhysicalInstance> >     valid_instances;
+  std::vector<unsigned>                           premapped_regions;
 };
 
 struct MapTaskOutput {
-  std::vector >     chosen_instances; 
-  std::vector                          target_procs;
+  std::vector<std::vector<PhysicalInstance> >     chosen_instances; 
+  std::vector<Processor>                          target_procs;
   VariantID                                       chosen_variant; // = 0 
   ProfilingRequest                                task_prof_requests;
   ProfilingRequest                                copy_prof_requests;
+  TaskPriority                                    profiling_priority;
   TaskPriority                                    task_priority;  // = 0
   bool                                            postmap_task; // = false
 };
@@ -268,12 +269,12 @@ If map_task sets output.postmap_task = true the runtime invokes postmap_task whe
  
 {% highlight cpp linenos %}
 struct PostMapInput {
-  std::vector >     mapped_regions;
-  std::vector >     valid_instances;
+  std::vector<std::vector<PhysicalInstance> >     mapped_regions;
+  std::vector<std::vector<PhysicalInstance> >     valid_instances;
 };
 
 struct PostMapOutput {
-  std::vector >     chosen_instances;
+  std::vector<std::vector<PhysicalInstance> >     chosen_instances;
 };
 
 virtual void postmap_task(const MapperContext      ctx,
@@ -290,11 +291,11 @@ The mapper supports a work stealing model for load balancing. Mappers that want 
 
 {% highlight cpp linenos %}
 struct SelectStealingInput {
-  std::set                     blacklist;
+  std::set<Processor>                     blacklist;
 };
 
 struct SelectStealingOutput {
-  std::set                     targets;
+  std::set<Processor>                     targets;
 };
 
 virtual void select_steal_targets(const MapperContext         ctx,
@@ -310,11 +311,11 @@ If a mapper is selected as a steal target the runtime invokes permit_steal_reque
 {% highlight cpp linenos %}
 struct StealRequestInput {
   Processor                               thief_proc;
-  std::vector                stealable_tasks;
+  std::vector<const Task*>                stealable_tasks;
 };
 
 struct StealRequestOutput {
-  std::set                   stolen_tasks;
+  std::set<const Task*>                   stolen_tasks;
 };
 
 virtual void permit_steal_request(const MapperContext         ctx,
@@ -357,19 +358,17 @@ If the application uses must epoch launches the runtime invokes map_must_epoch. 
 
 {% highlight cpp linenos %}
 struct MappingConstraint {
-  std::vector                          constrained_tasks;
-  std::vector                       requirement_indexes;
+  std::vector<const Task*>                    constrained_tasks;
+  std::vector<unsigned>                       requirement_indexes;
 };
-
 struct MapMustEpochInput {
-  std::vector                    tasks;
-  std::vector              constraints;
+  std::vector<const Task*>                    tasks;
+  std::vector<MappingConstraint>              constraints;
   MappingTagID                                mapping_tag;
 };
-
 struct MapMustEpochOutput {
-  std::vector                      task_processors;
-  std::vector > constraint_mappings;
+  std::vector<Processor>                      task_processors;
+  std::vector<std::vector<PhysicalInstance> > constraint_mappings;
 };
 
 virtual void map_must_epoch(const MapperContext           ctx,

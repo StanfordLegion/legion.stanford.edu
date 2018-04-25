@@ -5,19 +5,19 @@ title: Privileges
 ---
 
 In this example we again implement DAXPY
-but use a different approach that uses sub-tasks 
-to perform each of the different operations on 
+but use a different approach that uses sub-tasks
+to perform each of the different operations on
 logical regions. We implement three different
-sub-tasks: one for initializing a field of a 
-logical region with random data (lines 95-112), 
-one for performing the DAXPY computation 
-(lines 114-137), and one for checking the 
+sub-tasks: one for initializing a field of a
+logical region with random data (lines 95-112),
+one for performing the DAXPY computation
+(lines 114-137), and one for checking the
 results (lines 139-168). We show how to launch
 sub-tasks that request access to logical regions,
 how sub-tasks manage physical instances, and how
 privileges are passed. We also discuss how operations
-can be executed in parallel based on field 
-non-interference and further illustrate how 
+can be executed in parallel based on field
+non-interference and further illustrate how
 deferred execution works in Legion.
 
 #### Task Region Requirements ####
@@ -34,7 +34,7 @@ launches are performing using `TaskLauncher`
 objects which were introduced earlier in the tutorial
 for launching a single sub-task. However, when
 launching sub-tasks in this example, we also
-pass `RegionRequirement` objects as part of the 
+pass `RegionRequirement` objects as part of the
 task launches in order to specify the logical
 regions on which the sub-tasks will operate.
 
@@ -60,14 +60,14 @@ is that sub-tasks are only allowed to request privileges
 which are a subset of their parent task's privileges.
 To enforce this invariant, privileges can only be passed
 in a functional manner through sub-tasks calls. An astute
-reader will notice that there is no mechanism either in 
-Legion or Regent for 
-naming privileges or storing them anywhere. Instead 
+reader will notice that there is no mechanism either in
+Legion or Regent for
+naming privileges or storing them anywhere. Instead
 privileges are only passed through `RegionRequirement`
 objects used for launching sub-tasks. To reinforce the
 functional nature of privileges `RegionRequirement`
-objects require applications to name the parent task's 
-logical region from which the sub-task (or inline 
+objects require applications to name the parent task's
+logical region from which the sub-task (or inline
 mapping or other operation) is obtaining privileges.
 
 We now describe one instance of how privileges are
@@ -77,11 +77,11 @@ read-write privileges for the created logical region.
 When the top-level task create the `input_lr` and
 `output_lr` logical regions it obtains full read-write
 privileges on those regions. When the DAXPY sub-task
-is invoked on lines 66-73, the sub-task is passed 
+is invoked on lines 66-73, the sub-task is passed
 `READ_ONLY` privileges on the `input_lr` for fields
 `FID_X` and `FID_Y` and `WRITE_DISCARD` on field
-`FID_Z`. The sub-task's request for those privileges 
-is valid since they are a subset of the privileges 
+`FID_Z`. The sub-task's request for those privileges
+is valid since they are a subset of the privileges
 owned by the parent task. If a task that created a
 logical region fails to delete it, the privileges
 for the region implicitly escape into the parent
@@ -89,20 +89,20 @@ task's context. If the privileges escape the top-level
 task Legion will issue a warning noting that the
 logical region was leaked.
 
-There are four kinds of privileges: `READ_WRITE`, 
-`READ_ONLY`, `REDUCE`, and `WRITE_DISCARD`. `READ_WRITE` 
-privileges give the task full permission to mutate 
+There are four kinds of privileges: `READ_WRITE`,
+`READ_ONLY`, `REDUCE`, and `WRITE_DISCARD`. `READ_WRITE`
+privileges give the task full permission to mutate
 the specified fields of the logical region using any
 kind of operation (read, write, reduction). `READ_ONLY`
 restricts the task to only be able to perform reads
-and `REDUCE` restricts the task to only be able to 
+and `REDUCE` restricts the task to only be able to
 perform reductions. `WRITE_DISCARD` is a special form
 of `READ_WRITE` that still permits the task to perform
-any kind of operation, but informs the runtime that 
+any kind of operation, but informs the runtime that
 the task intends to overwrite all previous data stored
 in the logical region without reading it. This enables
 the runtime to perform several performance optimizations
-associated with removing unnecessary data movement 
+associated with removing unnecessary data movement
 operations. The various kinds of privileges form a
 semi-lattice with `READ_WRITE` and `WRITE_DISCARD`
 privileges occupying the top position and `READ_ONLY`
@@ -114,12 +114,12 @@ The privilege system of the Legion programming model
 is essential to both the correctness and performance
 of Legion applications. Privilege passing is
 checked by the Legion runtime and will result in
-runtime errors if violated. In Regent, privilege passing is checked statically 
+runtime errors if violated. In Regent, privilege passing is checked statically
 by the type system resulting in easier to diagnose
 compile-time errors. The enforcement of functional
 privilege passing makes possible Legion's hierarchical
 and distributed scheduling algorithm. For more details
-on this we refer you to our 
+on this we refer you to our
 [publications](/publications/).
 
 #### Task Physical Regions ####
@@ -133,9 +133,9 @@ back N `PhysicalRegion` objects in the `region`
 STL vector that is an argument to all Legion tasks
 (line 96). The `PhysicalRegion` objects are identical
 to the ones described in the previous example that
-are used to name physical instances. The only 
-difference in this case is that the Legion runtime 
-is intelligent about starting tasks that need 
+are used to name physical instances. The only
+difference in this case is that the Legion runtime
+is intelligent about starting tasks that need
 `PhysicalRegion` objects, and will not begin
 execution of the task until all of the `PhysicalRegion`
 objects are valid.
@@ -162,18 +162,18 @@ scenarios.
 The original `RegionRequirement` objects that were
 used to launch a task are available to the task
 implementation via the `Task` object. The `regions`
-field of the `Task` object is an STL vector 
+field of the `Task` object is an STL vector
 containing the passed `RegionRequirement` objects.
 Having access to these arguments is very powerful
-as it even permits the implementation of 
+as it even permits the implementation of
 _field-polymorphic_ tasks which can perform the
 same operation on a dynamically determined set
-of fields. For example, in our DAXPY example, 
+of fields. For example, in our DAXPY example,
 the `init_field_task` is a field-polymorphic
 function as it examines the `RegionRequirement`
 passed to it to see which field to initialize
 (line 101). We can therefore use the same task
-to initialize both the 'X' and 'Y' fields. 
+to initialize both the 'X' and 'Y' fields.
 Field-polymorphic tasks occur regularly in Legion
 as it is common for many applications to want
 to perform the same operation over many different
@@ -182,15 +182,15 @@ fields using a single task implementation.
 #### Deferred Execution Revisited ####
 
 The top-level task in this implementation of DAXPY
-has a very interesting property: it never records 
-any `Future` objects as part of its sub-task 
+has a very interesting property: it never records
+any `Future` objects as part of its sub-task
 launches (lines 57,63,75,86). As a result there is
 no way for it to explicitly block execution or chain
 dependences between sub-tasks. Furthermore, because
 all task launches are deferred, it's possible for
 the top-level task to launch all its sub-tasks and
 finish executing even before the first sub-task begins
-running. So how is it possible that this application 
+running. So how is it possible that this application
 computes the correct answer?
 
 The crucial insight is that Legion understands the
@@ -207,7 +207,7 @@ execution semantics for all operations, even though
 operations may ultimately execute in parallel. By
 maintaining sequential execution semantics, Legion
 significantly simplifies reasoning about operations
-within a task. The following figure shows the computed 
+within a task. The following figure shows the computed
 TDG for this DAXPY example:
 <br/><br/>
 ![](/images/daxpy_sequential.svg)
@@ -223,7 +223,7 @@ tasks to the checking task on the two fields of `input_lr`
 but we omit them for simplicity.) Finally, the deletions
 of the two logical regions must wait until the last task
 using the regions finishes executing. Legion is able to
-efficiently compute this graph because it knows about 
+efficiently compute this graph because it knows about
 the structure of program data in the form of logical
 regions as well as how tasks use logical regions.
 
@@ -237,7 +237,7 @@ have been satisfied. On the other hand, in a deferred
 execution model such as Legion's, sub-tasks and other
 operations can be issued even before dependences have
 been satisfied. Doing so ensures as many operations
-as possible are in flight, allowing the runtime to 
+as possible are in flight, allowing the runtime to
 discover the full parallelism available in applications,
 make maximal use of machine resources, and hide long
 latency operations with parallel work.
@@ -251,7 +251,7 @@ Legion automatically manages this phase of a task's execution.
 
 #### Field-Level Non-Interference ####
 
-Determining that two sub-tasks have _non-interfering_ 
+Determining that two sub-tasks have _non-interfering_
 `RegionRequirement` objects is how Legion implicitly
 extracts parallelism from applications. There are three
 forms of non-interference:
@@ -264,7 +264,7 @@ forms of non-interference:
   objects are non-interfering on fields if they access
   disjoint sets of fields within the same logical region.
 * __Privileges non-interference__: two `RegionRequirement`
-  objects are non-interfering on privileges if they 
+  objects are non-interfering on privileges if they
   are both request `READ_ONLY` privileges, or they
   both request `REDUCE` privileges with the same
   reduction operator.
@@ -286,7 +286,7 @@ the two tasks.
 It is important to note that even though Legion has
 determined that these two tasks may be run in parallel,
 it is up to the mapper to assign them to different processors.
-If they are assigned to the same processor, Legion will 
+If they are assigned to the same processor, Legion will
 serialize their execution, resulting in correct but
 sequential behavior. This is just one example of how
 mapping decisions can influence the performance of applications.
@@ -297,12 +297,12 @@ Next Example: [Partitioning](/tutorial/partitioning.html)
 <br/>
 Previous Example: [Physical Regions](/tutorial/physical_regions.html)
 
-{% highlight cpp linenos %}#include <cstdio>
+{% highlight cpp linenos %}
+#include <cstdio>
 #include <cassert>
 #include <cstdlib>
 #include "legion.h"
-using namespace LegionRuntime::HighLevel;
-using namespace LegionRuntime::Accessor;
+using namespace Legion;
 
 enum TaskIDs {
   TOP_LEVEL_TASK_ID,
@@ -319,10 +319,10 @@ enum FieldIDs {
 
 void top_level_task(const Task *task,
                     const std::vector<PhysicalRegion> &regions,
-                    Context ctx, HighLevelRuntime *runtime) {
-  int num_elements = 1024; 
+                    Context ctx, Runtime *runtime) {
+  int num_elements = 1024;
   {
-    const InputArgs &command_args = HighLevelRuntime::get_input_args();
+    const InputArgs &command_args = Runtime::get_input_args();
     for (int i = 1; i < command_args.argc; i++) {
       if (!strcmp(command_args.argv[i],"-n"))
         num_elements = atoi(command_args.argv[++i]);
@@ -330,19 +330,18 @@ void top_level_task(const Task *task,
   }
   printf("Running daxpy for %d elements...\n", num_elements);
 
-  Rect<1> elem_rect(Point<1>(0),Point<1>(num_elements-1));
-  IndexSpace is = runtime->create_index_space(ctx, 
-                          Domain::from_rect<1>(elem_rect));
+  const Rect<1> elem_rect(0,num_elements-1);
+  IndexSpace is = runtime->create_index_space(ctx, elem_rect);
   FieldSpace input_fs = runtime->create_field_space(ctx);
   {
-    FieldAllocator allocator = 
+    FieldAllocator allocator =
       runtime->create_field_allocator(ctx, input_fs);
     allocator.allocate_field(sizeof(double),FID_X);
     allocator.allocate_field(sizeof(double),FID_Y);
   }
   FieldSpace output_fs = runtime->create_field_space(ctx);
   {
-    FieldAllocator allocator = 
+    FieldAllocator allocator =
       runtime->create_field_allocator(ctx, output_fs);
     allocator.allocate_field(sizeof(double),FID_Z);
   }
@@ -393,70 +392,57 @@ void top_level_task(const Task *task,
 
 void init_field_task(const Task *task,
                      const std::vector<PhysicalRegion> &regions,
-                     Context ctx, HighLevelRuntime *runtime) {
-  assert(regions.size() == 1); 
+                     Context ctx, Runtime *runtime) {
+  assert(regions.size() == 1);
   assert(task->regions.size() == 1);
   assert(task->regions[0].privilege_fields.size() == 1);
   FieldID fid = *(task->regions[0].privilege_fields.begin());
   printf("Initializing field %d...\n", fid);
-  RegionAccessor<AccessorType::Generic, double> acc = 
-    regions[0].get_field_accessor(fid).typeify<double>();
+  const FieldAccessor<WRITE_DISCARD,double,1> acc(regions[0], fid);
 
-  Domain dom = runtime->get_index_space_domain(ctx, 
-      task->regions[0].region.get_index_space());
-  Rect<1> rect = dom.get_rect<1>();
-  for (GenericPointInRectIterator<1> pir(rect); pir; pir++) {
-    acc.write(DomainPoint::from_point<1>(pir.p), drand48());
-  }
+  Rect<1> rect = runtime->get_index_space_domain(ctx,
+                  task->regions[0].region.get_index_space());
+  for (PointInRectIterator<1> pir(rect); pir(); pir++)
+    acc[*pir] = drand48();
 }
 
 void daxpy_task(const Task *task,
                 const std::vector<PhysicalRegion> &regions,
-                Context ctx, HighLevelRuntime *runtime) {
+                Context ctx, Runtime *runtime) {
   assert(regions.size() == 2);
   assert(task->regions.size() == 2);
   assert(task->arglen == sizeof(double));
   const double alpha = *((const double*)task->args);
 
-  RegionAccessor<AccessorType::Generic, double> acc_x = 
-    regions[0].get_field_accessor(FID_X).typeify<double>();
-  RegionAccessor<AccessorType::Generic, double> acc_y = 
-    regions[0].get_field_accessor(FID_Y).typeify<double>();
-  RegionAccessor<AccessorType::Generic, double> acc_z = 
-    regions[1].get_field_accessor(FID_Z).typeify<double>();
+  const FieldAccessor<READ_ONLY,double,1> acc_x(regions[0], FID_X);
+  const FieldAccessor<READ_ONLY,double,1> acc_y(regions[0], FID_Y);
+  const FieldAccessor<WRITE_DISCARD,double,1> acc_z(regions[1], FID_Z);
+
   printf("Running daxpy computation with alpha %.8g...\n", alpha);
-  Domain dom = runtime->get_index_space_domain(ctx, 
-      task->regions[0].region.get_index_space());
-  Rect<1> rect = dom.get_rect<1>();
-  for (GenericPointInRectIterator<1> pir(rect); pir; pir++) {
-    double value = alpha * acc_x.read(DomainPoint::from_point<1>(pir.p)) + 
-                           acc_y.read(DomainPoint::from_point<1>(pir.p));
-    acc_z.write(DomainPoint::from_point<1>(pir.p), value);
-  }
+  Rect<1> rect = runtime->get_index_space_domain(ctx,
+                  task->regions[0].region.get_index_space());
+  for (PointInRectIterator<1> pir(rect); pir(); pir++)
+    acc_z[*pir] = alpha * acc_x[*pir] + acc_y[*pir];
 }
 
 void check_task(const Task *task,
                 const std::vector<PhysicalRegion> &regions,
-                Context ctx, HighLevelRuntime *runtime) {
+                Context ctx, Runtime *runtime) {
   assert(regions.size() == 2);
   assert(task->regions.size() == 2);
   assert(task->arglen == sizeof(double));
   const double alpha = *((const double*)task->args);
-  RegionAccessor<AccessorType::Generic, double> acc_x = 
-    regions[0].get_field_accessor(FID_X).typeify<double>();
-  RegionAccessor<AccessorType::Generic, double> acc_y = 
-    regions[0].get_field_accessor(FID_Y).typeify<double>();
-  RegionAccessor<AccessorType::Generic, double> acc_z = 
-    regions[1].get_field_accessor(FID_Z).typeify<double>();
+  const FieldAccessor<READ_ONLY,double,1> acc_x(regions[0], FID_X);
+  const FieldAccessor<READ_ONLY,double,1> acc_y(regions[0], FID_Y);
+  const FieldAccessor<READ_ONLY,double,1> acc_z(regions[1], FID_Z);
+
   printf("Checking results...");
-  Domain dom = runtime->get_index_space_domain(ctx, 
-      task->regions[0].region.get_index_space());
-  Rect<1> rect = dom.get_rect<1>();
+  Rect<1> rect = runtime->get_index_space_domain(ctx,
+                  task->regions[0].region.get_index_space());
   bool all_passed = true;
-  for (GenericPointInRectIterator<1> pir(rect); pir; pir++) {
-    double expected = alpha * acc_x.read(DomainPoint::from_point<1>(pir.p)) + 
-                           acc_y.read(DomainPoint::from_point<1>(pir.p));
-    double received = acc_z.read(DomainPoint::from_point<1>(pir.p));
+  for (PointInRectIterator<1> pir(rect); pir(); pir++) {
+    double expected = alpha * acc_x[*pir] + acc_y[*pir];
+    double received = acc_z[*pir];
     if (expected != received)
       all_passed = false;
   }
@@ -466,18 +452,38 @@ void check_task(const Task *task,
     printf("FAILURE!\n");
 }
 
-int main(int argc, char **argv) {
-  HighLevelRuntime::set_top_level_task_id(TOP_LEVEL_TASK_ID);
-  HighLevelRuntime::register_legion_task<top_level_task>(TOP_LEVEL_TASK_ID,
-      Processor::LOC_PROC, true/*single*/, false/*index*/);
-  HighLevelRuntime::register_legion_task<init_field_task>(INIT_FIELD_TASK_ID,
-      Processor::LOC_PROC, true/*single*/, false/*index*/);
-  HighLevelRuntime::register_legion_task<daxpy_task>(DAXPY_TASK_ID,
-      Processor::LOC_PROC, true/*single*/, false/*index*/);
-  HighLevelRuntime::register_legion_task<check_task>(CHECK_TASK_ID,
-      Processor::LOC_PROC, true/*single*/, false/*index*/);
+int main(int argc, char **argv)
+{
+  Runtime::set_top_level_task_id(TOP_LEVEL_TASK_ID);
 
-  return HighLevelRuntime::start(argc, argv);
+  {
+    TaskVariantRegistrar registrar(TOP_LEVEL_TASK_ID, "top_level");
+    registrar.add_constraint(ProcessorConstraint(Processor::LOC_PROC));
+    Runtime::preregister_task_variant<top_level_task>(registrar, "top_level");
+  }
+
+  {
+    TaskVariantRegistrar registrar(INIT_FIELD_TASK_ID, "init_field");
+    registrar.add_constraint(ProcessorConstraint(Processor::LOC_PROC));
+    registrar.set_leaf();
+    Runtime::preregister_task_variant<init_field_task>(registrar, "init_field");
+  }
+
+  {
+    TaskVariantRegistrar registrar(DAXPY_TASK_ID, "daxpy");
+    registrar.add_constraint(ProcessorConstraint(Processor::LOC_PROC));
+    registrar.set_leaf();
+    Runtime::preregister_task_variant<daxpy_task>(registrar, "daxpy");
+  }
+
+  {
+    TaskVariantRegistrar registrar(CHECK_TASK_ID, "check");
+    registrar.add_constraint(ProcessorConstraint(Processor::LOC_PROC));
+    registrar.set_leaf();
+    Runtime::preregister_task_variant<check_task>(registrar, "check");
+  }
+
+  return Runtime::start(argc, argv);
 }
 {% endhighlight %}
 

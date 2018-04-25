@@ -66,27 +66,27 @@ To implement DAXPY we'll create two logical
 regions with a common index space. One logical
 region will store the inputs and the other
 will store the results. The input region will
-have two fields, one for storing the 'X' values
-and the other for storing the 'Y' values. The
-output region will have a single 'Z' field for
+have two fields, one for storing the `X` values
+and the other for storing the `Y` values. The
+output region will have a single `Z` field for
 storing the result of the DAXPY computation.
 
-On lines 31-33 we create a 1D `Rect` to describe
-the space of elements for our index space and
-then create a structured index space. We then
+On lines 31-32 we create a 1D `Rect` to describe
+the space of elements and
+use it to create an index space. We then
 create two field spaces: one for describing
-the two input fields (line 34) and one for
-describing the output (line 41). In the input
+the two input fields (line 33) and one for
+describing the output (line 40). In the input
 field space `input_fs` we allocate two fields
-with field IDs `FID_X` and `FID_Y` each with
-enough space for holding double precision values.
+with field IDs `FID_X` and `FID_Y` which each
+hold double-precision floating-point values.
 In the output field space `output_fs` we allocate
 a single field `FID_Z` for storing the result
 of the computation.
 
 After creating the two fields spaces and allocating
 fields, we create two logical regions each with
-the same index space (lines 47-48). The `input_lr`
+the same index space (lines 46-47). The `input_lr`
 and `output_lr` logical regions store the input
 and output logical regions respectively. We'll
 make use of the same region scheme throughout
@@ -105,9 +105,9 @@ data. Unlike logical regions which are abstractions
 for describing how data is organized and have no
 implied placement or layout in the memory hierarchy,
 physical instances will have an explicit placement
-and layout. The choice of placement and layout are
+and layout. (The choice of placement and layout are
 made by the mapping process which we cover in a
-later example. Physical instances that are created
+later example.) Physical instances that are created
 are represented by `PhysicalRegion` handles which
 we discuss in more detail momentarily.
 
@@ -130,9 +130,9 @@ productivity features primarily only appear in Regent.
 #### Inline Mappings ####
 
 We now introduce one way to create physical instances
-of logical regions using _inline mappings_ (we'll
+of logical regions using _inline mappings_. (We'll
 discuss other ways to create physical instances in
-coming examples). Inline mappings provide a mechanism
+coming examples.) Inline mappings provide a mechanism
 for a task to manifest a physical instance of
 a logical region directly inline as part of the task's
 execution. Performing an inline mapping will give
@@ -146,10 +146,10 @@ has not yet been initialized.
 
 To perform an inline mapping, applications create an
 `InlineLauncher` object similar to other launcher
-objects for launching tasks (line 54). The argument
+objects for launching tasks (line 53). The argument
 passed to the `InlineLauncher` constructor is a
 `RegionRequirement` which is used to describe the
-logical region requested. `RegionRequiremnt` objects
+logical region requested. `RegionRequirement` objects
 are covered in the next section. Once we have have
 set up the launcher, we invoke the `map_region`
 runtime method and pass the launcher. This call
@@ -168,8 +168,8 @@ objects later in this example.
 the logical regions requested by launcher objects as
 well as what privileges and coherence are requested
 on the specified logical region. On line
-50 we create a `RegionRequirement` that requests
-the `input_lr` logical region with `READ-WRITE`
+49 we create a `RegionRequirement` that requests
+the `input_lr` logical region with `READ_WRITE`
 privileges and `EXCLUSIVE` coherence. The last
 argument specifies the logical region for which
 the enclosing parent task has privileges. We
@@ -184,7 +184,7 @@ After specifying the requested logical region,
 `RegionRequirement` objects must also specify
 which fields on the logical region to request.
 Fields are added by calling the `add_field` method
-on the `RegionRequirement` (lines 51-52). There are
+on the `RegionRequirement` (lines 50-51). There are
 many other constructors, methods, and fields
 on `RegionRequirement` objects, some of which
 we will see in the remaining examples.
@@ -200,7 +200,7 @@ execution model. The application can either poll
 a `PhysicalRegion` to see if it is complete
 using the `is_valid` method or it can explicitly
 wait for the physical instance to be ready
-by invoking the `wait_until_valid` method (line 56).
+by invoking the `wait_until_valid` method (line 55).
 Just like waiting for a `Future`, if the physical
 instance is not ready the task is preempted
 and other tasks may be run while waiting for
@@ -213,9 +213,7 @@ physical instance contains valid data for the
 corresponding logical region to maintain correctness.
 This guarantees that the application can only
 access the data contained in the physical instance
-once the data is valid. (In the case where data
-in the logical region has yet to be initialized,
-Legion will never require the application to wait.)
+once the data is valid.
 
 Like other resources applications can
 explicitly release physical instances that it
@@ -231,19 +229,17 @@ physical instance as well.
 #### Region Accessors ####
 
 To access data within a physical region,
-an application must create `RegionAccessor` objects.
+an application must create `FieldAccessor` objects.
 Physical instances can be laid out in many different
 ways including array-of-struct (AOS), struct-of-array
 (SOA), and hybrid formats depending on decisions
 made as part of the process of mapping a Legion
-application. `RegionAccessor` objects provide the
+application. `FieldAccessor` objects provide the
 necessary level of indirection to make application
 code independent of the selected mapping and therefore
 correct under all possible mapping decisions.
-`RegionAccessor` objects have their own namespace
-that must be explicitly included (line 6).
 
-`RegionAccessor` objects are tied directly to the
+`FieldAccessor` objects are tied directly to the
 `PhysicalRegion` for which they are created. Once
 the physical region is invalidated, either because
 it is reclaimed or it is explicitly unmapped by
@@ -251,54 +247,29 @@ the application, then all accessors for the physical
 instance are also invalidated and any attempt to
 re-use them will result in undefined behavior. Each
 region accessor is also associated with a specific
-field of the physical instance and can be obtained
-by invoking the `get_field_accessor` method (line 59)
-on a `PhysicalRegion` and passing the corresponding
-`FieldID` for the desired field. To aid programmers
-in writing correct Legion applications, we provide
-a `typeify` method to convert from an untyped
-`RegionAccessor` to a typed one (line 59). This allows
-the C++ compiler to enforce standard typing rules
-on `RegionAccessor` operations.
+field of the physical instance. To build an accessor, invoke the
+constructor the physical region and field ID (lines 57-58, 74). Field
+accessors are templated on the privilege, field type, and number of
+dimensions of the region being used.
 
-The `AccessorType::Generic` template argument on
-the `RegionAccessor` type specifies the kind of
-accessor (line 58). In this example we create a
-specific kind of accessor called a _generic_ accessor.
-Generic accessors are the simplest kind of accessors
-and have the ability to verify many important correctness
-properties of region tasks (e.g. abiding by their
-specified privileges), but they also have the worst
-performance. In this example we only make use of generic
-accessors for simplicity. In practice, we often write
-two variants of every Legion task, one using generic
-accessors which we use to validate the application,
-and second using high-performance accessors. Generic
-accessors should __NEVER__ be used in production code.
-
-The generic `RegionAccessor` provides the `read`
-(line 81) and `write` (line 64) methods for accessing
-data within the region. These methods are overloaded
-to either work with `ptr_t` pointers for logical regions
-created with unstructured index spaces, or with
-non-dimensionalized `DomainPoint` objects for logical
-regions associated with structured index spaces. For
-our DAXPY example, we use the `GenericPointInRectIterator`
-iterator object to iterate over all the points in the
-index space associated with both of our logical regions
-whenever we need to access values in our logical
-regions (line 63).
+The `FieldAccessor` provides an overloaded `operator[]` method (lines
+62-63, 78) which can be used to access the data within the region. The
+method expects to receive a `Point` with the same number of dimensions
+as the region being accessed. For our DAXPY example, we use the
+`PointInRectIterator` iterator object to iterate over all the points
+in the index space associated with both of our logical regions
+whenever we need to access values in our logical regions (lines 60, 77).
 
 We quickly recall an important observation about
-Legion pointers made in a earlier example. Legion
-pointers do not directly reference data, but instead
+points made in a earlier example. Legion
+points do not directly reference data, but instead
 name an entry in an index space. They are used when
 accessing data within accessors for logical regions.
 The accessor is specifically associated with the field
-being accessed and the pointer names the row entry.
-Since pointers are associated with index spaces they
+being accessed and the point names the row entry.
+Since points are associated with index spaces they
 can be used with an accessor for physical instance. In
-this way Legion pointers are not tied to memory address
+this way Legion points are not tied to memory address
 spaces or physical instances, but instead can be used
 to access data for any physical instance of a logical
 region created with an index space to which the pointer
@@ -316,12 +287,12 @@ application-binary interface (ABI). We'll provide a compelling
 case when this occurs in the next example.
 
 `PhysicalRegion` objects can be explicitly unmapped using the
-`HighLevelRuntime` method `unmap_region` (line 87). This allows
+`Runtime` method `unmap_region` (line 82). This allows
 the application to maintain a handle to the physical instance
 in case it decides to remap the region using the
 `remap_region` method. The `remap_region` method will
 ensure that the exact same physical instance is brought
-up to date which does not invalidate any `RegionAccessor`
+up to date which does not invalidate any `FieldAccessor`
 objects.
 
 The other way of remapping a region is to perform
@@ -329,7 +300,7 @@ another inline mapping (possibly with different
 privileges or coherence) as we do in this example.
 The process of mapping may ultimately create a new
 `PhysicalRegion` object which will invalidate all earlier
-`RegionAccessor` objects. Attempts to use `RegionAccessor`
+`FieldAccessor` objects. Attempts to use `FieldAccessor`
 objects which have been invalidated will result
 in undefined behavior.
 
@@ -337,49 +308,49 @@ in undefined behavior.
 
 Having covered the initial components for constructing a
 Legion DAXPY application, we can now describe the overall
-structure of the application. Lines 21-29 handle command
+structure of the application. Lines 20-28 handle command
 line arguments and allow programmers to deviate from the
-default number of elements by passing a "-n" flag with
+default number of elements by passing a `-n` flag with
 the new number of elements to use when creating our
 index space. The application then creates the index space,
-field spaces, and logical regions (lines 31-48). The
+field spaces, and logical regions (lines 31-47). The
 fields for each of the two field spaces are allocated
-in lines 36-39 and 43-45.
+in lines 35-38 and 42-44.
 
-After the primary resources for DAXPY are setup, we
+After the primary resources for DAXPY have been set up, we
 first map a physical instance of input region by
-performing an inline mapping (lines 50-56). Using
+performing an inline mapping (lines 49-55). Using
 the physical instance that is created we create
 accessors for both of the fields in the `input_lr`
-logical region (lines 58-61)and iterate over all the
+logical region (lines 57-58) and iterate over all the
 points in the index space to initialize all entries for
-both fields with random numbers (lines 63-66).
+both fields with random numbers (lines 60-64).
 
 Having all the necessary data in the input logical
 region, we then map the output logical region using
-another inline mapping (lines 68-72) and then
-create a region accessor (lines 74-75, note we do
-not explicitly wait for the `RegionAccessor` but
+another inline mapping (lines 66-70) and then
+create a region accessor (lines 74, note we do
+not explicitly wait for the `FieldAccessor` but
 instead wait for the runtime to do it for us when
 creating the accessor). Having mapping physical instances
 of both logical regions, we then perform the DAXPY
 computation using a single iterator over the single
 index space used to create both logical regions
-(lines 78-83).
+(lines 77-78).
 
 When the DAXPY computation is complete, we then
 unmap the `PhysicalRegion` for the output logical
 region and remap it using a new inline mapping
-(lines 88-91) to illustrate changing the mapping
+(lines 82-85) to illustrate changing the mapping
 privileges from `WRITE_DISCARD` to `READ_ONLY`.
 Note that because we performed a new inline
 mapping instead of calling `remap_region` we
-had to create a new `RegionAccessor` since it
+had to create a new `FieldAccessor` since it
 was possible we received a new physical instance
-(line 91). We then check the results of our
+(line 87). We then check the results of our
 DAXPY computation to make sure they are correct
-and report the result (lines 93-103). Finally,
-we clean up our resources (lines 107-111).
+and report the result (lines 89-100). Finally,
+we clean up our resources (lines 102-106).
 
 Next Example: [Privileges](/tutorial/privileges.html)  
 Previous Example: [Logical Regions](/tutorial/logical_regions.html)

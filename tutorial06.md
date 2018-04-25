@@ -9,10 +9,10 @@ but use a different approach that uses sub-tasks
 to perform each of the different operations on
 logical regions. We implement three different
 sub-tasks: one for initializing a field of a
-logical region with random data (lines 95-112),
+logical region with random data (lines 93-107),
 one for performing the DAXPY computation
-(lines 114-137), and one for checking the
-results (lines 139-168). We show how to launch
+(lines 109-126), and one for checking the
+results (lines 128-153). We show how to launch
 sub-tasks that request access to logical regions,
 how sub-tasks manage physical instances, and how
 privileges are passed. We also discuss how operations
@@ -25,11 +25,11 @@ deferred execution works in Legion.
 In this example we launch sub-tasks to perform
 all aspects of the DAXPY computation. The top-level
 task begins by implementing the same region scheme
-as was used in the previous example (lines 34-51).
+as was used in the previous example (lines 33-49).
 The top-level task then launches sub-tasks for
-initializing the two fields (lines 53-63), performing
-the DAXPY computation (lines 66-75), and finally
-for checking the result (lines 77-86). All task
+initializing the two fields (lines 51-61), performing
+the DAXPY computation (lines 64-73), and finally
+for checking the result (lines 75-84). All task
 launches are performing using `TaskLauncher`
 objects which were introduced earlier in the tutorial
 for launching a single sub-task. However, when
@@ -45,7 +45,7 @@ that are stored in an STL vector inside of the launcher
 under the `region_requirements` field. `RegionRequirement`
 objects can be added directly to the launcher or
 by calling the `add_region_requirement` method on
-the `TaskLauncher` (lines 54-55). For each of the
+the `TaskLauncher` (lines 52-53). For each of the
 `RegionRequirement` objects requested by a sub-task
 the Legion runtime will grant the sub-task the
 requested _privileges_ on the specified logical
@@ -77,7 +77,7 @@ read-write privileges for the created logical region.
 When the top-level task create the `input_lr` and
 `output_lr` logical regions it obtains full read-write
 privileges on those regions. When the DAXPY sub-task
-is invoked on lines 66-73, the sub-task is passed
+is invoked on lines 64-71, the sub-task is passed
 `READ_ONLY` privileges on the `input_lr` for fields
 `FID_X` and `FID_Y` and `WRITE_DISCARD` on field
 `FID_Z`. The sub-task's request for those privileges
@@ -131,7 +131,7 @@ of these requested regions. If a task was launched
 with N region requirements, then it will be passed
 back N `PhysicalRegion` objects in the `region`
 STL vector that is an argument to all Legion tasks
-(line 96). The `PhysicalRegion` objects are identical
+(line 94). The `PhysicalRegion` objects are identical
 to the ones described in the previous example that
 are used to name physical instances. The only
 difference in this case is that the Legion runtime
@@ -172,8 +172,8 @@ of fields. For example, in our DAXPY example,
 the `init_field_task` is a field-polymorphic
 function as it examines the `RegionRequirement`
 passed to it to see which field to initialize
-(line 101). We can therefore use the same task
-to initialize both the 'X' and 'Y' fields.
+(line 99). We can therefore use the same task
+to initialize both the `X` and `Y` fields.
 Field-polymorphic tasks occur regularly in Legion
 as it is common for many applications to want
 to perform the same operation over many different
@@ -184,7 +184,7 @@ fields using a single task implementation.
 The top-level task in this implementation of DAXPY
 has a very interesting property: it never records
 any `Future` objects as part of its sub-task
-launches (lines 57,63,75,86). As a result there is
+launches (lines 55,61,73,84). As a result there is
 no way for it to explicitly block execution or chain
 dependences between sub-tasks. Furthermore, because
 all task launches are deferred, it's possible for
@@ -209,15 +209,15 @@ maintaining sequential execution semantics, Legion
 significantly simplifies reasoning about operations
 within a task. The following figure shows the computed
 TDG for this DAXPY example:
-<br/><br/>
+
 ![](/images/daxpy_sequential.svg)
-<br/><br/>
+
 In this figure we see that the DAXPY task has data
 dependences on the two field initialization tasks
-(one on field 'X' and one on field 'Y' of the `input_lr`
+(one on field `X` and one on field `Y` of the `input_lr`
 logical region). The checking
 task then has a data dependence on the DAXPY task
-(on field 'Z' of the `output_lr` region). (There are
+(on field `Z` of the `output_lr` region). (There are
 also transitive data dependences from the initialization
 tasks to the checking task on the two fields of `input_lr`
 but we omit them for simplicity.) Finally, the deletions
@@ -243,7 +243,7 @@ make maximal use of machine resources, and hide long
 latency operations with parallel work.
 
 While all the sub-tasks executed within a task's context
-are deferred, a task is not permitted to _complete_ until
+are deferred, a task is not permitted to be considered _complete_ until
 all of its sub-tasks have completed. In our DAXPY example,
 this prevents the top-level task from completing until
 all the sub-tasks and deletion operations are complete.
@@ -272,7 +272,7 @@ forms of non-interference:
 We'll see examples of region and privilege non-interference
 in the next two examples. In this DAXPY example we have
 an example of field-level non-interference. Both
-of the `init_field_task` launches both request the same
+of the `init_field_task` launches request the same
 logical region with `WRITE_DISCARD` privilege and therefore
 neither region nor privilege non-interference applies. However,
 because the `RegionRequirement` objects request privileges
@@ -293,8 +293,7 @@ mapping decisions can influence the performance of applications.
 We'll investigate the mapping process in more detail in
 a later example.
 
-Next Example: [Partitioning](/tutorial/partitioning.html)
-<br/>
+Next Example: [Partitioning](/tutorial/partitioning.html)  
 Previous Example: [Physical Regions](/tutorial/physical_regions.html)
 
 {% highlight cpp linenos %}

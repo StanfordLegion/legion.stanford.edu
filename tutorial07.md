@@ -25,78 +25,28 @@ specify the number of _blocks_ to make.) To do
 this we must partition the common index space
 `is` upon which both logical regions are based.
 The partition we wish to create will be called
-`ip` for 'index partition' (line 62). To
-illustrate two different ways of creating
-partitions, we'll call two different versions
-of the `create_index_partition` method
-on the `HighLevelRuntime`: one for handling
-cases where the total number of elements is
-NOT divisible by the number of blocks, and one
-where it is evenly divisible.
+`ip` for _index partition_ (line 66).
 
 The first step in creating a partition is
-to create a `Domain` which describes the
-the _color space_ of the partition (the `Domain`
-must either be an unstructured index space
-or a 1D `Rect`). The purpose of a color space
-is to associate a single _color_ (point within
-the color space domain) with each index sub-space
+to create an `IndexSpace` which describes the
+the _color space_ of the partition. The purpose of a color space
+is to associate a _color_ (a point within
+the color space) with each index sub-space
 we wish to make. In this DAXPY example, we
-create a `color_domain` with a point for each
-of the desired blocks (lines 59-60, recall
+create a `color_space` with a point for each
+of the desired blocks (lines 63-64, recall
 `Rect` types are inclusive).
 
-We first consider the case where the number
-of blocks do not evenly divide the number of
-elements in the index space `is` (lines 63-79).
-After creating the color space, we want
-to color points in the index space we are
-partitioning to assign them to subregions.
-We use a `DomainColoring` object to record
-our coloring. A `DomainColoring` is a typedef
-of an STL `map` from `Colors` (unsigned integers)
-to `Domain` objects (the typedef can be found in
-legion_types.h along with other type declarations).
-We compute an even division of the elements to
-assign to each sub-region. For each sub-region
-we create a domain describing the number of elements
-and place it in the coloring (lines 71-75).
+Legion contains a large number of functions for performing any sort of
+partitioning the user desires. In this case, we'll use
+`create_equal_partition` to create a partition with sub-regions of
+roughly equal size. The resulting sub-regions are guarranteed to be
+dense, but in general partitioning is quite expressive and the
+resulting sub-regions of most partitioning operations need not be
+dense.
 
-Once we have computed our `DomainColoring` we are
-now ready to create the `IndexPartition`. Creating
-the partition is done simply by invoking the
-`create_index_partition` method with the index
-space to partition `is`, a color space `Domain`,
-the `DomainColoring` object, and a boolean indicating
-whether the partition is _disjoint_ (lines 77-78).
-The return value is an `IndexPartition` which is
-a handle similar to an index space handle for naming
-the index partition. A partitioning is disjoint
-whenever every element in the original index space is
-assigned to at most a single color. When compiled
-in debug mode, the Legion runtime will check the
-disjointness of partitions. In the next example,
-we'll see a case where a non-disjoint partition is
-useful. Note that partitions do not need to be total
-and applications can create partitions which only
-color a subset of the points in the partition (our
-partition in this example is total).
-
-In the case where we know that the number of
-blocks evenly divides the number of elements in the
-`is` index space, we can use a productivity construct
-from the `Arrays` namespace. The `Blockify` type
-is a special type which supports an invertible
-"preimage" operation on `Rect` types which can
-be used to create an implicit coloring. We specify
-the number of elements to assign to each color,
-and the Legion runtime uses the `Blockify` object
-in conjunction with original index space to compute
-a total coloring of the index space. Another
-variant of the overloaded `create_index_partition`
-method takes the index space to be partitioned
-along with the `Blockify` object and creates the
-new `IndexPartition` (lines 80-81).
+For an overview of Legion's other partitioning operations, please see
+the [Dependent Partitioning](/pdfs/dpl2016.pdf) paper.
 
 #### Obtaining Logical Sub-Regions ####
 
@@ -125,20 +75,17 @@ implicitly created, the application initially
 has no means for obtaining handles to these objects.
 The Legion runtime supports several ways of
 acquiring these handles. One example can be
-seen on line 84 where the application invokes
-the `get_logical_partition` method on an
-instance of the `HighLevelRuntime`. This method
-takes a logical region as well as an index partition
-of the index space used to create the logical
-region and then returns the corresponding
-`LogicalPartition` handle. Additionally, the
-runtime supports the `get_logical_partition_by_color`
-and `get_logical_partition_by_tree` which
-provide other ways of obtaining `LogicalPartition`
-handles. The runtime also supports the corresponding
-methods `get_logical_subregion`,
+seen on line 69 where the application invokes
+`get_logical_partition`. This method
+takes a logical region `R` and an index partition
+of the index space of `R` and returns the corresponding
+`LogicalPartition` handle. There are a number of additional methods (such as `get_logical_partition_by_color`
+and `get_logical_partition_by_tree`) which
+can be used to obtain `LogicalPartition`
+handles. For sub-regions, the runtime supports a corresponding
+set of methods (`get_logical_subregion`,
 `get_logical_subregion_by_color`, and
-`get_logical_subregion_by_tree` for discovering
+`get_logical_subregion_by_tree`) for discovering
 the handles for logical sub-regions.
 
 #### Projection Region Requirements ####
@@ -155,32 +102,30 @@ objects for launching an index space of tasks.
 However, unlike launching single tasks, we need
 a way to specify different `RegionRequirement`
 objects for each of the points in the index space
-of tasks. To accomplish this we use projection
+of tasks. To accomplish this we use _projection_
 region requirements.
 
 Projection region requirements provide a two-step
 mechanism for assigning a region requirement for
 each point task in an index space of task launches.
-First, a projection region requirement first
+First, a projection region requirement
 names an upper bound on the privileges to be
 requested by the index space task. This upper bound can
 either be a logical region or logical partition.
 The logical regions eventually requested by each
-point task in the index space of tasks must request
-a logical region that is a (potentially non-strict)
-sub-region of the given upper bound. Second, a
-_projection function_ is chosen which will
-compute the sub-region for each point task in
-the index space of tasks. We now illustrate how
+point task in the index space of tasks must be subregions
+of the given upper bound. Second, a
+_projection functor_ is used to pick the specific sub-regions given
+to each point task. We now illustrate how
 these two aspects of projection region requirements
 work in our DAXPY example.
 
 Projection region requirements are created using
-a different constructor for the `RegionRequirement`
-type. These constructor always begin by specifying
-either a logical region or logical partition to
-place an upper bound on the data accessed followed
-by a projection function ID (lines 93-94). The
+an overloaded constructor for the `RegionRequirement`
+type. These constructors always begin by specifying
+either a logical region or logical partition as
+an upper bound on the data to be accessed, followed
+by a projection functor ID (lines 79-80). The
 remaining arguments are the same as other
 `RegionRequirement` constructors. In our DAXPY
 example we use the `input_lp` and `output_lp`
@@ -188,63 +133,48 @@ logical partitions as upper bounds for our index
 space task launches as each point task will
 be using a sub-region of these partitions. Our
 projection region requirements also use the
-projection ID zero to specify our projection
-function. The zero projection ID is a reserved
+projection ID `0` to specify our projection
+function. The `0` projection ID is a reserved
 ID which we describe momentarily. Applications
-can also register custom projection functions
-statically before starting the Legion runtime
-using the `register_region_function` and
-`register_partition_function` static methods
-on the `HighLevelRuntime` similar to how
-tasks are registered.
+can register their own projection functors either statically, before
+starting the Legion runtime starts, using the
+`preregister_projection_functor`, or dynamically, after it starts,
+with `register_projection_functor`. This is similar to how tasks are
+registered.
 
 The second step of using projection region
 requirements comes as the index space task
 is executed. When the runtime enumerates the
-`Domain` of index space points, it invokes
-the specified projection function on each
+index space of tasks, it invokes
+the specified projection functor on each
 point to compute the logical region requirement
 for that the task. In the case of our DAXPY example,
-we use the reserved zero projection function which
-computes a color from  each task's point in the
-launch `Domain` and then uses that color to find
-the corresponding logical sub-region in the logical
-partition upper bound.
+we use the reserved `0` projection functor, which uses the identity
+function to determine which sub-region to use. So task `i` in the launch will get
+subregion `i` in the partition, and so on.
 
-One requirement of using projection region
-requirements is that all the points within an
-index space task launch are required to be
-non-interfering with each other either because
-they use disjoint logical regions or because
-they are using non-interfering privileges
-(read-only or reduce with same reduction
-operator). Since Legion lazily enumerates
-index space launch domains dependent on
-mapping decisions, violations of this aspect
-of the programming model will result in
-runtime error messages which may occur well
-after the task has been launched.
+The tasks in an index space launch must be able to run in
+parallel. This means that when using projection region requirements,
+it is important that the projection functor choose a different
+sub-region for every task in the launch, assuming the tasks are going
+to write to their respective regions. (It's ok to pick the same
+sub-region if the tasks are only going to read or use reductions on
+the regions in question.)
 
-#### Finding Index Space Domains ####
+#### Finding Index Space Bounds ####
 
-For task implementations, the Legion runtime
-API provides a mechanism for determining the
-original `Domain` for an index space using
-the `get_index_space_domain` method. We use
-this method in all three of our sub-task
-implementations (lines 148, 174, and 198).
-Our task implementations can therefore determine
-the size of the domain to iterate over as part
-of the implementation. This allows us to register
-our tasks as being capable of being run as
-both single and index space tasks (lines 217-224).
+It can be useful to get the bounds of an index space directly from a
+logical region. This can be done with the `get_index_space_domain`
+method on an `IndexSpace`, which returns a struct. We use this method
+in all three sub-tasks to avoid needing explicitly pass the bounds of
+the regions down to these tasks.
 
 #### Region Non-Interference ####
 
 In this version of DAXPY, we see an example of
 how the Legion runtime can extract parallelism
 from tasks using region non-interference. Since
-each of the tasks in our index space task launches
+each of the tasks in our index space launches
 are using disjoint logical sub-regions, the Legion
 runtime can infer that these tasks can be run in
 parallel. The following figure shows the TDG
@@ -259,9 +189,9 @@ of the Legion programming model. By understanding
 the structure of program data, the runtime can
 extract parallelism from both field-level and
 region non-interference at the same time. Using
-both forms of non-interference to discover both
-task- and data-level parallelism maximizes the
-is not something that no other programming model
+both forms of non-interference to discover simultaneous
+task- and data-level parallelism
+is something that no other programming model
 we are aware of is capable of achieving.
 
 Next Example: [Multiple Partitions](/tutorial/multiple.html)  

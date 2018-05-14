@@ -21,17 +21,17 @@ To perform the stencil computation we create the
 `stencil_lr` logical region with two fields: one
 field containing the input values and a second field
 to store the computed derivative value at each point
-(lines 38-48). After creating the logical regions
+(lines 37-46). After creating the logical regions
 we partition the `stencil_lr` logical region in
 two different ways which we cover in the next
 section. After partitioning the logical region
 we initialize the data in our value field using
-the `init_field_task` (lines 111-117, identical
+the `init_field_task` (lines 67-73, identical
 to the one from our DAXPY example). We then launch
 an index space of tasks to perform the stencil
-computation in parallel (lines 119-129). Finally,
+computation in parallel (lines 75-85). Finally,
 a single task is launched to check the result of
-the stencil computation (lines 131-139).
+the stencil computation (lines 87-95).
 
 #### Creating and Using Multiple Partitions ####
 
@@ -49,23 +49,20 @@ each side of the set of elements in
 each sub-region in the disjoint partition.
 The need for these ghost cells means that some
 cells will exist in multiple sub-regions and
-therefore the partition will be aliased.
+therefore sub-regions of the partition may overlap.
 
-We create two separate `DomainColoring` objects
-that are used for storing the colorings for
-each of our two partitions (line 58). We then
-compute the `Rect` value each sub-region for both
-partitions for that we want
-to create (lines 62-101). Note there are two
-different cases to handle for the disjoint
-partition and four for the aliased partition
-(see comments in the code for more details).
-After we've computed the two colorings we
-create the two partitions of the index space
-(lines 97-100) and then obtain the corresponding
-logical partitions (lines 103-106). The following
-figure shows the resulting logical region tree
-for the application.
+We create the disjoint partition with `create_equal_partition` as we
+did the previous example (lines 51-52). For the new, aliased partition
+we use another runtime method called `create_partition_by_restriction`
+(lines 53-58). This method works by multiplying every index point in
+the color space of the partition by a transform matrix, to determine
+the offset of the subregion to create. This essentially allows us to
+create a bunch of overlapping subregions of the same size, with a
+certain offset between them.
+
+After we've computed the two index partitions we obtain the
+corresponding logical partitions (lines 60-63). The following figure
+shows the resulting logical region tree for the application.
 
 ![](/images/stencil_partition.svg)
 
@@ -78,11 +75,11 @@ We pass two projection region requirements
 in the launcher object. The first region
 requirement requests `READ_ONLY` privileges
 on the aliased `ghost_lp` logical partition
-for the `FID_VAL` field (lines 121-124).
+for the `FID_VAL` field (lines 77-80).
 The second region requirement requests
 `READ_WRITE` privileges on the `disjoint_lp`
 logical partition for the `FID_DERIV` field
-(lines 125-128). In the next section we describe
+(lines 81-84). In the next section we describe
 how Legion proves that all of the stencil
 tasks can be run in parallel.
 

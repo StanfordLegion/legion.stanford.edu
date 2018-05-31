@@ -733,7 +733,7 @@ WARN_LOGFILE           =
 # spaces.
 # Note: If this tag is empty the current directory is searched.
 
-INPUT                  = ./_legion/runtime/legion/legion.h ./_legion/runtime/legion/legion_config.h ./_legion/runtime/legion/legion_types.h ./_legion/runtime/legion/legion_c.h ./_legion/runtime/legion/legion_c_util.h
+INPUT                  = ./_legion/runtime/legion.h ./_legion/runtime/legion/legion_config.h ./_legion/runtime/legion/legion_types.h ./_legion/runtime/legion/legion_c.h ./_legion/runtime/legion/legion_c_util.h
 
 # This tag can be used to specify the character encoding of the source files
 # that doxygen parses. Internally doxygen uses the UTF-8 encoding. Doxygen uses

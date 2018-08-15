@@ -7,7 +7,7 @@ title: Resources
 ## Applications
 
   * [SNAP: Discrete Ordinates Mini-App](https://github.com/StanfordLegion/Legion-SNAP)
-  * [Barnes-Hut](git@github.com:StanfordLegion/barnes-hut.git)
+  * [Barnes-Hut](https://github.com/StanfordLegion/barnes-hut)
 
 ## Libraries
 

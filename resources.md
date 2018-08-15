@@ -4,6 +4,17 @@ permalink: /resources/index.html
 title: Resources
 ---
 
+## Applications
+
+  * [SNAP: Discrete Ordinates Mini-App](https://github.com/StanfordLegion/Legion-SNAP)
+  * [Barnes-Hut](git@github.com:StanfordLegion/barnes-hut.git)
+
+## Libraries
+
+  * [Lux: Distributed Graph Processing](https://github.com/LuxGraph/Lux)
+  * [Emacs mode for Regent](https://github.com/StanfordLegion/regent-mode)
+  * [Vim mode for Regent](https://github.com/StanfordLegion/regent.vim)
+
 ## Community
 
   * [Mailing List](https://groups.google.com/forum/#!forum/legionusers) (for announcements and general discussion)

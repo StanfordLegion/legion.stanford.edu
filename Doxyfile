@@ -455,7 +455,7 @@ HIDE_UNDOC_MEMBERS     = NO
 # no effect if EXTRACT_ALL is enabled.
 # The default value is: NO.
 
-HIDE_UNDOC_CLASSES     = YES 
+HIDE_UNDOC_CLASSES     = NO
 
 # If the HIDE_FRIEND_COMPOUNDS tag is set to YES, doxygen will hide all friend
 # (class|struct|union) declarations. If set to NO these declarations will be
@@ -721,7 +721,7 @@ WARN_FORMAT            = "$file:$line: $text"
 # messages should be written. If left blank the output is written to standard
 # error (stderr).
 
-WARN_LOGFILE           =
+WARN_LOGFILE           = doxygen_warnings.txt
 
 #---------------------------------------------------------------------------
 # Configuration options related to the input files
@@ -733,7 +733,7 @@ WARN_LOGFILE           =
 # spaces.
 # Note: If this tag is empty the current directory is searched.
 
-INPUT                  = ./_legion/runtime/legion.h ./_legion/runtime/legion/legion_config.h ./_legion/runtime/legion/legion_types.h ./_legion/runtime/legion/legion_c.h ./_legion/runtime/legion/legion_c_util.h
+INPUT                  = ./_legion/runtime/legion.h ./_legion/runtime/legion/legion_config.h ./_legion/runtime/legion/legion_types.h ./_legion/runtime/legion/legion_c.h ./_legion/runtime/legion/legion_c_util.h ./_legion/runtime/legion/legion_domain.h
 
 # This tag can be used to specify the character encoding of the source files
 # that doxygen parses. Internally doxygen uses the UTF-8 encoding. Doxygen uses

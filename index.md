@@ -61,13 +61,13 @@ High Performance Computing Research Center, and NVIDIA.
 
 <tr>
 <td>Zhihao Jia</td>
-<td>  </td>
+<td><a href="mail&#116;o&#58;%73%&#54;5e%6Da&#46;&#37;6Di&#37;72&#99;ha%&#54;Eda&#110;ey&#64;%73&#116;anford%2&#69;e%64u">Seema Mirchandaney</a></td>
 <td><a href="&#109;&#097;&#105;&#108;&#116;&#111;:&#103;&#115;&#104;&#105;&#112;&#109;&#097;&#110;&#064;&#108;&#097;&#110;&#108;&#046;&#103;&#111;&#118;">Galen Shipman</a></td>
 </tr>
 
 <tr>
 <td>Karthik Srinivasa Murthy</td>
-<td>  </td>
+<td>Seshu Yamajala</td>
 <td>Jonathan Graham</td>
 </tr>
 

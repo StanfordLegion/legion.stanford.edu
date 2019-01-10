@@ -56,7 +56,7 @@ OLCF, NERSC, and the Swiss National Supercomputing Centre (CSCS).
 <tr valign="middle">
 <td><b>Stanford</b></td>
 <td><b>SLAC</b></td>
-<td><b>Los Alamos</b></td>
+<td><b>LANL</b></td>
 <td><b>NVIDIA</b></td>
 </tr>
 
@@ -64,20 +64,21 @@ OLCF, NERSC, and the Swiss National Supercomputing Centre (CSCS).
 <td>Todd Warszawski</td>
 <td><a href="https://elliottslaughter.com">Elliott Slaughter</a></td>
 <td><a href="&#109;&#097;&#105;&#108;&#116;&#111;:&#112;&#097;&#116;&#064;&#108;&#097;&#110;&#108;&#046;&#103;&#111;&#118;">Pat McCormick</a></td>
-<td><a href="http://lightsighter.org">Michael Bauer</a> (<a href="http://research.nvidia.com/person/mike-bauer">NVIDIA site</a>)</td>
+<td><a href="http://lightsighter.org">Michael Bauer</a></td>
 </tr>
 
 <tr valign="middle">
 <td>Wonchan Lee</td>
 <td><a href="http://heirich.org">Alan Heirich</a></td>
 <td><a href="&#109;&#097;&#105;&#108;&#116;&#111;:&#115;&#097;&#109;&#117;&#101;&#108;&#064;&#108;&#097;&#110;&#108;&#046;&#103;&#111;&#118;">Samuel Gutierrez</a></td>
-<td><a href="http://cs.stanford.edu/~sjt/">Sean Treichler</a></td>
+<td>&nbsp;&nbsp;(<a href="http://research.nvidia.com/person/mike-bauer">NVIDIA site</a>)</td>
 </tr>
 
 <tr>
 <td>Zhihao Jia</td>
 <td><a href="mail&#116;o&#58;%73%&#54;5e%6Da&#46;&#37;6Di&#37;72&#99;ha%&#54;Eda&#110;ey&#64;%73&#116;anford%2&#69;e%64u">Seema Mirchandaney</a></td>
 <td><a href="&#109;&#097;&#105;&#108;&#116;&#111;:&#103;&#115;&#104;&#105;&#112;&#109;&#097;&#110;&#064;&#108;&#097;&#110;&#108;&#046;&#103;&#111;&#118;">Galen Shipman</a></td>
+<td><a href="http://cs.stanford.edu/~sjt/">Sean Treichler</a></td>
 </tr>
 
 <tr>

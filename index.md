@@ -27,13 +27,28 @@ To learn more about Legion you can:
 
 #### About Legion ####
 
-Legion is being developed at [Stanford University](http://stanford.edu) with funding from the U.S. Department of Energy's [ExaCT Combustion Co-Design Center](http://exactcodesign.org/) and the Scientific Data Management, Analysis and Visualization (SDMAV) program.
-Contributions from Los Alamos National Laboratory are supported by the U.S. Department
-of Energy [Office of Advanced Scientific Computing Research](http://science.energy.gov/ascr)
-and the U.S. Department of Energy 
-[National Nuclear Security Administration Advanced Simulation and Computing Program](http://nnsa.energy.gov/asc).
-Work on Legion has also been supported by funding from DARPA, the Army
-High Performance Computing Research Center, and NVIDIA.
+Legion is developed as an open source project, with major
+contributions from [LANL](https://www.lanl.gov/),
+[NVIDIA Research](https://www.nvidia.com/en-us/research/),
+[SLAC](https://www6.slac.stanford.edu/), and
+[Stanford](https://www.stanford.edu/). This research was supported by
+the Exascale Computing Project (17-SC-20-SC), a collaborative effort
+of two U.S. Department of Energy organizations (Office of Science and
+the National Nuclear Security Administration) responsible for the
+planning and preparation of a capable exascale ecosystem, including
+software, applications, hardware, advanced system engineering, and
+early testbed platforms, in support of the nation’s exascale computing
+imperative. Additional support has been provided to LANL and SLAC via
+the Department of Energy [Office of Advanced Scientific Computing
+Research](http://science.energy.gov/ascr) and to NVIDIA, LANL and
+Stanford from the U.S. Department of Energy [National Nuclear Security
+Administration Advanced Simulation and Computing
+Program](http://nnsa.energy.gov/asc). Previous support for Legion has
+included the U.S. Department of Energy's [ExaCT Combustion Co-Design
+Center](http://exactcodesign.org/) and the Scientific Data Management,
+Analysis and Visualization (SDMAV) program, DARPA, the Army High
+Performance Computing Research Center, and NVIDIA, and grants from
+OLCF, NERSC, and the Swiss National Supercomputing Centre (CSCS).
 
 #### Legion Contributors ####
 

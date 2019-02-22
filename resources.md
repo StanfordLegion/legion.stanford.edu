@@ -6,12 +6,32 @@ title: Resources
 
 ## Applications
 
-  * [SNAP: Discrete Ordinates Mini-App](https://github.com/StanfordLegion/Legion-SNAP)
+C++:
+
+  * [S3D](https://www.osti.gov/biblio/1410202-s3d-legion-exascale-software-direct-numerical-simulation-turbulent-combustion-complex-multicomponent-chemistry)
+  * [SNAP: discrete ordinates mini-app](https://github.com/StanfordLegion/Legion-SNAP)
+  * [Fast linear solver based on HODLR structure](https://github.com/Charles-Chao-Chen/fastSolver2)
+  * [MiniAero: RK4 unstructured FV, compressible Navier-Stokes](wonchan@cs.stanford.edu)
+  * [PRK Stencil](https://github.com/magnatelee/PRK/tree/master/LEGION/Stencil)
+
+Regent:
+
+  * [Soleil-X: multi-physics solver](https://github.com/stanfordhpccenter/soleil-x)
+  * [Circuit simulation](https://github.com/StanfordLegion/legion/blob/master/language/examples/circuit_sparse.rg)
+  * [PENNANT: unstructured mesh, Lagrangian staggered-grid hydrodynamics](https://github.com/StanfordLegion/legion/blob/master/language/examples/pennant_fast.rg)
+  * [MiniAero: RK4 unstructured FV, compressible Navier-Stokes](wonchan@cs.stanford.edu)
+  * [PageRank](https://github.com/StanfordLegion/legion/blob/master/language/examples/pagerank/pagerank_optimized.rg)
+  * [PRK Stencil](https://github.com/StanfordLegion/legion/blob/master/language/examples/stencil_fast.rg)
   * [Barnes-Hut](https://github.com/StanfordLegion/barnes-hut)
+  * [WCHR: shocks in compressible flows](https://github.com/akshaysubr/WCHR-regent)
+  * [Particle advection with GC solver](https://github.com/StanfordLegion/legion/blob/master/language/examples/particles.rg)
+  * [QR decomposition](hpacella@stanford.edu)
+  * [Sparse Cholesky](seshu@slac.stanford.edu)
 
 ## Libraries
 
-  * [Lux: Distributed Graph Processing](https://github.com/LuxGraph/Lux)
+  * [FleCSI: framework for multi-physics simulation](https://github.com/laristra/flecsi)
+  * [Lux: distributed graph processing](https://github.com/LuxGraph/Lux)
   * [Emacs mode for Regent](https://github.com/StanfordLegion/regent-mode)
   * [Vim mode for Regent](https://github.com/StanfordLegion/regent.vim)
 

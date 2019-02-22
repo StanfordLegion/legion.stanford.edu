@@ -16,7 +16,7 @@ C++:
 
 Regent:
 
-  * [Soleil-X: multi-physics solver](https://github.com/stanfordhpccenter/soleil-x)
+  * [Soleil-X: multi-physics solver (explicit compressible flow, point particles, DOM radiation)](https://github.com/stanfordhpccenter/soleil-x)
   * [Circuit simulation](https://github.com/StanfordLegion/legion/blob/master/language/examples/circuit_sparse.rg)
   * [PENNANT: unstructured mesh, Lagrangian staggered-grid hydrodynamics](https://github.com/StanfordLegion/legion/blob/master/language/examples/pennant_fast.rg)
   * [MiniAero: RK4 unstructured FV, compressible Navier-Stokes](wonchan@cs.stanford.edu)

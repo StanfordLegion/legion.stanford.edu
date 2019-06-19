@@ -88,13 +88,13 @@ OLCF, NERSC, and the Swiss National Supercomputing Centre (CSCS).
 </tr>
 
 <tr>
-<td><a href="http://theory.stanford.edu/~aiken">Alex Aiken</a></td>
+<td><a href="http://manopapad.com/">Manolis Papadakis</a></td>
 <td>  </td>
 <td>Irina Demeshko</td>
 </tr>
 
 <tr>
-<td></td>
+<td><a href="http://theory.stanford.edu/~aiken">Alex Aiken</a></td>
 <td>  </td>
 <td>Nick Moss</td>
 </tr>

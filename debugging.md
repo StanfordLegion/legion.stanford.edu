@@ -12,6 +12,7 @@ Generally speaking, users should start by trying these tools
 (typically in this order):
 
  * [Debug Mode](#debug-mode) (`DEBUG=1 make; ./app`)
+ * [Backtrace](#backtrace) (`LEGION_BACKTRACE=1 ./app`)
  * [Freeze On Error](#freeze-on-error) (`LEGION_FREEZE_ON_ERROR=1 ./app`)
  * [Privilege Checks](#privilege-checks) (`CC_FLAGS=-DPRIVILEGE_CHECKS make; ./app`)
  * [Bounds Checks](#bounds-checks) (`CC_FLAGS=-DBOUNDS_CHECKS make; ./app`)
@@ -23,6 +24,7 @@ tools have been exhausted or in special circumstances:
 
  * [Logging Infrastructure](#logging-infrastructure)
  * [Debug Tasks](#debug-tasks)
+ * [Delay Start](#delay-start) (`./app -lg:delay N` where `N` is in seconds)
  * [In-Order Execution](#in-order-execution) (`./app -lg:inorder`)
  * [Full-Size Instances](#full-size-instances)
  * [Separate Runtime Instances](#separate-runtime-instances) (`./app -lg:separate -ll:util 0`)
@@ -46,6 +48,27 @@ messages, but Legion is still an experimental system and there may be
 assertions that do not produce useful error messages. If you encounter
 one of these assertions (regardless of whether it is an application or
 runtime bug), please report it on the [bug tracker](/community/).
+
+### Backtrace
+
+Legion can automatically print a backtrace when an error occurs (such
+as an assertion failure or a segfault). This capability has a
+negligible performance impact and is therefore recommended in settings
+where crashes occur in production applications. Backtraces often
+provide initial clues as to where a bug may be hiding, and can direct
+further debugging efforts. To enable backtraces, set
+`LEGION_BACKTRACE` to `1` in the environment:
+
+{% highlight bash %}
+LEGION_BACKTRACE=1 ./app
+{% endhighlight %}
+
+When using `mpirun` as a launcher for the application, remember that a
+`-x` flag is required to pass the variable to the child process:
+
+{% highlight bash %}
+mpirun -x LEGION_BACKTRACE=1 ./app
+{% endhighlight %}
 
 ### Freeze On Error
 
@@ -304,6 +327,35 @@ the most useful features of Legion, enabling introspection
 that can be easily enabled and disabled without worrying
 about correctness. Really, debug tasks are just a very
 primitive form of `in-situ` analytics.
+
+### Delay Start
+
+In some cases I can be useful to attach a debugger to a program prior
+to the point where it actually fails. This can be challenging
+particularly in multi-node executions where the user cannot simply run
+`gdb --args ./app ...`. To assist in such cases, Legion provides an
+option to pause at the beginning of an application run. The user can
+then use the delay to manually attach to the process with a debugger.
+
+The following command will cause Legion to pause for 30 seconds prior
+to starting the top-level task:
+
+{% highlight bash %}
+./app -lg:delay 30
+{% endhighlight %}
+
+The user can use this opportunity to find the appropriate PID and
+attach with a debugger. For example, assuming that `ps` reports that
+the PID is `12345`:
+
+{% highlight bash %}
+ps -u $(whoami)
+gdb -p 12345
+{% endhighlight %}
+
+After entering the debugger, the user can set breakpoints or configure
+settings as appropriate, and then when ready can issue the command
+`continue` to resume execution of the application.
 
 ### In-Order Execution
 

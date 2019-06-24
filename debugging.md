@@ -70,6 +70,9 @@ When using `mpirun` as a launcher for the application, remember that a
 mpirun -x LEGION_BACKTRACE=1 ./app
 {% endhighlight %}
 
+(Note: `LEGION_BACKTRACE` can also be spelled `REALM_BACKTRACE`. Both
+spellings are identical.)
+
 ### Freeze On Error
 
 Legion has the ability to freeze the application if it reaches an
@@ -88,6 +91,9 @@ When using `mpirun` as a launcher for the application, remember that a
 {% highlight bash %}
 mpirun -x LEGION_FREEZE_ON_ERROR=1 ./app
 {% endhighlight %}
+
+(Note: `LEGION_FREEZE_ON_ERROR` can also be spelled
+`REALM_FREEZE_ON_ERROR`. Both spellings are identical.)
 
 If the application crashes, it will freeze with an message such as the
 following. After logging in to the node, it should then be possible to
@@ -295,7 +301,7 @@ node.
 ### Debug Tasks
 
 One very useful debugging technique that we have
-found has been the ability to use <em>deubg tasks</em>
+found has been the ability to use *debug tasks*
 as a means of introspecting Legion applications.
 Due to the out-of-order nature of Legion task
 execution, using a traditional debugger like `gdb`
@@ -330,7 +336,7 @@ primitive form of `in-situ` analytics.
 
 ### Delay Start
 
-In some cases I can be useful to attach a debugger to a program prior
+In some cases it can be useful to attach a debugger to a program prior
 to the point where it actually fails. This can be challenging
 particularly in multi-node executions where the user cannot simply run
 `gdb --args ./app ...`. To assist in such cases, Legion provides an

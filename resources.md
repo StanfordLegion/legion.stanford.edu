@@ -25,8 +25,10 @@ Regent:
   * [Barnes-Hut](https://github.com/StanfordLegion/barnes-hut)
   * [WCHR: shocks in compressible flows](https://github.com/akshaysubr/WCHR-regent)
   * [Particle advection with GC solver](https://github.com/StanfordLegion/legion/blob/master/language/examples/particles.rg)
-  * [QR decomposition](hpacella@stanford.edu)
-  * [Sparse Cholesky](seshu@slac.stanford.edu)
+  * [QR decomposition](https://github.com/hpacella/TSQR)
+  * [Sparse Cholesky](mailto:seshu@slac.stanford.edu)
+  * [1D AMR proxy app](https://github.com/lanl/TaskAMR)
+
 
 ## Libraries
 

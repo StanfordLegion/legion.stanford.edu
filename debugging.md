@@ -28,6 +28,8 @@ tools have been exhausted or in special circumstances:
  * [In-Order Execution](#in-order-execution) (`./app -lg:inorder`)
  * [Full-Size Instances](#full-size-instances)
  * [Separate Runtime Instances](#separate-runtime-instances) (`./app -lg:separate -ll:util 0`)
+ * [Dump Backtraces](#dump-backtraces) (`./app -ll:force_kthreads`)
+ * [Dump Events](#dump-events)
 
 ## Try These First
 
@@ -441,3 +443,53 @@ the different runtime instances. This setting
 can be enabled by passing the flags `-lg:separate -ll:util 0`
 on the command line. (The `-ll:util 0` is required because this mode
 does not support execution with explicit utility processors.)
+
+### Dump Backtraces
+
+When debugging a freeze in Legion, the first step should always be to
+dump backtraces on all nodes. This will help determine (a) if the
+application is truly frozen or simply executing slowly, and (b)
+whether there are any obvious or unusual functions on the stack traces
+that may point to a possible cause.
+
+One complicating factor is that Legion employs user-level threads by
+default. Therefore, in order to get useful backtraces, it is necessary
+to use the flag `-ll:force_kthreads` to disable user-level threads:
+
+{% highlight bash %}
+./app -ll:force_kthreads
+# wait for the application to freeze
+gdb -p 12345
+apply thread all bt # inside gdb, dump backtraces
+{% endhighlight %}
+
+Note also that it is important to compile with debug symbols or else
+line numbers will not appear in the resulting backtraces. This can be
+accomplished by running in [debug mode](#debug-mode) (which is
+recommended anyway), or if the freeze does not reproduce in debug
+mode, Legion can be compiled with `-Og -ggdb` or similar to ensure
+that debug symbols are available.
+
+### Dump Events
+
+When debugging a freeze, if dumping backtraces fails to provide
+insight, then it can be helpful to dump the Realm event graph to
+determine if a cycle has formed. Note in order for this to work,
+Legion *must* be compiled with debug symbols (`-Og -ggdb` or
+similar). [Debug mode](#debug-mode) is not required.
+
+To dump the events, run the application and wait for it to
+freeze. Then attach with a debugger and call the function
+`Realm::realm_show_events(0)`. The environment variable
+`REALM_SHOW_EVENT_FILENAME` controls where the resulting log files are
+stored.
+
+Using gdb, this might look like:
+
+{% highlight bash %}
+export REALM_SHOW_EVENT_FILENAME=$PWD/events.txt
+./app
+# wait for the application to freeze
+gdb -p 12345
+call Realm::realm_show_events(0)
+{% endhighlight %}

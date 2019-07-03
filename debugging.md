@@ -493,3 +493,14 @@ export REALM_SHOW_EVENT_FILENAME=$PWD/events.txt
 gdb -p 12345
 call Realm::realm_show_events(0)
 {% endhighlight %}
+
+This should result in a file called `events.txt`. This file can be
+processed by a Legion tool called `detect_loops` to look for cycles in
+the event graph:
+
+{% highlight bash %}
+make -C legion/tools detect_loops
+legion/tools/detect_loops event.txt
+{% endhighlight %}
+
+If a cycle is found it will be displayed on stdout.

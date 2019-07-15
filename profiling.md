@@ -71,7 +71,8 @@ $LG_RT_DIR/../tools/legion_prof.py prof_*.gz
 
 This will generate a subdirectory called `legion_prof` under the
 current directory, including a file named `index.html`. Open this file
-in a browser.
+in a browser. If you are not able to view the profile, follow the steps described
+in [Legion Prof Troubleshooting](#legion-prof-troubleshooting)
 
 A sample of Legion Prof's output is shown below.
 
@@ -163,18 +164,21 @@ critical path line, simply press `a` again.
 ### Legion Prof Troubleshooting
 
 If you try to access `index.html` locally (by opening 
-`file:///.../index.html`), you may run into issues if you use Google
-Chrome. We recommend using Firefox or Safari, or accessing your profile
+`file:///.../index.html`), you may run into issues and may not be able to view
+the profile output. We recommend accessing your profile
 over a remote web server. Alternately, you can spin up a simple web server
 locally:
 
 {% highlight bash %}
 cd legion_prof
 python -m SimpleHTTPServer
+or
+python3 -m http.server
 {% endhighlight %}
 
-and then open `localhost:80000` from Chrome. One final option if you want
-to use Chrome on local profiles is to launch Chrome with 
+and load your page on `localhost:8000` from your browser.
+
+If you want to use Chrome on local profiles, launch Chrome with
 `chrome --allow-file-access-from-files` from the terminal. Note that you will
 need to completely close Chrome before doing this.
 

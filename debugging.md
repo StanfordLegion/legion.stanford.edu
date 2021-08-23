@@ -18,6 +18,7 @@ Generally speaking, users should start by trying these tools
  * [Bounds Checks](#bounds-checks) (`CC_FLAGS=-DBOUNDS_CHECKS make; ./app`)
  * [Partition Checks](#partition-checks) (`./app -lg:partcheck`)
  * [Legion Spy](#legion-spy) (`./app -lg:spy -logfile spy_%.log; tools/legion_spy.py -dez spy_*.log`)
+ * [Mapper Logging Wrapper](#mapper-logging-wrapper)
 
 The following tools are typically used after the initial debugging
 tools have been exhausted or in special circumstances:
@@ -245,6 +246,37 @@ edges represent explicit event dependences between the different
 operations.
 
 ![](/images/event_graph.jpg)
+
+### Mapper Logging Wrapper
+
+When your issue stems from tasks running on the wrong processor or
+regions being instantiated in ways not suitable for your application
+(e.g. a task's input being placed on the wrong memory, or with the
+wrong layout, or covering more of the index space than needed, or
+having multiple copies when only one is needed) this is likely due to
+the mapper making the wrong decision. You can confirm this by using
+the `LoggingWrapper` class to record the decisions of the mapper,
+and the characteristics of the `PhysicalInstance`s it creates.
+
+To use with your own mapper, include `runtime/mappers/logging_wrapper.h`,
+replace any use of `new MyMapper(...)` in your code with
+`new LoggingWrapper(new MyMapper(...))` and run with `-level mapper=2`.
+Enabling Realm-level instance reporting might also be useful (`-level inst=1`).
+
+If you are not already using a custom mapper, you can define something like
+the following:
+
+{% highlight cpp %}
+static void update_mappers(Machine machine, Runtime* rt,
+                          const std::set<Processor>& local_procs) {
+  rt->replace_default_mapper(new LoggingWrapper(new DefaultMapper(
+    rt->get_mapper_runtime(), machine, *(local_procs.begin()))));
+}
+{% endhighlight %}
+
+and invoke `Runtime::add_registration_callback(update_mappers)` at some
+point before the runtime is started, e.g. in `main` right before calling
+`Runtime::start(...)`.
 
 ## Other Debugging Options
 

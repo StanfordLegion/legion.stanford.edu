@@ -28,6 +28,7 @@ Regent:
   * [QR decomposition](https://github.com/hpacella/TSQR)
   * [Sparse Cholesky](mailto:seshu@slac.stanford.edu)
   * [1D AMR proxy app](https://github.com/lanl/TaskAMR)
+  * [Meshfree Solver](https://github.com/rupanshusoi/legion.stanford.edu.git)
 
 
 ## Libraries

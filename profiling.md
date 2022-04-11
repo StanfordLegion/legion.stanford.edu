@@ -315,11 +315,11 @@ prefixed with `-ll:`.
     very communication intensive may consider increasing the 
     number of threads for handling active messages. The default
     value is 1.
- * `-ll:dma <int>` - Specify the number of 
-    threads used for handling copies. For applications
+ * `-ll:bgwork <int>` - Specify the number of 
+    background threads. For applications
     which do significant movement of data between distinct 
-    memories, increasing the number of DMA threads can significantly
-    improve performance. There must always be at least one DMA
+    memories, increasing the number of background threads can significantly
+    improve performance. There must always be at least one background
     thread. The default value is 1.
  * `-ll:csize <int>` - Set the amount of system memory per node
     available to the CPUs (e.g. DRAM) in MBs. In general this value

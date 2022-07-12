@@ -221,7 +221,7 @@ then fill in the `RegionRequirement` vectors for each task
 launch. This explicitly co-locates in the description of the
 logical regions and fields to be used by a task improving
 code readability.<br/>
-</br>
+<br/>
 For the implementation of each task, static member functions
 are given for each kind of variant. For all three primary
 tasks in our circuit example, we support both CPU and GPU

@@ -380,16 +380,14 @@ for AVX or FMA instruction extensions.
 
 At this point, the observant reader will notice that we
 have done nothing to actually specify that our
-physical instances should be laid out in struct-of-arrays
-order. To accomplish this we extend the `DefaultMapper`
-with a custom `CircuitMapper`. In the `map_task` method,
-we modify the mapping requests for each `RegionRequirement`
-to specify that the `blocking_factor` should be set to
-the `max_blocking_factor` allowed. This will tell the
-runtime that a struct-of-arrays layout should be used.
-If we had specified `1` for the blocking factor, that
-would correspond to an `AOS` layout, and any value in
-between would be a `HybridSOA` layout.
+physical instances should be laid out in struct-of-arrays (SOA)
+order. The default mapper uses the SOA format to encourage maximum re-use
+by any tasks which use subsets of the fields. Actually users can specify
+the layout constraint for each task variant during task registration time,
+an example of which is the [here](https://github.com/StanfordLegion/legion/blob/stable/examples/layout_constraints/transpose.cc).
+Another way to change the layout constraint is to extend the `DefaultMapper`
+with a custom mapper. In the `map_task` method,
+we could specify the `OrderingConstraint`.
 
 #### GPU Execution ####
 

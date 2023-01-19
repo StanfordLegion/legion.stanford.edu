@@ -63,7 +63,7 @@ legion:
 .PHONY: manual
 manual:
 	@if [ -d _manual ]; then git -C _manual pull --ff-only; else git clone -b master https://github.com/StanfordLegion/legion-manual.git _manual; fi
-	make -C _manual
+	cd _manual && TEST_LATEX=1 ./ci.sh
 	cp _manual/legion.pdf pdfs/legion-manual.pdf
 
 .PHONY: build

@@ -1,0 +1,26 @@
+name: Github Pages
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  github-pages:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Install Dependencies
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y ruby ruby-dev pandoc doxygen git make rsync
+          sudo gem install bundler
+      - name: Deploy Website
+        run: |
+          git config --global user.email "StanfordLegion@users.noreply.github.com"
+          git config --global user.name "StanfordLegion GitHub Actions"
+          eval "$(ssh-agent -s)"
+          ./_add_deploy_key.sh
+          make github
+        env:
+          GIT_DEPLOY_KEY: ${{ secrets.GIT_DEPLOY_KEY }}

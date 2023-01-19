@@ -25,7 +25,7 @@ Finally note this is a work in progress and subject to updates.
 
 ## Mapper Registration
 
-By default, the Legion runtime will create one instance of the Legion::Mapping::DefaultMapper class for each processor in the machine. The default mappers are registered with mapper ID ‘0’. Before starting Legion, applications can record a “registration callback” function with the runtime. This callback function will be invoked after the runtime is created but before any application task is run. Registration functions can register new mapper implement-ations with alternative mapper IDs or even replace the default mapper for mapper ID ‘0’. 
+By default, the Legion runtime will create one instance of the Legion::Mapping::DefaultMapper class for each processor in the machine. The default mappers are registered with mapper ID ‘0’. Before starting Legion, applications can record a “registration callback” function with the runtime. This callback function will be invoked after the runtime is created but before any application task is run. Registration functions can register new mapper implementations with alternative mapper IDs or even replace the default mapper for mapper ID ‘0’. 
 
 Here is an example of replacing the default mapper with a custom mapper. This code belongs in the source file for the custom mapper. 
 
@@ -162,7 +162,7 @@ struct SliceTaskOutput {
 };
 {% endhighlight %}
 
-Each slice identifies an index space, a subregion of the original domain and a target processor. All of the point tasks for the subregion will be mapped by the mapper for the target processor. 
+Each TaskSlice object identifies an index space (i.e., a subregion of the original domain) and a target processor. All of the point tasks for the subregion will be mapped by the mapper for the target processor. 
 
 If slice.stealable is true the task can be stolen for load balancing. If slice.recurse is true the mapper for the target processor will invoke slice_task again with the slice as input. Here is sample code to create a stealable slice: 
 

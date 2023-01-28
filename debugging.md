@@ -52,7 +52,7 @@ A quick note on error messages: we endeavor to provide useful error
 messages, but Legion is still an experimental system and there may be
 assertions that do not produce useful error messages. If you encounter
 one of these assertions (regardless of whether it is an application or
-runtime bug), please report it on the [bug tracker](/community/).
+runtime bug), please report it on the [bug tracker]({{ "/community/" | relative_url }}).
 
 ### Backtrace
 
@@ -138,7 +138,7 @@ for debugging purposes.)
 
 ### Privilege Checks
 
-While Legion does have a [type system](/publications/)
+While Legion does have a [type system]({{ "/publications/" | relative_url }})
 capable of statically verifying that all region accesses
 abide by the stated privileges requested by a task, these
 guarantees are only available for applications written in
@@ -245,7 +245,7 @@ Legion Spy. Boxes correspond to different kinds of operations while
 edges represent explicit event dependences between the different
 operations.
 
-![](/images/event_graph.jpg)
+![]({{ "/images/event_graph.jpg" | relative_url }})
 
 ### Mapper Logging Wrapper
 
@@ -347,7 +347,7 @@ either empty tasks or tasks which do not impact
 correctness and simply check for certain conditions
 regarding the data in logical regions. One example of
 a kind of debugging task can be seen in our
-[full circuit simulation](/tutorial/circuit.html)
+[full circuit simulation]({{ "/tutorial/circuit.html" | relative_url }})
 example which has optional checking tasks for
 verifying that there are no `NaN` or `Inf` values
 in our simulation.

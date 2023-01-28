@@ -96,7 +96,7 @@ programming model:
 
 There are many more details to the Legion programming
 model and we encourage you to learn more about them
-by reading our [publications](/publications/).
+by reading our [publications]({{ "/publications/" | relative_url }}).
 
 ## Target Users
 
@@ -210,7 +210,7 @@ in designing Legion.
 
 ## System Architecture
 
-![](/images/legion_arch.svg)
+![]({{ "/images/legion_arch.svg" | relative_url }})
 
 
 The above figure shows the architecture of the Legion programming

@@ -64,7 +64,7 @@ After we've computed the two index partitions we obtain the
 corresponding logical partitions (lines 60-63). The following figure
 shows the resulting logical region tree for the application.
 
-![](/images/stencil_partition.svg)
+![]({{ "/images/stencil_partition.svg" | relative_url }})
 
 Legion's support of multiple partitions for
 logical regions enables applications to use
@@ -107,8 +107,8 @@ interfere with each other. Consequently, all the
 point tasks in the stencil index space launch
 can be run in parallel.
 
-Next Example: [Custom Mappers](/tutorial/custom_mappers.html)  
-Previous Example: [Partitioning](/tutorial/partitioning.html)
+Next Example: [Custom Mappers]({{ "/tutorial/custom_mappers.html" | relative_url }})  
+Previous Example: [Partitioning]({{ "/tutorial/partitioning.html" | relative_url }})
 
 {% highlight cpp linenos %}
 #include <cstdio>

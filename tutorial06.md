@@ -120,7 +120,7 @@ compile-time errors. The enforcement of functional
 privilege passing makes possible Legion's hierarchical
 and distributed scheduling algorithm. For more details
 on this we refer you to our
-[publications](/publications/).
+[publications]({{ "/publications/" | relative_url }}).
 
 #### Task Physical Regions ####
 
@@ -210,7 +210,7 @@ significantly simplifies reasoning about operations
 within a task. The following figure shows the computed
 TDG for this DAXPY example:
 
-![](/images/daxpy_sequential.svg)
+![]({{ "/images/daxpy_sequential.svg" | relative_url }})
 
 In this figure we see that the DAXPY task has data
 dependences on the two field initialization tasks
@@ -293,8 +293,8 @@ mapping decisions can influence the performance of applications.
 We'll investigate the mapping process in more detail in
 a later example.
 
-Next Example: [Partitioning](/tutorial/partitioning.html)  
-Previous Example: [Physical Regions](/tutorial/physical_regions.html)
+Next Example: [Partitioning]({{ "/tutorial/partitioning.html" | relative_url }})  
+Previous Example: [Physical Regions]({{ "/tutorial/physical_regions.html" | relative_url }})
 
 {% highlight cpp linenos %}
 #include <cstdio>

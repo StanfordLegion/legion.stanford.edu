@@ -46,7 +46,7 @@ Regent:
 ## Testing
 
   * [Gitlab CI](https://gitlab.com/StanfordLegion/legion/pipelines)
-  * [Performance](/perf/)
+  * [Performance]({{ "/perf/" | relative_url }})
 
 ## Internals
 
@@ -54,4 +54,4 @@ Regent:
 
 ## Weft
 
-  * [Weft](/weft/) (companion artifacts for Weft PLDI 2015 paper)
+  * [Weft]({{ "/weft/" | relative_url }}) (companion artifacts for Weft PLDI 2015 paper)

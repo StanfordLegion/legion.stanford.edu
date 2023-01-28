@@ -7,51 +7,51 @@ title: Publications
 ## Table of Contents
 
   * Legion Runtime:
-      * [Overview (SC 2012)](#sc2012) \[[PDF](/pdfs/sc2012.pdf)]
+      * [Overview (SC 2012)](#sc2012) \[[PDF]({{ "/pdfs/sc2012.pdf" | relative_url }})]
       * [Structure Slicing (SC 2014)](#sc2014) \[[PDF](/pdfs/legion-fields.pdf)]
-      * [Tracing (SC 2018)](#trace2018) \[[PDF](/pdfs/trace2018.pdf)]
-      * [Correctness of Dependence Analysis (Correctness 2018)](#dep2018) \[[PDF](/pdfs/dep2018.pdf)]
-      * [Dynamic Control Replication (PPoPP 2021)](#dcr2021) \[[PDF](/pdfs/dcr2021.pdf)]
-      * [Index Launches (SC 2021)](#idx2021) \[[PDF](/pdfs/idx2021.pdf)]
-      * [Visibility Algorithms (PPoPP 2023)](#visibility2023) \[[PDF](/pdfs/visibility2023.pdf)]
+      * [Tracing (SC 2018)](#trace2018) \[[PDF]({{ "/pdfs/trace2018.pdf" | relative_url }})]
+      * [Correctness of Dependence Analysis (Correctness 2018)](#dep2018) \[[PDF]({{ "/pdfs/dep2018.pdf" | relative_url }})]
+      * [Dynamic Control Replication (PPoPP 2021)](#dcr2021) \[[PDF]({{ "/pdfs/dcr2021.pdf" | relative_url }})]
+      * [Index Launches (SC 2021)](#idx2021) \[[PDF]({{ "/pdfs/idx2021.pdf" | relative_url }})]
+      * [Visibility Algorithms (PPoPP 2023)](#visibility2023) \[[PDF]({{ "/pdfs/visibility2023.pdf" | relative_url }})]
   * Programming Model:
-      * [Partitioning Type System (OOPSLA 2013)](#oopsla2013) \[[PDF](/pdfs/oopsla2013.pdf)]
-      * [Dependent Partitioning (OOPSLA 2016)](#dpl2016) \[[PDF](/pdfs/dpl2016.pdf)]
+      * [Partitioning Type System (OOPSLA 2013)](#oopsla2013) \[[PDF]({{ "/pdfs/oopsla2013.pdf" | relative_url }})]
+      * [Dependent Partitioning (OOPSLA 2016)](#dpl2016) \[[PDF]({{ "/pdfs/dpl2016.pdf" | relative_url }})]
   * Realm:
-      * [Overview (PACT 2014)](#pact2014) \[[PDF](/pdfs/realm2014.pdf)]
-      * [I/O Subsystem (HiPC 2017)](#hipc2017) \[[PDF](/pdfs/hipc2017.pdf)]
+      * [Overview (PACT 2014)](#pact2014) \[[PDF]({{ "/pdfs/realm2014.pdf" | relative_url }})]
+      * [I/O Subsystem (HiPC 2017)](#hipc2017) \[[PDF]({{ "/pdfs/hipc2017.pdf" | relative_url }})]
   * Regent:
-      * [Overview (SC 2015)](#sc2015) \[[PDF](/pdfs/regent2015.pdf)]
-      * [Control Replication (SC 2017)](#cr2017) \[[PDF](/pdfs/cr2017.pdf)]
-      * [Auto-Parallelizer (SC 2019)](#parallel2019) \[[PDF](/pdfs/parallelizer2019.pdf)]
+      * [Overview (SC 2015)](#sc2015) \[[PDF]({{ "/pdfs/regent2015.pdf" | relative_url }})]
+      * [Control Replication (SC 2017)](#cr2017) \[[PDF]({{ "/pdfs/cr2017.pdf" | relative_url }})]
+      * [Auto-Parallelizer (SC 2019)](#parallel2019) \[[PDF]({{ "/pdfs/parallelizer2019.pdf" | relative_url }})]
   * Bindings:
-      * [Python (PAW-ATM 2019)](#pygion2019) \[[PDF](/pdfs/pygion2019.pdf)]
+      * [Python (PAW-ATM 2019)](#pygion2019) \[[PDF]({{ "/pdfs/pygion2019.pdf" | relative_url }})]
   * Libraries and Techniques:
-      * [Visualization (ISAV 2017)](#isav2017) \[[PDF](/pdfs/isav2017.pdf)]
-      * [Graph Processesing (VLDB 2018)](#vldb2018) \[[PDF](/pdfs/vldb2018.pdf), [Software Release](https://github.com/LuxGraph/Lux)]
+      * [Visualization (ISAV 2017)](#isav2017) \[[PDF]({{ "/pdfs/isav2017.pdf" | relative_url }})]
+      * [Graph Processesing (VLDB 2018)](#vldb2018) \[[PDF]({{ "/pdfs/vldb2018.pdf" | relative_url }}), [Software Release](https://github.com/LuxGraph/Lux)]
       * [Legate NumPy (SC 2019)](#legate2019) \[[PDF](/pdfs/legate-preprint.pdf)]
-      * [Tensor Algebra (PLDI 2022)](#distal2022) \[[PDF](/pdfs/distal2022.pdf)]
-      * [Distributed Task Fusion (PAW-ATM 2022)](#pawatm2022) \[[PDF](/pdfs/pawatm2022.pdf)]
-      * [Sparse Tensor Algebra (SC 2022)](#spdistal2022) \[[PDF](/pdfs/spdistal2022.pdf)]
+      * [Tensor Algebra (PLDI 2022)](#distal2022) \[[PDF]({{ "/pdfs/distal2022.pdf" | relative_url }})]
+      * [Distributed Task Fusion (PAW-ATM 2022)](#pawatm2022) \[[PDF]({{ "/pdfs/pawatm2022.pdf" | relative_url }})]
+      * [Sparse Tensor Algebra (SC 2022)](#spdistal2022) \[[PDF]({{ "/pdfs/spdistal2022.pdf" | relative_url }})]
   * Applications:
       * [S3D-Legion (2017)](#s3d2017) \[[PDF](https://www.taylorfrancis.com/books/e/9781315277400/chapters/10.1201/b21930-12)]
-      * [Soleil-X (2018)](#soleilx2018) \[[PDF](/pdfs/soleilx2018.pdf)]
+      * [Soleil-X (2018)](#soleilx2018) \[[PDF]({{ "/pdfs/soleilx2018.pdf" | relative_url }})]
       * [HTR Solver (2020)](#htr2020) \[[PDF](https://doi.org/10.1016/j.cpc.2020.107262)]
-      * [Task Bench (SC 2020)](#taskbench2020) \[[PDF](/pdfs/taskbench2020.pdf)]
-      * [Meshfree Solver (PAW-ATM 2020)](#meshfree2020) \[[PDF](/pdfs/pawatm2020.pdf)]
+      * [Task Bench (SC 2020)](#taskbench2020) \[[PDF]({{ "/pdfs/taskbench2020.pdf" | relative_url }})]
+      * [Meshfree Solver (PAW-ATM 2020)](#meshfree2020) \[[PDF]({{ "/pdfs/pawatm2020.pdf" | relative_url }})]
   * DSLs:
-      * [Singe (PPoPP 2014)](#ppopp2014) \[[PDF](/pdfs/singe2014.pdf)]
-      * [Scout (WOLFHPC 2014)](#wolfhpc2014) \[[PDF](/pdfs/scout2014.pdf)]
+      * [Singe (PPoPP 2014)](#ppopp2014) \[[PDF]({{ "/pdfs/singe2014.pdf" | relative_url }})]
+      * [Scout (WOLFHPC 2014)](#wolfhpc2014) \[[PDF]({{ "/pdfs/scout2014.pdf" | relative_url }})]
   * Theses:
-      * [Michael Bauer's Thesis (2014)](#bauer_thesis) \[[PDF](/pdfs/bauer_thesis.pdf)]
-      * [Sean Treichler's Thesis (2016)](#treichler_thesis) \[[PDF](/pdfs/treichler_thesis.pdf)]
-      * [Elliott Slaughter's Thesis (2017)](#slaughter_thesis) \[[PDF](/pdfs/slaughter_thesis.pdf)]
-      * [Wonchan Lee's Thesis (2019)](#lee_thesis) \[[PDF](/pdfs/lee_thesis.pdf)]
-      * [Rupanshu Soi's Thesis (2021)](#soi_thesis) \[[PDF](/pdfs/soi_thesis.pdf)]
+      * [Michael Bauer's Thesis (2014)](#bauer_thesis) \[[PDF]({{ "/pdfs/bauer_thesis.pdf" | relative_url }})]
+      * [Sean Treichler's Thesis (2016)](#treichler_thesis) \[[PDF]({{ "/pdfs/treichler_thesis.pdf" | relative_url }})]
+      * [Elliott Slaughter's Thesis (2017)](#slaughter_thesis) \[[PDF]({{ "/pdfs/slaughter_thesis.pdf" | relative_url }})]
+      * [Wonchan Lee's Thesis (2019)](#lee_thesis) \[[PDF]({{ "/pdfs/lee_thesis.pdf" | relative_url }})]
+      * [Rupanshu Soi's Thesis (2021)](#soi_thesis) \[[PDF]({{ "/pdfs/soi_thesis.pdf" | relative_url }})]
 
 ## Papers
 
-<a name="sc2012"></a>__Legion: Expressing Locality and Independence with Logical Regions__ [PDF](/pdfs/sc2012.pdf) <br/>
+<a name="sc2012"></a>__Legion: Expressing Locality and Independence with Logical Regions__ [PDF]({{ "/pdfs/sc2012.pdf" | relative_url }}) <br/>
 _Michael Bauer, Sean Treichler, Elliott Slaughter, Alex Aiken_ <br/>
 In the International Conference for High Performance Computing, Networking, Storage and Analysis ([SC 2012](http://sc12.supercomputing.org)) <br/>
 __Abstract:__ Modern parallel architectures have both heterogeneous processors and deep, complex 
@@ -70,7 +70,7 @@ Legion implementation on three applications: fluid-flow on a
 regular grid, a three-level AMR code solving a heat diffusion
 equation, and a circuit simulation.
 
-<a name="oopsla2013"></a>__Language Support for Dynamic, Hierarchical Data Partitioning__ [PDF](/pdfs/oopsla2013.pdf) <br/>
+<a name="oopsla2013"></a>__Language Support for Dynamic, Hierarchical Data Partitioning__ [PDF]({{ "/pdfs/oopsla2013.pdf" | relative_url }}) <br/>
 _Sean Treichler, Michael Bauer, Alex Aiken_ <br/>
 In Object Oriented Programming, Systems, Languages, 
 and Applications ([OOPSLA 2013](https://web.archive.org/web/20160806105926/http://splashcon.org/2013/program/oopsla-research-papers)) <br/>
@@ -99,7 +99,7 @@ We report results for three real-world applications running
 on distributed memory machines, achieving up to 62.5X
 speedup on 96 GPUs on the Keeneland supercomputer.
 
-<a name="pact2014"></a>__Realm: An Event-Based Low-Level Runtime for Distributed Memory Architectures__ [PDF](/pdfs/realm2014.pdf) <br/>
+<a name="pact2014"></a>__Realm: An Event-Based Low-Level Runtime for Distributed Memory Architectures__ [PDF]({{ "/pdfs/realm2014.pdf" | relative_url }}) <br/>
 _Sean Treichler, Michael Bauer, Alex Aiken_ <br/>
 In Parallel Architectures and Compilation Techniques ([PACT 2014](https://web.archive.org/web/20141217010120/http://www.pactconf.org/program.php)) <br/>
 __Abstract:__ We present Realm, an event-based runtime system for heterogeneous,
@@ -140,7 +140,7 @@ an independently hand-tuned OpenACC code.
 <a name="ppopp2014"></a>_Note: The following paper is a result of our collaboration with the [ExaCT
 Combustion Co-Design Center](http://exactcodesign.org/) and shows how a DSL
 compiler can be used to generate fast tasks for Legion applications._<br/>
-__Singe: Leveraging Warp Specialization for High Performance on GPUs__ [PDF](/pdfs/singe2014.pdf) <br/>
+__Singe: Leveraging Warp Specialization for High Performance on GPUs__ [PDF]({{ "/pdfs/singe2014.pdf" | relative_url }}) <br/>
 _Michael Bauer, Sean Treichler, Alex Aiken_<br/>
 In Principles and Practices of Parallel Programming ([PPoPP 2014](https://sites.google.com/site/ppopp2014/home/schedule/)) <br/>
 __Abstract:__ We present Singe, a Domain Specific Language (DSL) compiler for combustion
@@ -159,7 +159,7 @@ is up to 3.75X faster than previously optimized data-parallel GPU kernels.
 
 <a name="wolfhpc2014"></a>_Note: The following paper is an example of a DSL
 compiler toolchain that targets Legion as a backend._<br/>
-__Exploring the Construction of a Domain-Aware Toolchain for High-Performance Computing__ [PDF](/pdfs/scout2014.pdf) <br/>
+__Exploring the Construction of a Domain-Aware Toolchain for High-Performance Computing__ [PDF]({{ "/pdfs/scout2014.pdf" | relative_url }}) <br/>
 _Patrick McCormick, Christine Sweeney, Nick Moss, Dean Prichard,
 Samuel K. Gutierrez, Kei Davis, Jamaludin Mohd-Yusof_<br/>
 In the International Workshop on Domain-Specific Languages and High-Level Frameworks for High Performance Computing ([WOLFHPC 2014](https://web.archive.org/web/20150717055110/https://conferences.computer.org/wolfhpc/2014/)) <br/>
@@ -179,7 +179,7 @@ a significant role in providing a suitable environment for DSL
 development.
 
 
-<a name="sc2015"></a>__Regent: A High-Productivity Programming Language for HPC with Logical Regions__ [PDF](/pdfs/regent2015.pdf) <br/>
+<a name="sc2015"></a>__Regent: A High-Productivity Programming Language for HPC with Logical Regions__ [PDF]({{ "/pdfs/regent2015.pdf" | relative_url }}) <br/>
 _Elliott Slaughter, Wonchan Lee, Sean Treichler, Michael Bauer, and Alex Aiken_ <br/>
 In the International Conference for High Performance Computing, Networking, Storage and Analysis ([SC 2015](https://web.archive.org/web/20151011093701/http://sc15.supercomputing.org/schedule/event_detail?evid=pap326)) <br/>
 __Abstract:__ We present Regent, a high-productivity programming language for high
@@ -201,7 +201,7 @@ applications and demonstrate that Regent achieves performance
 comparable to hand-tuned Legion.
 
 
-<a name="dpl2016"></a>__Dependent Partitioning__ [PDF](/pdfs/dpl2016.pdf) <br/>
+<a name="dpl2016"></a>__Dependent Partitioning__ [PDF]({{ "/pdfs/dpl2016.pdf" | relative_url }}) <br/>
 _Sean Treichler, Michael Bauer, Rahul Sharma, Elliott Slaughter, and Alex Aiken_ <br/>
 In Object Oriented Programming, Systems, Languages,
 and Applications ([OOPSLA 2016](http://2016.splashcon.org/track/splash-2016-oopsla)) <br/>
@@ -237,7 +237,7 @@ that are too large to fit on a single node and yields an additional
 29X speedup of partitioning operations on 64 nodes.
 
 
-<a name="cr2017"></a>__Control Replication: Compiling Implicit Parallelism to Efficient SPMD with Logical Regions__ [PDF](/pdfs/cr2017.pdf) <br/>
+<a name="cr2017"></a>__Control Replication: Compiling Implicit Parallelism to Efficient SPMD with Logical Regions__ [PDF]({{ "/pdfs/cr2017.pdf" | relative_url }}) <br/>
 _Elliott Slaughter, Wonchan Lee, Sean Treichler, Wen Zhang, Michael Bauer, Galen Shipman, Patrick McCormick and Alex Aiken_ <br/>
 In the International Conference for High Performance Computing, Networking, Storage and Analysis ([SC 2017](http://sc17.supercomputing.org/presentation/?id=pap417&sess=sess165)) <br/>
 __Abstract:__ We present control replication, a technique for generating
@@ -262,7 +262,7 @@ nodes with absolute performance comparable to hand-written MPI(+X)
 codes.
 
 
-<a name="hipc2017"></a>__Integrating External Resources with a Task-Based Programming Model__ [PDF](/pdfs/hipc2017.pdf) <br/>
+<a name="hipc2017"></a>__Integrating External Resources with a Task-Based Programming Model__ [PDF]({{ "/pdfs/hipc2017.pdf" | relative_url }}) <br/>
 _Zhihao Jia, Sean Treichler, Galen Shipman, Michael Bauer, Noah Watkins, Carlos Maltzahn, Patrick McCormick and Alex Aiken_ <br/>
 In the International Conference on High Performance Computing, Data, and Analytics (HiPC 2017) <br/>
 __Abstract:__ Accessing external resources (e.g., loading input
@@ -286,7 +286,7 @@ reduces the external I/O overhead by up to 20x, compared
 to the Legion and the Fortran implementations.
 
 
-<a name="isav2017"></a>__*In Situ* Visualization with Task-based Parallelism__ [PDF](/pdfs/isav2017.pdf) <br/>
+<a name="isav2017"></a>__*In Situ* Visualization with Task-based Parallelism__ [PDF]({{ "/pdfs/isav2017.pdf" | relative_url }}) <br/>
 _Alan Heirich, Elliott Slaughter, Manolis Papadakis, Wonchan Lee, Tim Biedert and Alex Aiken_ <br/>
 In the Workshop on In Situ Infrastructures for Enabling Extreme-scale Analysis and Visualization (ISAV 2017) <br/>
 __Abstract:__ This short paper describes an experimental prototype of *in situ*
@@ -305,7 +305,7 @@ _Sean Treichler, Michael Bauer, Ankit Bhagatwala, Giulio Borghesi, Ramanan Sanka
 In [Exascale Scientific Applications: Scalability and Performance Portability](https://www.crcpress.com/p/book/9781138197541) (CRC Press, 2017)
 
 
-<a name="vldb2018"></a>__A Distributed Multi-GPU System for Fast Graph Processing__ [PDF](/pdfs/vldb2018.pdf), [Software Release](https://github.com/LuxGraph/Lux) <br/>
+<a name="vldb2018"></a>__A Distributed Multi-GPU System for Fast Graph Processing__ [PDF]({{ "/pdfs/vldb2018.pdf" | relative_url }}), [Software Release](https://github.com/LuxGraph/Lux) <br/>
 _Zhihao Jia, Yongkee Kwon, Galen Shipman, Pat McCormick, Mattan Erez and Alex Aiken_ <br/>
 In the International Conference on Very Large Data Bases (VLDB 2018) <br/>
 __Abstract:__ We present Lux, a distributed multi-GPU system that
@@ -322,7 +322,7 @@ achieves up to 20&times; speedup over state-of-the-art shared memory systems
 and up to two orders of magnitude speedup over distributed systems.
 
 
-<a name="trace2018"></a>__Dynamic Tracing: Memoization of Task Graphs for Dynamic Task-Based Runtimes__ [PDF](/pdfs/trace2018.pdf) <br/>
+<a name="trace2018"></a>__Dynamic Tracing: Memoization of Task Graphs for Dynamic Task-Based Runtimes__ [PDF]({{ "/pdfs/trace2018.pdf" | relative_url }}) <br/>
 _Wonchan Lee, Elliott Slaughter, Michael Bauer, Sean Treichler, Todd Warszawski, Michael Garland and Alex Aiken_ <br/>
 In the International Conference for High Performance Computing, Networking, Storage and Analysis ([SC 2018](https://sc18.supercomputing.org/presentation/?id=pap490&sess=sess183)) <br/>
 __Abstract:__ Many recent programming systems for both supercomputing
@@ -341,7 +341,7 @@ average of 4.9X and up to 7.0X on a suite of already optimized
 benchmarks.
 
 
-<a name="dep2018"></a>__Correctness of Dynamic Dependence Analysis for Implicitly Parallel Tasking Systems__ [PDF](/pdfs/dep2018.pdf) <br/>
+<a name="dep2018"></a>__Correctness of Dynamic Dependence Analysis for Implicitly Parallel Tasking Systems__ [PDF]({{ "/pdfs/dep2018.pdf" | relative_url }}) <br/>
 _Wonchan Lee, George Stelle, Patrick McCormick and Alex Aiken_ <br/>
 In the International Workshop on Software Correctness for HPC Applications ([Correctness 2018](https://correctness-workshop.github.io/2018/)) <br/>
 __Abstract:__ In this paper, we rigorously verify the correctness of
@@ -364,7 +364,7 @@ graph is the most succinct one for a program when the program
 satisfies certain conditions.
 
 
-<a name="soleilx2018"></a>__Soleil-X: Turbulence, Particles, and Radiation in the Regent Programming Language__ [PDF](/pdfs/soleilx2018.pdf) <br/>
+<a name="soleilx2018"></a>__Soleil-X: Turbulence, Particles, and Radiation in the Regent Programming Language__ [PDF]({{ "/pdfs/soleilx2018.pdf" | relative_url }}) <br/>
 _Hilario Torres, Manolis Papadakis, Llu&iacute;s Jofre, Wonchan Lee, Alex Aiken and Gianluca Iaccarino_ <br/>
 In Bulletin of the American Physical Society (2018) <br/>
 __Abstract:__ The Predictive Science Academic Alliance Program (PSAAP)
@@ -419,7 +419,7 @@ than the popular Python library Dask when running comparable programs
 at scale.
 
 
-<a name="parallel2019"></a>__A Constraint-Based Approach to Automatic Data Partitioning for Distributed Memory Execution__ [PDF](/pdfs/parallelizer2019.pdf) <br/>
+<a name="parallel2019"></a>__A Constraint-Based Approach to Automatic Data Partitioning for Distributed Memory Execution__ [PDF]({{ "/pdfs/parallelizer2019.pdf" | relative_url }}) <br/>
 _Wonchan Lee, Manolis Papadakis, Elliott Slaughter and Alex Aiken_ <br/>
 In the International Conference for High Performance Computing, Networking, Storage and Analysis ([SC 2019](http://sc19.supercomputing.org)) <br/>
 __Abstract:__ Although data partitioning is required to enable
@@ -442,7 +442,7 @@ manually parallelized parts and have scalability comparable to
 hand-optimized counterparts.
 
 
-<a name="pygion2019"></a>__Pygion: Flexible, Scalable Task-Based Parallelism with Python__ [PDF](/pdfs/pygion2019.pdf) <br/>
+<a name="pygion2019"></a>__Pygion: Flexible, Scalable Task-Based Parallelism with Python__ [PDF]({{ "/pdfs/pygion2019.pdf" | relative_url }}) <br/>
 _Elliott Slaughter and Alex Aiken_ <br/>
 In the Parallel Applications Workshop, Alternatives To MPI+X ([PAW-ATM 2019](https://sourceryinstitute.github.io/PAW/)) <br/>
 __Abstract:__ Dynamic languages provide the flexibility needed to
@@ -484,7 +484,7 @@ turbulent channel flows, and hypersonic transitional boundary layers
 of both calorically perfect gases and dissociating air.
 
 
-<a name="taskbench2020"></a>__Task Bench: A Parameterized Benchmark for Evaluating Parallel Runtime Performance__ [PDF](/pdfs/taskbench2020.pdf) <br/>
+<a name="taskbench2020"></a>__Task Bench: A Parameterized Benchmark for Evaluating Parallel Runtime Performance__ [PDF]({{ "/pdfs/taskbench2020.pdf" | relative_url }}) <br/>
 _Elliott Slaughter, Wei Wu, Yuankun Fu, Legend Brandenburg, Nicolai Garcia, Wilhem Kautz, Emily Marx, Kaleb S. Morris, Qinglei Cao, George Bosilca, Seema Mirchandaney, Wonchan Lee, Sean Treichler, Patrick McCormick, and Alex Aiken_ <br/>
 In the International Conference for High Performance Computing, Networking, Storage and Analysis ([SC 2020](https://sc20.supercomputing.org/presentation/?id=pap215&sess=sess162)) <br/>
 __Abstract:__ We present Task Bench, a *parameterized* benchmark designed to
@@ -507,7 +507,7 @@ system's scalability, ability to hide communication and mitigate load
 imbalance.
 
 
-<a name="meshfree2020"></a>__An Implicitly Parallel Meshfree Solver in Regent__ [PDF](/pdfs/pawatm2020.pdf) <br/>
+<a name="meshfree2020"></a>__An Implicitly Parallel Meshfree Solver in Regent__ [PDF]({{ "/pdfs/pawatm2020.pdf" | relative_url }}) <br/>
 _Rupanshu Soi, Nischay Ram Mamidi, Elliott Slaughter, Kumar Prasun, Anil Nemili, and S.M. Deshpande_ <br/>
 In the Parallel Applications Workshop, Alternatives to MPI+X ([PAW-ATM 2020](https://sourceryinstitute.github.io/PAW/PAW-ATM20/indexPAW-ATM20.html)) <br/>
 __Abstract:__ This paper presents the development of a Regent
@@ -522,7 +522,7 @@ results are shown to assess the performance of these solvers on
 single and multiple CPU nodes.
 
 
-<a name="dcr2021"></a>__Scaling Implicit Parallelism via Dynamic Control Replication__ [PDF](/pdfs/dcr2021.pdf) <br/>
+<a name="dcr2021"></a>__Scaling Implicit Parallelism via Dynamic Control Replication__ [PDF]({{ "/pdfs/dcr2021.pdf" | relative_url }}) <br/>
 _Michael Bauer, Wonchan Lee, Elliott Slaughter, Zhihao Jia, Mario Di Renzo, Manolis Papadakis, Galen Shipman, Patrick McCormick, Michael Garland, and Alex Aiken_ <br/>
 In Principles and Practices of Parallel Programming ([PPoPP 2021](https://ppopp21.sigplan.org/details/PPoPP-2021-main-conference/10/Scaling-Implicit-Parallelism-via-Dynamic-Control-Replication)) <br/>
 __Abstract:__ We present dynamic control replication, a run-time
@@ -548,7 +548,7 @@ and scaling for HPC applications, competitive in many cases with
 explicitly parallel programming systems.
 
 
-<a name="idx2021"></a>__Index Launches: Scalable, Flexible Representation of Parallel Task Groups__ [PDF](/pdfs/idx2021.pdf) <br/>
+<a name="idx2021"></a>__Index Launches: Scalable, Flexible Representation of Parallel Task Groups__ [PDF]({{ "/pdfs/idx2021.pdf" | relative_url }}) <br/>
 _Rupanshu Soi, Michael Bauer, Sean Treichler, Manolis Papadakis, Wonchan Lee, Patrick McCormick, Alex Aiken, and Elliott Slaughter_ <br/>
 In the International Conference for High Performance Computing, Networking, Storage and Analysis ([SC 2021](https://sc21.supercomputing.org/presentation/?id=pap300&sess=sess176)) <br/>
 __Abstract:__ It's common to see specialized language constructs in
@@ -568,7 +568,7 @@ experiments which demonstrate that index launches are crucial for the
 efficient distributed execution of several scientific codes in Regent.
 
 
-<a name="distal2022"></a>__DISTAL: The Distributed Tensor Algebra Compiler__ [PDF](/pdfs/distal2022.pdf) <br/>
+<a name="distal2022"></a>__DISTAL: The Distributed Tensor Algebra Compiler__ [PDF]({{ "/pdfs/distal2022.pdf" | relative_url }}) <br/>
 _Rohan Yadav, Alex Aiken and Fredrik Kjolstad_ <br/>
 In the Conference on Programming Language Design and Implementation ([PLDI 2022](https://pldi22.sigplan.org/details/pldi-2022-pldi/12/DISTAL-The-Distributed-Tensor-Algebra-Compiler)) <br/>
 __Abstract:__ We introduce DISTAL, a compiler for dense tensor algebra
@@ -586,7 +586,7 @@ outperforms existing systems by between 1.8x to 3.7x (with a 45.7x
 outlier) on higher order tensor operations.
 
 
-<a name="pawatm2022"></a>__Task Fusion in Distributed Runtimes__ [PDF](/pdfs/pawatm2022.pdf) <br/>
+<a name="pawatm2022"></a>__Task Fusion in Distributed Runtimes__ [PDF]({{ "/pdfs/pawatm2022.pdf" | relative_url }}) <br/>
 _Shiv Sundram, Wonchan Lee and Alex Aiken_ <br/>
 In the Parallel Applications Workshop, Alternatives to MPI+X ([PAW-ATM 2022](https://sourceryinstitute.github.io/PAW/)) <br/>
 __Abstract:__ We present distributed task fusion, a runtime
@@ -608,7 +608,7 @@ complementary optimizations that could result in additional
 performance improvements.
 
 
-<a name="spdistal2022"></a>__SpDISTAL: Compiling Distributed Sparse Tensor Computations__ [PDF](/pdfs/spdistal2022.pdf) <br/>
+<a name="spdistal2022"></a>__SpDISTAL: Compiling Distributed Sparse Tensor Computations__ [PDF]({{ "/pdfs/spdistal2022.pdf" | relative_url }}) <br/>
 _Rohan Yadav, Alex Aiken and Fredrik Kjolstad_ <br/>
 In the International Conference for High Performance Computing, Networking, Storage and Analysis ([SC 2022](https://sc22.supercomputing.org/presentation/?id=pap204&sess=sess164)) <br/>
 __Abstract:__ We introduce SpDISTAL, a compiler for sparse tensor
@@ -625,7 +625,7 @@ functions for specific sparse tensor algebra expressions and that
 outperforms general interpretation-based systems by one to two orders
 of magnitude.
 
-<a name="visibility2023"></a>__Visibility Algorithms for Dynamic Dependence Analysis and Distributed Coherence__ [PDF](/pdfs/visibility2023.pdf) <br/>
+<a name="visibility2023"></a>__Visibility Algorithms for Dynamic Dependence Analysis and Distributed Coherence__ [PDF]({{ "/pdfs/visibility2023.pdf" | relative_url }}) <br/>
 _Michael Bauer, Elliott Slaughter, Sean Treichler, Wonchan Lee, Michael Garland and Alex Aiken_ <br/>
 In Principles and Practices of Parallel Programming ([PPoPP 2023](https://ppopp23.sigplan.org/details/PPoPP-2023-papers/17/Visibility-Algorithms-for-Dynamic-Dependence-Analysis-and-Distributed-Coherence)) <br/>
 __Abstract:__ Implicitly parallel programming systems must solve 
@@ -641,7 +641,7 @@ computer graphics.
 ## Theses
 
 <a name="bauer_thesis"></a>*Note: The following thesis is a thorough guide to the Legion programming model and covers many implementation details that are not documented elsewhere.*<br/>
-**Legion: Programming Distributed Heterogeneous Architectures with Logical Regions** [PDF](/pdfs/bauer_thesis.pdf)<br/>
+**Legion: Programming Distributed Heterogeneous Architectures with Logical Regions** [PDF]({{ "/pdfs/bauer_thesis.pdf" | relative_url }})<br/>
 *Michael Edward Bauer*<br/>
 December 2014<br/>
 **Abstract:** This thesis covers the design and implementation of
@@ -695,7 +695,7 @@ state-of-the-art versions of S3D when run at 8192 nodes on the number
 two supercomputer in the world.
 
 <a name="treichler_thesis"></a>**Realm: Performance Portability through Composable
-Asynchrony** [PDF](/pdfs/treichler_thesis.pdf)<br/>
+Asynchrony** [PDF]({{ "/pdfs/treichler_thesis.pdf" | relative_url }})<br/>
 *Sean Jeffrey Treichler*<br/>
 December 2016<br/>
 **Abstract:** Modern supercomputers are growing increasingly
@@ -751,7 +751,7 @@ applications at full-scale show how Realm's composable asynchrony and
 support for heterogeneity benefit the overall Legion system on a
 variety of modern supercomputers.
 
-<a name="slaughter_thesis"></a>**Regent: A High-Productivity Programming Language for Implicit Parallelism with Logical Regions** [PDF](/pdfs/slaughter_thesis.pdf)<br/>
+<a name="slaughter_thesis"></a>**Regent: A High-Productivity Programming Language for Implicit Parallelism with Logical Regions** [PDF]({{ "/pdfs/slaughter_thesis.pdf" | relative_url }})<br/>
 *Elliott Slaughter*<br/>
 August 2017<br/>
 **Abstract:** Modern supercomputers are dominated by distributed-memory
@@ -796,7 +796,7 @@ programs on large supercomputers and demonstrate that optimized Regent
 programs perform comparably to manually optimized explicitly parallel
 programs.
 
-<a name="lee_thesis"></a>**A Hybrid Approach to Automatic Program Parallelization via Efficient Tasking with Composable Data Partitioning** [PDF](/pdfs/lee_thesis.pdf)<br/>
+<a name="lee_thesis"></a>**A Hybrid Approach to Automatic Program Parallelization via Efficient Tasking with Composable Data Partitioning** [PDF]({{ "/pdfs/lee_thesis.pdf" | relative_url }})<br/>
 *Wonchan Lee*<br/>
 December 2019<br/>
 **Abstract:** Despite the decades of research, distributed programming
@@ -848,7 +848,7 @@ significantly improves the efficiency of tasking, and thereby brings
 the strong scalability of explicit parallelism to implicit task
 parallelism.
 
-<a name="soi_thesis"></a>**Scaling Implicit Parallelism with Index Launches** [PDF](/pdfs/soi_thesis.pdf)<br/>
+<a name="soi_thesis"></a>**Scaling Implicit Parallelism with Index Launches** [PDF]({{ "/pdfs/soi_thesis.pdf" | relative_url }})<br/>
 *Rupanshu Soi*<br/>
 December 2021<br/>
 **Abstract:** Task-based programming systems are now widely used to

@@ -6,7 +6,7 @@ title: Circuit Simulation
 The first of our full program examples describes some
 of the features used to implement the canonical
 circuit example covered in many of our 
-[publications](/publications/index.html). The source
+[publications]({{ "/publications/index.html" | relative_url }}). The source
 code for this example can also be found in `examples/circuit`
 directory of the Legion repository. The circuit example
 simulates an arbitrary graph of integrated circuit
@@ -18,7 +18,7 @@ then refine the _private_, _shared_, and _ghost_ nodes for
 each circuit piece. The following figure illustrates the
 partitioning scheme for the node logical region tree.
 
-![](/images/circuit_partition.svg)
+![]({{ "/images/circuit_partition.svg" | relative_url }})
 
 An explicit iterative solver is then used to step through 
 time and solve for the updated voltages and currents on 
@@ -158,7 +158,7 @@ then applied back to the instance containing all the shared nodes
 residing in GASNet memory. An illustration depicting this scenario
 within the circuit simulation is shown below.
 
-![](/images/circuit_mapping.svg)
+![]({{ "/images/circuit_mapping.svg" | relative_url }})
 
 Legion supports the creation of two different kinds of reduction
 instances. First, for basic reduction operations with no `fold`

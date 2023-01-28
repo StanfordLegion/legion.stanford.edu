@@ -46,7 +46,7 @@ resulting sub-regions of most partitioning operations need not be
 dense.
 
 For an overview of Legion's other partitioning operations, please see
-the [Dependent Partitioning](/pdfs/dpl2016.pdf) paper.
+the [Dependent Partitioning]({{ "/pdfs/dpl2016.pdf" | relative_url }}) paper.
 
 #### Obtaining Logical Sub-Regions ####
 
@@ -68,7 +68,7 @@ and sub-regions.) The following figure shows the
 resulting index space tree and two region trees for
 our DAXPY example:
 
-![](/images/daxpy_partition.svg)
+![]({{ "/images/daxpy_partition.svg" | relative_url }})
 
 Since the logical partitions and sub-regions are
 implicitly created, the application initially
@@ -182,7 +182,7 @@ computed for this version of DAXPY. (Note we
 could also have parallelized the checking task
 if we so desired.)
 
-![](/images/daxpy_parallel.svg)
+![]({{ "/images/daxpy_parallel.svg" | relative_url }})
 
 This version of DAXPY demonstrates the power
 of the Legion programming model. By understanding
@@ -194,8 +194,8 @@ task- and data-level parallelism
 is something that no other programming model
 we are aware of is capable of achieving.
 
-Next Example: [Multiple Partitions](/tutorial/multiple.html)  
-Previous Example: [Privileges](/tutorial/privileges.html)
+Next Example: [Multiple Partitions]({{ "/tutorial/multiple.html" | relative_url }})  
+Previous Example: [Privileges]({{ "/tutorial/privileges.html" | relative_url }})
 
 {% highlight cpp linenos %}
 #include <cstdio>

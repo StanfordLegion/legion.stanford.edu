@@ -65,7 +65,7 @@ are parsed in our Fibonacci program.
 
 All Legion tasks are spawned using a _launcher_ object (except the
 top-level task which is launched automatically by the runtime as
-was described in the [previous example](/tutorial/hello_world.html) ).
+was described in the [previous example]({{ "/tutorial/hello_world.html" | relative_url }}) ).
 To spawn a single task, we use a `TaskLauncher` object. A
 `TaskLauncher` is a struct used for specifying the arguments
 necessary for launching a task. Launchers contain many
@@ -220,8 +220,8 @@ have occurred automatically when the vector went out of
 scope, but we do so explicitly to show the users have
 control over when references are removed.
 
-Next Example: [Index Space Tasks](/tutorial/index_tasks.html)
-Previous Example: [Hello World](/tutorial/hello_world.html)
+Next Example: [Index Space Tasks]({{ "/tutorial/index_tasks.html" | relative_url }})
+Previous Example: [Hello World]({{ "/tutorial/hello_world.html" | relative_url }})
 
 {% highlight cpp linenos %}#include <cstdio>
 #include <cassert>

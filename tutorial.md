@@ -6,7 +6,7 @@ title: Tutorials
 
 ## Legion API Tutorial
 
-After completing the [getting started](/starting/) guide this tutorial
+After completing the [getting started]({{ "/starting/" | relative_url }}) guide this tutorial
 will show how to begin writing programs to the Legion C++ runtime
 API. The goal of the tutorial is not to describe all the Legion
 runtime calls, but rather to introduce to users how to write programs
@@ -25,16 +25,16 @@ structured. The source code for each example can be found in the
 `tutorial` directory of the Legion repository. Users should build and
 run these examples while working through the tutorial.
 
- 0. [Hello World](/tutorial/hello_world.html)
- 1. [Tasks and Futures](/tutorial/tasks_and_futures.html)
- 2. [Index Space Tasks](/tutorial/index_tasks.html)
- 3. [Hybrid Programming Model](/tutorial/hybrid.html)
- 4. [Logical Regions](/tutorial/logical_regions.html)
- 5. [Physical Regions](/tutorial/physical_regions.html)
- 6. [Privileges](/tutorial/privileges.html)
- 7. [Partitioning](/tutorial/partitioning.html)
- 8. [Multiple Partitions](/tutorial/multiple.html)
- 9. [Custom Mappers](/tutorial/custom_mappers.html)
+ 0. [Hello World]({{ "/tutorial/hello_world.html" | relative_url }})
+ 1. [Tasks and Futures]({{ "/tutorial/tasks_and_futures.html" | relative_url }})
+ 2. [Index Space Tasks]({{ "/tutorial/index_tasks.html" | relative_url }})
+ 3. [Hybrid Programming Model]({{ "/tutorial/hybrid.html" | relative_url }})
+ 4. [Logical Regions]({{ "/tutorial/logical_regions.html" | relative_url }})
+ 5. [Physical Regions]({{ "/tutorial/physical_regions.html" | relative_url }})
+ 6. [Privileges]({{ "/tutorial/privileges.html" | relative_url }})
+ 7. [Partitioning]({{ "/tutorial/partitioning.html" | relative_url }})
+ 8. [Multiple Partitions]({{ "/tutorial/multiple.html" | relative_url }})
+ 9. [Custom Mappers]({{ "/tutorial/custom_mappers.html" | relative_url }})
 
 ## Advanced Examples
 
@@ -43,13 +43,13 @@ complete examples of programs written in Legion. As we add new
 programs they will be registered here along with a brief description
 of the features they encompass.
 
-  * [Circuit Simulation](/tutorial/circuit.html) - This is the circuit
-    example from our [publications](/publications/). The circuit
+  * [Circuit Simulation]({{ "/tutorial/circuit.html" | relative_url }}) - This is the circuit
+    example from our [publications]({{ "/publications/" | relative_url }}). The circuit
     simulation illustrates the use of reduction privileges as well as
     reduction-fold physical instances.  We also cover how to run tasks
     on the GPU, a simple Legion design pattern, and an example of how
     Legion easily enables in-situ analysis of program data.
-  * [Explicit Ghost Regions](/tutorial/ghost.html) - An illustration
+  * [Explicit Ghost Regions]({{ "/tutorial/ghost.html" | relative_url }}) - An illustration
     of how to use Legion to implement an explicit ghost regions
     algorithm. We cover how to perform inter-region copies and use
     phase barriers to encode producer-consumer relationships in a
@@ -68,17 +68,17 @@ of the features they encompass.
 
 The Legion manual documents features of the Legion C++ runtime API in
 a systematic way, going beyond what is convered in the tutorials. This
-resource, along with [C++ API documentation](/doxygen/), are
+resource, along with [C++ API documentation]({{ "/doxygen/" | relative_url }}), are
 recommended reading for interested users wanting to dive deeper into
 the Legion programming model.
 
   * [Manual](/pdfs/legion-manual.pdf)
-  * [C++ API documentation](/doxygen/)
+  * [C++ API documentation]({{ "/doxygen/" | relative_url }})
 
 ## Debugging and Profiling
 
 The following pages describe Legion's debugging and profiling
 facilities, and how to use them.
 
-  * [Debugging](/debugging/)
-  * [Profiling](/profiling/)
+  * [Debugging]({{ "/debugging/" | relative_url }})
+  * [Profiling]({{ "/profiling/" | relative_url }})

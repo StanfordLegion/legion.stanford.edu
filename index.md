@@ -82,10 +82,10 @@ and we encourage you to explore them further.
 
 To learn more about Legion you can:
 
- * Read the [overview](/overview/)
- * Visit the [getting started page](/starting/)
- * Download our [publications](/publications/)
- * Ask questions on our [mailing list](/community/)
+ * Read the [overview]({{ "/overview/" | relative_url }})
+ * Visit the [getting started page]({{ "/starting/" | relative_url }})
+ * Download our [publications]({{ "/publications/" | relative_url }})
+ * Ask questions on our [mailing list]({{ "/community/" | relative_url }})
 
 #### Acknowledgments ####
 

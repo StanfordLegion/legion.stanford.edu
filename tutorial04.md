@@ -24,7 +24,7 @@ Indices can be plain numbers, or they can be multi-dimensional (2-D,
 a `Rect` templated on the dimensionality of the space.
 
 As with `Rect` and `Domain`, which were introduced in the [index space
-example](/tutorial/index_tasks.html), it can be useful to describe an
+example]({{ "/tutorial/index_tasks.html" | relative_url }}), it can be useful to describe an
 index space where the number of dimensions is not known at compile
 time. This is simply called `IndexSpace`. The templated variant is
 called `IndexSpaceT`.
@@ -48,7 +48,7 @@ spaces can also be created directly by creating an index space from
 a set of rectangles or a set of points. These calls are documented
 in the API but are not demonstrated here. We walso cover how to 
 partition index spaces into subspaces in a 
-[subsequent tutorial](/tutorial/partitioning.html).
+[subsequent tutorial]({{ "/tutorial/partitioning.html" | relative_url }}).
 
 Legion provides a number of API calls that can be used to retrieve
 information about an index space, such as the `Domain` or `Rect` that
@@ -151,8 +151,8 @@ the destructor is invoked and references are removed. The use of the
 explicit C++ scope at line 36 is to ensure that the allocator is
 reclaimed as soon as it is done being used.
 
-Next Example: [Physical Regions](/tutorial/physical_regions.html)  
-Previous Example: [Hybrid Model](/tutorial/hybrid.html)
+Next Example: [Physical Regions]({{ "/tutorial/physical_regions.html" | relative_url }})  
+Previous Example: [Hybrid Model]({{ "/tutorial/hybrid.html" | relative_url }})
 
 {% highlight cpp linenos %}
 #include <cstdio>

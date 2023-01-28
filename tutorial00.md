@@ -49,7 +49,7 @@ namespace into the current program making most of the necessary
 types for writing Legion programs available.  There are other
 Legion runtime namespaces that we will encounter in later examples.
 Detailed documentation for Legion runtime namespaces can be
-found [here](/doxygen/annotated.html).
+found [here]({{ "/doxygen/annotated.html" | relative_url }}).
 
 #### Registering Legion Tasks ####
 
@@ -58,7 +58,7 @@ we will direct the Legion runtime to associate with each task.  In this example
 we only need a single ID which we will associate with our 'Hello World' task.
 Lines 21-23 show how to register 
 a Legion task with a `void` return type with the Legion runtime.
-In the [next example](/tutorial/tasks_and_futures.html) we'll see how
+In the [next example]({{ "/tutorial/tasks_and_futures.html" | relative_url }}) we'll see how
 to register tasks with non-void return types.  The static method 
 `preregister_task_variant` on the `Runtime` class
 is templated on the function pointer to
@@ -74,7 +74,7 @@ examples.  The `preregister_task_variant` call takes several parameters:
 
 The task registrar itself records the ID of the task, a variant name
 and the constraints that apply to the variant (we cover the distinction
-between tasks and variants more in the [next tutorial](/tutorial/tasks_and_futures.html) ).
+between tasks and variants more in the [next tutorial]({{ "/tutorial/tasks_and_futures.html" | relative_url }}) ).
 In this case, the variant is constrained to run on a CPU
 processor (LOC, or *latency optimized core*).
 
@@ -110,4 +110,4 @@ program the top-level task prints "Hello World" and then returns.  After
 the top-level task completes, the Legion runtime will tear itself down
 (abiding by GASNet or MPI conventions when necessary) and exit.
 
-Next Example: [Tasks and Futures](/tutorial/tasks_and_futures.html)
+Next Example: [Tasks and Futures]({{ "/tutorial/tasks_and_futures.html" | relative_url }})

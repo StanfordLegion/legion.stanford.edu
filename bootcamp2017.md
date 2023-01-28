@@ -30,7 +30,7 @@ start.
 
 ## Tutorial
 
-  * **Part 1**: [Slides](/pdfs/bootcamp2017/TutorialPart1.pdf)
+  * **Part 1**: [Slides]({{ "/pdfs/bootcamp2017/TutorialPart1.pdf" | relative_url }})
       * *Tasks:* [Video](https://www.youtube.com/watch?v=sC0UBFx0lXg&list=PLUNK9XcztK7xutP-diU7tw_1PFcXMYEmE&index=1), Time Index:
           * [0:00: Overview](https://www.youtube.com/watch?v=sC0UBFx0lXg&list=PLUNK9XcztK7xutP-diU7tw_1PFcXMYEmE&index=1&t=0s)
           * [26:50: Tasks](https://www.youtube.com/watch?v=sC0UBFx0lXg&list=PLUNK9XcztK7xutP-diU7tw_1PFcXMYEmE&index=1&t=26m50s)
@@ -50,7 +50,7 @@ start.
           * [58:12: Some Comments on Type Checking](https://www.youtube.com/watch?v=KEMh0b4VmTU&list=PLUNK9XcztK7xutP-diU7tw_1PFcXMYEmE&index=4&t=58m12s)
       * *Putting it All Together:* [Video](https://www.youtube.com/watch?v=RpF2GFtClvw&list=PLUNK9XcztK7xutP-diU7tw_1PFcXMYEmE&index=5), Time Index:
           * [0:00: Page Rank](https://www.youtube.com/watch?v=RpF2GFtClvw&list=PLUNK9XcztK7xutP-diU7tw_1PFcXMYEmE&index=5&t=0s)
-  * **Part 2**: [Slides](/pdfs/bootcamp2017/TutorialPart2.pdf)
+  * **Part 2**: [Slides]({{ "/pdfs/bootcamp2017/TutorialPart2.pdf" | relative_url }})
       * *Performance Tuning via Mapping:* [Video](https://www.youtube.com/watch?v=zJI-APPig2g&list=PLUNK9XcztK7xutP-diU7tw_1PFcXMYEmE&index=6), Time Index:
           * [0:00: Coherence](https://www.youtube.com/watch?v=zJI-APPig2g&list=PLUNK9XcztK7xutP-diU7tw_1PFcXMYEmE&index=6&t=0s)
           * [16:06: Metaprogramming](https://www.youtube.com/watch?v=zJI-APPig2g&list=PLUNK9XcztK7xutP-diU7tw_1PFcXMYEmE&index=6&t=16m6s)
@@ -66,9 +66,9 @@ start.
 
 ## Advanced Topics
 
-  * **Advanced Profiling:** [Slides](/pdfs/bootcamp2017/AdvancedProfiling.pdf), [Video](https://www.youtube.com/watch?v=Mk7kER1xyiA&list=PLUNK9XcztK7xutP-diU7tw_1PFcXMYEmE&index=8)
-  * **Legion C++ API & Control Replication:** [Slides](/pdfs/bootcamp2017/LegionControlReplication.pdf), [Video](https://www.youtube.com/watch?v=nKBhMlPHpvY&list=PLUNK9XcztK7xutP-diU7tw_1PFcXMYEmE&index=9)
-  * **Regent Update:** [Slides](/pdfs/bootcamp2017/Regent.pdf), [Video](https://www.youtube.com/watch?v=2VyhhtIOijQ&list=PLUNK9XcztK7xutP-diU7tw_1PFcXMYEmE&index=10)
+  * **Advanced Profiling:** [Slides]({{ "/pdfs/bootcamp2017/AdvancedProfiling.pdf" | relative_url }}), [Video](https://www.youtube.com/watch?v=Mk7kER1xyiA&list=PLUNK9XcztK7xutP-diU7tw_1PFcXMYEmE&index=8)
+  * **Legion C++ API & Control Replication:** [Slides]({{ "/pdfs/bootcamp2017/LegionControlReplication.pdf" | relative_url }}), [Video](https://www.youtube.com/watch?v=nKBhMlPHpvY&list=PLUNK9XcztK7xutP-diU7tw_1PFcXMYEmE&index=9)
+  * **Regent Update:** [Slides]({{ "/pdfs/bootcamp2017/Regent.pdf" | relative_url }}), [Video](https://www.youtube.com/watch?v=2VyhhtIOijQ&list=PLUNK9XcztK7xutP-diU7tw_1PFcXMYEmE&index=10)
 
 ## Exercises
 
@@ -76,5 +76,5 @@ The exercises from the bootcamp are available in a [Github repository](https://g
 
 ## Previous Bootcamps
 
-  * [Legion Bootcamp 2015](/bootcamp2015/)
-  * [Legion Bootcamp 2014](/bootcamp2014/)
+  * [Legion Bootcamp 2015]({{ "/bootcamp2015/" | relative_url }})
+  * [Legion Bootcamp 2014]({{ "/bootcamp2014/" | relative_url }})

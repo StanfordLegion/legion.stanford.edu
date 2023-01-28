@@ -4,8 +4,8 @@ permalink: /tutorial/ghost.html
 title: Explicit Ghost Regions
 ---
 
-In our [circuit simulation](/tutorial/circuit.html) and
-our [stencil example](/tutorial/multiple.html) we
+In our [circuit simulation]({{ "/tutorial/circuit.html" | relative_url }}) and
+our [stencil example]({{ "/tutorial/multiple.html" | relative_url }}) we
 demonstrated how Legion allows for applications to 
 describe ghost regions using multiple partitions. There
 are both benefits and costs to describing ghost regions 
@@ -31,7 +31,7 @@ are sufficiently powerful to express these kinds
 of applications.
 
 The rest of this page walks through how to restructure 
-the  [stencil example](/tutorial/multiple.html) in
+the  [stencil example]({{ "/tutorial/multiple.html" | relative_url }}) in
 a way that uses explicit ghost regions. The
 code for this example can be found in 
 the `examples/full_ghost/` directory in the
@@ -45,7 +45,7 @@ our stencil application.
 
 #### Algorithm Overview ####
 
-In our original [stencil example](/tutorial/multiple.html)
+In our original [stencil example]({{ "/tutorial/multiple.html" | relative_url }})
 we relied on the top-level task to iterate through
 multiple steps and launch sub-tasks for computing 
 the stencil on each of the different
@@ -86,7 +86,7 @@ decomposition of the index space of points. The
 following image illustrate the resulting index
 space tree.
 
-![](/images/ghost_tree.svg)
+![]({{ "/images/ghost_tree.svg" | relative_url }})
 
 After setting up our index space tree, we now
 create the explicit ghost regions from the leaf
@@ -430,7 +430,7 @@ computation, the following picture illustrates
 how the stencil computation works between
 a pair of `spmd_task` instances.
 
-![](/images/phase_barrier.svg)
+![]({{ "/images/phase_barrier.svg" | relative_url }})
 
 Each of `spmd_task` instances performs several
 iterations of the stencil computation. Each

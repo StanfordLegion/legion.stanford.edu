@@ -5,9 +5,9 @@
 <meta name="keywords" content="{{ page.tags | join: ', ' }}">
 {% if site.owner.twitter %}<!-- Twitter Cards -->
 {% if page.image.feature %}<meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="{{ site.url }}/images/{{ page.image.feature }}">
+<meta name="twitter:image" content="{{ "/images" | relative_url }}/{{ page.image.feature }}">
 {% else %}<meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="{% if page.image.thumb %}{{ site.url }}/images/{{ page.image.thumb }}{% else %}{{ site.url }}/images/{{ site.logo }}{% endif %}">{% endif %}
+<meta name="twitter:image" content="{% if page.image.thumb %}{{ "/images" | relative_url }}/{{ page.image.thumb }}{% else %}{{ "/images" | relative_url }}/{{ site.logo }}{% endif %}">{% endif %}
 <meta name="twitter:title" content="{% if page.title %}{{ page.title }}{% else %}{{ site.title }}{% endif %}">
 <meta name="twitter:description" content="{% if page.description %}{{ page.description }}{% else %}{{ site.description }}{% endif %}">
 <meta name="twitter:creator" content="@{{ site.owner.twitter }}">{% endif %}
@@ -17,16 +17,16 @@
 <meta property="og:type" content="article">
 <meta property="og:title" content="{% if page.title %}{{ page.title }}{% else %}{{ site.title }}{% endif %}">
 <meta property="og:description" content="{% if page.description %}{{ page.description }}{% else %}{{ site.description }}{% endif %}">
-<meta property="og:url" content="{{ site.url }}{{ page.url }}">
+<meta property="og:url" content="{{ page.url | relative_url }}">
 <meta property="og:site_name" content="{{ site.title }}">
 
 {% if site.google_verify %}<!-- Webmaster Tools verfication -->
 <meta name="google-site-verification" content="{{ site.google_verify }}">{% endif %}
 {% if site.bing_verify %}<meta name="msvalidate.01" content="{{ site.bing_verify }}">{% endif %}
 
-{% capture canonical %}{{ site.url }}{% if site.permalink contains '.html' %}{{ page.url }}{% else %}{{ page.url | remove:'index.html' | strip_slash }}{% endif %}{% endcapture %}
+{% capture canonical %}{% if site.permalink contains '.html' %}{{ page.url | relative_url }}{% else %}{{ page.url | relative_url | remove:'index.html' | strip_slash }}{% endif %}{% endcapture %}
 <link rel="canonical" href="{{ canonical }}">
-<link href="{{ site.url }}/feed.xml" type="application/atom+xml" rel="alternate" title="{{ site.title }} Feed">
+<link href="{{ "/feed.xml" | relative_url }}" type="application/atom+xml" rel="alternate" title="{{ site.title }} Feed">
 {% if site.owner.google_plus %}<link rel="author" href="{{ site.owner.google_plus }}?rel=author">{% endif %}
 
 <!-- http://t.co/dKP3o1e -->
@@ -37,27 +37,35 @@
 <!-- Google Webfonts -->
 <link href='https://fonts.googleapis.com/css?family=PT+Sans+Narrow:400,700|PT+Serif:400,700,400italic' rel='stylesheet' type='text/css'>
 <!-- For all browsers -->
-<link rel="stylesheet" href="{{ site.url }}/assets/css/main.min.css">
+<link rel="stylesheet" href="{{ "/assets/css/main.min.css" | relative_url }}">
 
 <!--[if (lt IE 9) & (!IEMobile)]>
-<link rel="stylesheet" href="{{ site.url }}/assets/css/ie.min.css">
+<link rel="stylesheet" href="{{ "/assets/css/ie.min.css" | relative_url }}">
 <![endif]-->
 
 <meta http-equiv="cleartype" content="on">
 
 <!-- Load Modernizr -->
-<script src="{{ site.url }}/assets/js/vendor/modernizr-2.6.2.custom.min.js"></script>
+<script src="{{ "/assets/js/vendor/modernizr-2.6.2.custom.min.js" | relative_url }}"></script>
 
 <!-- Icons -->
-<!-- 16x16 -->
-<link rel="shortcut icon" href="{{ site.url }}/favicon.ico">
-<!-- 32x32 -->
-<link rel="shortcut icon" href="{{ site.url }}/favicon.png">
-<!-- 57x57 (precomposed) for iPhone 3GS, pre-2011 iPod Touch and older Android devices -->
-<link rel="apple-touch-icon-precomposed" href="{{ site.url }}/images/apple-touch-icon-precomposed.png">
-<!-- 72x72 (precomposed) for 1st generation iPad, iPad 2 and iPad mini -->
-<link rel="apple-touch-icon-precomposed" sizes="72x72" href="{{ site.url }}/images/apple-touch-icon-72x72-precomposed.png">
-<!-- 114x114 (precomposed) for iPhone 4, 4S, 5 and post-2011 iPod Touch -->
-<link rel="apple-touch-icon-precomposed" sizes="114x114" href="{{ site.url }}/images/apple-touch-icon-114x114-precomposed.png">
-<!-- 144x144 (precomposed) for iPad 3rd and 4th generation -->
-<link rel="apple-touch-icon-precomposed" sizes="144x144" href="{{ site.url }}/images/apple-touch-icon-144x144-precomposed.png">
+<link rel="icon" sizes="16x16" href="{{ "/images/favicon/favicon-16x16.png" | relative_url }}">
+<link rel="icon" sizes="32x32" href="{{ "/images/favicon/favicon-32x32.png" | relative_url }}">
+<link rel="icon" sizes="48x48" href="{{ "/images/favicon/favicon-48x48.png" | relative_url }}">
+<link rel="icon" sizes="96x96" href="{{ "/images/favicon/favicon-96x96.png" | relative_url }}">
+<link rel="icon" sizes="144x144" href="{{ "/images/favicon/favicon-144x144.png" | relative_url }}">
+<link rel="icon" sizes="192x192" href="{{ "/images/favicon/favicon-192x192.png" | relative_url }}">
+<link rel="apple-touch-icon" sizes="57x57" href="{{ "/images/favicon/apple-icon-57x57.png" | relative_url }}">
+<link rel="apple-touch-icon" sizes="60x60" href="{{ "/images/favicon/apple-icon-60x60.png" | relative_url }}">
+<link rel="apple-touch-icon" sizes="72x72" href="{{ "/images/favicon/apple-icon-72x72.png" | relative_url }}">
+<link rel="apple-touch-icon" sizes="76x76" href="{{ "/images/favicon/apple-icon-76x76.png" | relative_url }}">
+<link rel="apple-touch-icon" sizes="114x114" href="{{ "/images/favicon/apple-icon-114x114.png" | relative_url }}">
+<link rel="apple-touch-icon" sizes="120x120" href="{{ "/images/favicon/apple-icon-120x120.png" | relative_url }}">
+<link rel="apple-touch-icon" sizes="144x144" href="{{ "/images/favicon/apple-icon-144x144.png" | relative_url }}">
+<link rel="apple-touch-icon" sizes="152x152" href="{{ "/images/favicon/apple-icon-152x152.png" | relative_url }}">
+<link rel="apple-touch-icon" sizes="180x180" href="{{ "/images/favicon/apple-icon-180x180.png" | relative_url }}">
+<link rel="apple-touch-icon-precomposed" sizes="192x192" href="{{ "/images/favicon/apple-icon-precomposed.png" | relative_url }}">
+<meta name="msapplication-config" content="{{ "/images/favicon/browserconfig.xml" | relative_url }}" />
+<meta name="msapplication-TileColor" content="#ffffff">
+<meta name="msapplication-TileImage" content="/ms-icon-144x144.png">
+<link rel="manifest" href="{{ "/images/favicon/manifest.json" | relative_url }}">

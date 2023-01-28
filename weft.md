@@ -17,7 +17,7 @@ being maintained.**
 
 This webpage describes the artifact for the following PLDI 2015 paper:
 
-[Verification of Producer-Consumer Synchronization in GPU Programs](/pdfs/weft.pdf)
+[Verification of Producer-Consumer Synchronization in GPU Programs]({{ "/pdfs/weft.pdf" | relative_url }})
 
 <p><strike>The artifact (a CDE package) can be downloaded here.</strike> The artifact link is dead, please refer to the GitHub repo above.</p>
 
@@ -137,7 +137,7 @@ WEFT STATISTICS for saxpy_single.ptx
 
 The output says that WEFT has proven that the kernel is *well-synchronized*
 (deadlock free and recycles barriers properly) and *race-free* followed by
-some statistics (see [paper](/pdfs/weft.pdf)). There are 320 threads in the CTA we are
+some statistics (see [paper]({{ "/pdfs/weft.pdf" | relative_url }})). There are 320 threads in the CTA we are
 analyzing and these threads share 512 memory locations amongst them.
 This CTA uses 6 named barriers out of the 16 available. Since named barriers
 are a limited physical resource, they need to be reused and this CTA has

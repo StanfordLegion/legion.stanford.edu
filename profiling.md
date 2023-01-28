@@ -35,7 +35,7 @@ level such as `LEVEL_SPEW` might cause problems, even when disabled on the
 command-line.
 
 If using GASNet, ensure that [GASNet has been properly configured and
-optimized](/gasnet/). GASNet can be important for performance on
+optimized]({{ "/gasnet/" | relative_url }}). GASNet can be important for performance on
 multi-node runs.
 
 ## Legion Prof
@@ -83,7 +83,7 @@ Legion Prof Locally](#using-legion-prof-locally).
 
 A sample of Legion Prof's output is shown below.
 
-![](/images/profiling/collapsed_profile.png)
+![]({{ "/images/profiling/collapsed_profile.png" | relative_url }})
 
 This profile shows the utilization graph of the memories and processors
 during the run. Legion Prof also can also display  more detailed
@@ -130,26 +130,26 @@ the profile can display more detailed information. This will uncollapse the
 corresponding line to show the actual events that happened during the application.
 For example, after clicking on the triangle for `node 0 (CPU)`:
 
-![](/images/profiling/uncollapsed_profile.gif)
+![]({{ "/images/profiling/uncollapsed_profile.gif" | relative_url }})
 
 Hovering over a box in this more detailed view will display relevant information
 such as the name of the task, the start and end time, and the total duration
 of the task. The color of the box will be lighter if the task was waiting or
 ready to be scheduled, but was not actually executing.
 
-![](/images/profiling/box_hover_profile.gif)
+![]({{ "/images/profiling/box_hover_profile.gif" | relative_url }})
 
 Some of the boxes in the profile are gray. These are groups of tasks that are 
 too small to be viewed at the current zoom level. To zoom in, click and drag the 
 mouse over a region of interest.
 
-![](/images/profiling/zoom_profile.gif)
+![]({{ "/images/profiling/zoom_profile.gif" | relative_url }})
 
 After zooming in on a section, you can return to the previous zoom level by
 pressing `u` on the keyboard. You can also reset the zoom level by pressing `0`.
 For other options, use the `?` key to show a help message.
 
-![](/images/profiling/help_profile.png)
+![]({{ "/images/profiling/help_profile.png" | relative_url }})
 
 Press `esc` or `?` to exit the help message.
 
@@ -157,7 +157,7 @@ One of the options in the help message was searching for tasks. To search for
 a task, press `s`, type a search query, and press enter. Legion Prof will
 highlight the matched tasks in red. To clear the search, press `c`.
 
-![](/images/profiling/search_profile.gif)
+![]({{ "/images/profiling/search_profile.gif" | relative_url }})
 
 
 ### Advanced Features
@@ -179,25 +179,25 @@ have dependency data. Left-clicking will draw solid lines to tasks that depend
 on the current task as well as from tasks that the current task depends on.
 Hovering over a line will show which way the dependency flows.
 
-![](/images/profiling/dependency_profile.gif)
+![]({{ "/images/profiling/dependency_profile.gif" | relative_url }})
 
 Similarly, right-clicking will draw the parent/child relationships for the 
 current task.
 
-![](/images/profiling/parent_child_profile.gif)
+![]({{ "/images/profiling/parent_child_profile.gif" | relative_url }})
 
 You can deselect the current task by either clicking on a different task or
 left/right clicking on the current task to remove dependency and parent/child
 relationship lines, respectively.
 
-![](/images/profiling/deselect_profile.gif)
+![]({{ "/images/profiling/deselect_profile.gif" | relative_url }})
 
 Finally, pressing `a` will draw the critical path of dependencies in the
 application. Inspecting this line can be helpful to determine where optimizations
 should be made to improve the performance of the application. To remove the 
 critical path line, simply press `a` again.
 
-![](/images/profiling/critical_path_profile.gif)
+![]({{ "/images/profiling/critical_path_profile.gif" | relative_url }})
 
 ### Using Legion Prof Locally
 
@@ -277,7 +277,7 @@ to place the appropriate logging calls in the Legion
 runtime, especially if users are interested in helping
 to write the post-processing and visualization tools. If 
 you have suggestions, please post them to the 
-[mailing list](/community/).
+[mailing list]({{ "/community/" | relative_url }}).
 
 ## Legion Configuration
 

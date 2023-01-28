@@ -42,7 +42,7 @@ that we'll create will be used for partitioning to decide
 how many sub-regions to create using _tunable_
 variables. The application code for DAXPY is
 identical to the code from
-an [earlier example](/tutorial/partitioning.html)
+an [earlier example]({{ "/tutorial/partitioning.html" | relative_url }})
 and is therefore omitted. We only show the new
 code required for creating and implementing the
 custom mappers.
@@ -405,7 +405,7 @@ use these features of Legion or you have questions
 regarding how to use them, please post to the
 [mailing list](http://legion.stanford.edu/resources).
 
-Previous Example: [Multiple Partitions](/tutorial/multiple.html)
+Previous Example: [Multiple Partitions]({{ "/tutorial/multiple.html" | relative_url }})
 
 {% highlight cpp linenos %}
 #include <cstdio>

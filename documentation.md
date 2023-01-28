@@ -8,14 +8,14 @@ This page lists the collected documentation on Legion and Regent.
 
 ## Legion
 
-  * [Tutorials](/tutorial/): start here if you are new to Legion
+  * [Tutorials]({{ "/tutorial/" | relative_url }}): start here if you are new to Legion
   * [Manual](/pdfs/legion-manual.pdf): documents the features of the Legion C++ runtime API in a systematic way
-  * [Debugging](/debugging/): instructions for debugging Legion programs
-  * [Profiling](/profiling/): instructions for profiling and tuning Legion programs
-  * [Mapping](/mapper/): instructions for writing a custom Legion mapper
-  * [C++ API Documentation](/doxygen/): complete API documentation
-  * [GASNet Installation](/gasnet/): instructions for multi-node builds of Legion
-  * [Error Messages](/messages/): list of Legion error messages
+  * [Debugging]({{ "/debugging/" | relative_url }}): instructions for debugging Legion programs
+  * [Profiling]({{ "/profiling/" | relative_url }}): instructions for profiling and tuning Legion programs
+  * [Mapping]({{ "/mapper/" | relative_url }}): instructions for writing a custom Legion mapper
+  * [C++ API Documentation]({{ "/doxygen/" | relative_url }}): complete API documentation
+  * [GASNet Installation]({{ "/gasnet/" | relative_url }}): instructions for multi-node builds of Legion
+  * [Error Messages]({{ "/messages/" | relative_url }}): list of Legion error messages
 
 ## Regent
 

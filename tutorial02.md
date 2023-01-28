@@ -8,7 +8,7 @@ This example illustrates how to launch a large
 number of _non-interfering_ tasks in Legion using
 a single _index space_ task launch. (We discuss
 what it means to be non-interfering in a 
-[later example](/tutorial/privileges.html).)
+[later example]({{ "/tutorial/privileges.html" | relative_url }}).)
 It also describes the basic Legion types for arrays,
 domains, and points and give examples of how they work.
 
@@ -108,8 +108,8 @@ does some simple computation on the input value and then
 returns it. The resulting value is set in the `Future`
 for the corresponding point in the `FutureMap`.
 
-Next Example: [Hybrid Model](/tutorial/hybrid.html)  
-Previous Example: [Tasks and Futures](/tutorial/tasks_and_futures.html)
+Next Example: [Hybrid Model]({{ "/tutorial/hybrid.html" | relative_url }})  
+Previous Example: [Tasks and Futures]({{ "/tutorial/tasks_and_futures.html" | relative_url }})
 
 {% highlight cpp linenos %}#include <cstdio>
 #include <cassert>

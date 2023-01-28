@@ -123,7 +123,7 @@ regions analogous to how sequential
 compilers manages the mapping between variables and
 hardware registers. This is consistent with the
 design principles laid out in our
-[Legion overview](/overview/index.html):
+[Legion overview]({{ "/overview/index.html" | relative_url }}):
 the runtime API is designed for expressiveness while
 productivity features primarily only appear in Regent.
 
@@ -178,7 +178,7 @@ example. By default most Legion applications should
 use `EXCLUSIVE` coherence. For those interested
 in learning more about _relaxed_ coherence we
 encourage them to read our
-[OOPSLA paper](/publications/index.html) which
+[OOPSLA paper]({{ "/publications/index.html" | relative_url }}) which
 covers the semantics of various coherence modes.
 After specifying the requested logical region,
 `RegionRequirement` objects must also specify
@@ -352,8 +352,8 @@ DAXPY computation to make sure they are correct
 and report the result (lines 89-100). Finally,
 we clean up our resources (lines 102-106).
 
-Next Example: [Privileges](/tutorial/privileges.html)  
-Previous Example: [Logical Regions](/tutorial/logical_regions.html)
+Next Example: [Privileges]({{ "/tutorial/privileges.html" | relative_url }})  
+Previous Example: [Logical Regions]({{ "/tutorial/logical_regions.html" | relative_url }})
 
 {% highlight cpp linenos %}
 #include <cstdio>

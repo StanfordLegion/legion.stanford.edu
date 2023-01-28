@@ -117,8 +117,8 @@ will be covered in a later example. Applications
 are free to use all other features
 of C and C++ within Legion tasks.
 
-Next Example: [Logical Regions](/tutorial/logical_regions.html)  
-Previous Example: [Index Space Tasks](/tutorial/index_tasks.html)
+Next Example: [Logical Regions]({{ "/tutorial/logical_regions.html" | relative_url }})  
+Previous Example: [Index Space Tasks]({{ "/tutorial/index_tasks.html" | relative_url }})
 
 {% highlight cpp linenos %}
 #include <cstdio>

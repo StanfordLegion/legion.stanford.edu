@@ -13,7 +13,7 @@ To get started with Legion, you'll need:
   * *Optional*: Python 3.5 (used for profiling/debugging tools)
   * *Optional*: CUDA 7.0 or newer (for NVIDIA GPUs)
   * *Optional*: [GASNet](https://gasnet.lbl.gov/) (for networking, see
-     [installation instructions](/gasnet/))
+     [installation instructions]({{ "/gasnet/" | relative_url }}))
   * *Optional*: LLVM 3.5-3.9 (for dynamic code generation)
   * *Optional*: HDF5 (for file I/O)
 
@@ -38,7 +38,7 @@ make
 
 The top-level contents of the repository include:
 
-  * `tutorial`: Source code for the [tutorials](/tutorial/).
+  * `tutorial`: Source code for the [tutorials]({{ "/tutorial/" | relative_url }}).
   * `examples`: Larger examples for advanced programming techniques.
   * `apps`: Several complete Legion applications.
   * `language`: The [Regent programming language](http://regent-lang.org/) compiler and examples.
@@ -64,7 +64,7 @@ make`) or at the top of each application's Makefile.
   * `OUTPUT_LEVEL=<level_name>`: controls the compile-time [logging
     level](/debugging/#logging-infrastructure).
   * `USE_CUDA=<0,1>`: enables CUDA support. If enabled, `CUDA` (or `CUDA_TOOLKITHOME`) should be set to the CUDA install location (e.g. `/usr/local/cuda`).
-  * `USE_GASNET=<0,1>`: enables GASNet support (see [installation instructions](/gasnet/)). If enabled, `GASNET` (or `GASNET_ROOT`) should be set to the GASNet installation location, and `CONDUIT` must be set to the desired GASNet conduit (e.g. ibv, gemini, aries).
+  * `USE_GASNET=<0,1>`: enables GASNet support (see [installation instructions]({{ "/gasnet/" | relative_url }})). If enabled, `GASNET` (or `GASNET_ROOT`) should be set to the GASNet installation location, and `CONDUIT` must be set to the desired GASNet conduit (e.g. ibv, gemini, aries).
   * `USE_LLVM=<0,1>`: enables LLVM support. If enabled, and an `llvm-config` binary is not in your path, specify its location with `LLVM_CONFIG`.
   * `USE_HDF=<0,1>`: enables HDF5 support. If enabled, and HDF5 is not installed in the standard include/library directories, specify the install location using `HDF_ROOT`.
 
@@ -104,4 +104,4 @@ See `default_mapper.cc` for more details.
 ## Tutorials
 
 Now that a working version of Legion has been established we recommend
-that users follow the [tutorials](/tutorial/) to begin using Legion.
+that users follow the [tutorials]({{ "/tutorial/" | relative_url }}) to begin using Legion.

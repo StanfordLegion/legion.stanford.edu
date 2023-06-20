@@ -1,6 +1,6 @@
 ---
 layout: page
-permalink: /tutorial/deferred_allocation.html
+permalink: /tutorial/realm/deferred_allocation.html
 title: Realm Deferred Allocation
 ---
 

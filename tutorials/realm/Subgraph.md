@@ -1,6 +1,6 @@
 ---
 layout: page
-permalink: /tutorial/subgraph.html
+permalink: /tutorial/realm/subgraph.html
 title: Realm Subgraph
 tags: [Mermaid]
 mermaid: true
@@ -47,28 +47,6 @@ feature to represent these subtask graphs and avoid the need to construct them r
     Add2_2 --> Add3_2
     Add3_2 --> repeat
 </div>
-
-<!-- ```mermaid!
-stateDiagram
-StartEvent --> Init1_1
-StartEvent --> Init2_1
-Init1_1 --> Add1_1
-Init1_1 --> Add2_1
-Init2_1 --> Add1_1
-Init2_1 --> Add2_1
-Add1_1 --> Add3_1
-Add2_1 --> Add3_1
-
-Add3_1 --> Init1_2
-Add3_1 --> Init2_2
-Init1_2 --> Add1_2
-Init1_2 --> Add2_2
-Init2_2 --> Add1_2
-Init2_2 --> Add2_2
-Add1_2 --> Add3_2
-Add2_2 --> Add3_2
-Add3_2 --> repeat
-``` -->
 
 1. To create a subgraph, the first step is to create a `SubgraphDefinition` object to describe the graph.
 ```c++

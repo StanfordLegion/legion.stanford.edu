@@ -1,6 +1,6 @@
 ---
 layout: page
-permalink: /tutorial/region_instances.html
+permalink: /tutorial/realm/region_instances.html
 title: Realm Region Instances
 ---
 

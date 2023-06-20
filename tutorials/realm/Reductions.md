@@ -1,6 +1,6 @@
 ---
 layout: page
-permalink: /tutorial/reductions.html
+permalink: /tutorial/realm/reductions.html
 title: Realm Reductions
 ---
 
@@ -104,7 +104,8 @@ same instance with an integer type, and two exclusive apply reductions
 over the same instance with a left-hand-side `StructType`.
 
 The sequence looks as following:
-```
+
+```c++
 1. fold<NON-EXCL>(int, int) && fold<NON-EXCL>(int, int)
 2. apply<EXCL>(StructType, int) && apply<EXCL>(StructType, int)
 ```
@@ -112,6 +113,7 @@ The sequence looks as following:
 To execute the reduction copies, the program prepares and issues a
 realm reduction copy by setting the corresponding `redop` field and
 calling `domain.copy(...)`:
+
 ```c++
   std::vector<CopySrcDstField> srcs(1), dsts(1);
   srcs[0].set_field(src_inst, src_fid, src_fsize);

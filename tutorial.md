@@ -64,7 +64,19 @@ of the features they encompass.
     abstractions are built on top of Legion as part of the development
     of a conjugate gradient solver.
 
+## Legion Manual and API Documentation
+
+The Legion manual documents features of the Legion C++ runtime API in
+a systematic way, going beyond what is convered in the tutorials. This
+resource, along with [C++ API documentation]({{ "/doxygen/" | relative_url }}), are
+recommended reading for interested users wanting to dive deeper into
+the Legion programming model.
+
+  * [Manual](/pdfs/legion-manual.pdf)
+  * [C++ API documentation]({{ "/doxygen/" | relative_url }})
+  
 ## Realm API Tutorial
+
 The following tutorial is meant to showcase Realm's programming
 model, highlight existing interfaces and teach how to write Realm
 programs in C++. This tutorial has an
@@ -87,17 +99,6 @@ examples.
  * [Barriers]({{ "/tutorial/barrier.html" | relative_url }})
  * [Profiling]({{ "/tutorial/profiling.html" | relative_url }})
  * [CUDA Interop]({{ "/tutorial/cuda_interop.html" | relative_url }})
-
-## Legion Manual and API Documentation
-
-The Legion manual documents features of the Legion C++ runtime API in
-a systematic way, going beyond what is convered in the tutorials. This
-resource, along with [C++ API documentation]({{ "/doxygen/" | relative_url }}), are
-recommended reading for interested users wanting to dive deeper into
-the Legion programming model.
-
-  * [Manual](/pdfs/legion-manual.pdf)
-  * [C++ API documentation]({{ "/doxygen/" | relative_url }})
 
 ## Debugging and Profiling
 

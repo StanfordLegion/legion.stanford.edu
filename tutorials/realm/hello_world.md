@@ -1,6 +1,6 @@
 ---
 layout: page
-permalink: /tutorial/realm/hello_realm.html
+permalink: /tutorial/realm/hello_world.html
 title: Realm Hello World 
 ---
 

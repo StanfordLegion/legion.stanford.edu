@@ -85,12 +85,12 @@ It is designed to be a self-sufficient resource that provides a certain
 amount of theoretical background necessary to work through the
 examples.
 
- * [Hello World]({{ "/tutorial/realm/hello_realm.html" | relative_url }})
+ * [Hello World]({{ "/tutorial/realm/hello_world.html" | relative_url }})
  * [Machine Model]({{ "/tutorial/realm/machine_model.html" | relative_url }})
- * [Events]({{ "/tutorial/realm/realm_events.html" | relative_url }})
+ * [Events]({{ "/tutorial/realm/events_basic.html" | relative_url }})
  * [Region Instances]({{ "/tutorial/realm/region_instances.html" | relative_url }})
    - [Deferred Allocation]({{ "/tutorial/realm/deferred_allocation.html" | relative_url }})
- * [Index Spaces]({{ "/tutorial/realm/index_spaces.html" | relative_url }})
+ * [Index Spaces]({{ "/tutorial/realm/index_space_ops.html" | relative_url }})
    - [Copies and Fills]({{ "/tutorial/realm/index_space_copy_fill.html" | relative_url }})
    - [Reductions]({{ "/tutorial/realm/reductions.html" | relative_url }})
  * [Subgraphs]({{ "/tutorial/realm/subgraph.html" | relative_url }})

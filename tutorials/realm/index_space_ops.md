@@ -1,6 +1,6 @@
 ---
 layout: page
-permalink: /tutorial/realm/index_spaces.html
+permalink: /tutorial/realm/index_space_ops.html
 title: Realm Index Spaces
 ---
 

@@ -1,6 +1,6 @@
 ---
 layout: page
-permalink: /tutorial/realm/realm_events.html
+permalink: /tutorial/realm/events_basic.html
 title: Realm Events
 ---
 

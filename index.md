@@ -77,27 +77,34 @@ OLCF, NERSC, and the Swiss National Supercomputing Centre (CSCS).
 <tr>
 <td>David Zhang</td>
 <td>Seshu Yamajala</td>
-<td>Wei Wu</td>
+<td>Jonathan Graham</td>
 <td>Wonchan Lee</td>
 </tr>
 
 <tr>
 <td></td>
-<td>Xi Luo</td>
-<td>Jonathan Graham</td>
+<td>Pinku Surana</td>
+<td>Nirmal Prajapati</td>
 <td><a href="http://manopapad.com/">Manolis Papadakis</a></td>
 </tr>
 
 <tr>
 <td></td>
 <td></td>
-<td>Nirmal Prajapati</td>
+<td></td>
 <td>Irina Demeshko</td>
 </tr>
 
 <tr>
+<td></td>
+<td></td>
+<td></td>
+<td>Wei Wu</td>
+</tr>
+
+<tr>
 <td><b>CMU</b></td>
-<td>  </td>
+<td></td>
 <td></td>
 <td></td>
 </tr>

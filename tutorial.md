@@ -74,6 +74,31 @@ the Legion programming model.
 
   * [Manual](/pdfs/legion-manual.pdf)
   * [C++ API documentation]({{ "/doxygen/" | relative_url }})
+  
+## Realm API Tutorial
+
+The following tutorial is meant to showcase Realm's programming
+model, highlight existing interfaces and teach how to write Realm
+programs in C++. This tutorial has an
+incremental complexity that progressively exposes various Realm features.
+It is designed to be a self-sufficient resource that provides a certain
+amount of theoretical background necessary to work through the
+examples.
+
+ * [Hello World]({{ "/tutorial/realm/hello_world.html" | relative_url }})
+ * [Machine Model]({{ "/tutorial/realm/machine_model.html" | relative_url }})
+ * [Events]({{ "/tutorial/realm/events_basic.html" | relative_url }})
+ * [Region Instances]({{ "/tutorial/realm/region_instances.html" | relative_url }})
+   - [Deferred Allocation]({{ "/tutorial/realm/deferred_allocation.html" | relative_url }})
+ * [Index Spaces]({{ "/tutorial/realm/index_space_ops.html" | relative_url }})
+   - [Copies and Fills]({{ "/tutorial/realm/index_space_copy_fill.html" | relative_url }})
+   - [Reductions]({{ "/tutorial/realm/reductions.html" | relative_url }})
+ * [Subgraphs]({{ "/tutorial/realm/subgraph.html" | relative_url }})
+ * [Completion Queue]({{ "/tutorial/realm/completion_queue.html" | relative_url }})
+ * [Reservations]({{ "/tutorial/realm/reservation.html" | relative_url }})
+ * [Barriers]({{ "/tutorial/realm/barrier.html" | relative_url }})
+ * [Profiling]({{ "/tutorial/realm/profiling.html" | relative_url }})
+ * [CUDA Interop]({{ "/tutorial/realm/cuda_interop.html" | relative_url }})
 
 ## Debugging and Profiling
 

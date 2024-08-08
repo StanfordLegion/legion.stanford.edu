@@ -58,7 +58,7 @@ messages: legion
 
 .PHONY: legion
 legion:
-	@if [ -d _legion ]; then git -C _legion pull --ff-only; else git clone -b master https://github.com/StanfordLegion/legion.git _legion; fi
+	@if [ -d _legion ]; then git -C _legion pull --ff-only; else git clone -b stable https://github.com/StanfordLegion/legion.git _legion; fi
 
 .PHONY: manual
 manual:

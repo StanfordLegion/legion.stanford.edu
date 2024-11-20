@@ -4,7 +4,7 @@ permalink: /documentation/index.html
 title: Documentation
 ---
 
-This page lists the collected documentation on Legion and Regent.
+This page lists the collected documentation on Legion, Regent and Pygion.
 
 ## Legion
 
@@ -21,6 +21,10 @@ This page lists the collected documentation on Legion and Regent.
 
   * [Tutorials](http://regent-lang.org/tutorial/): start here if you are new to Regent
   * [Language Reference](http://regent-lang.org/reference/): complete language reference
+
+## Pygion
+
+  * [Overview]({{ "/pygion/" | relative_url }}): start here if you are new to Pygion
 
 ## Internals
 

@@ -28,4 +28,6 @@ This page lists the collected documentation on Legion, Regent and Pygion.
 
 ## Internals
 
-  * [Runtime School](https://www.youtube.com/playlist?list=PLUNK9XcztK7xjXfppL9hIpVv2ukp7A4tG): in-depth discussion of the Legion runtime design and implementation
+  * [Legion Runtime School 2023](https://www.youtube.com/playlist?list=PLUNK9XcztK7yy4QWI6srKglFl9bOixp3i): in-depth discussion of the Legion runtime design and implementation (2023 edition)
+  * [Realm Runtime School 2023](https://www.youtube.com/playlist?list=PLUNK9XcztK7xNDIBlC3dciZprPEGhM704): in-depth discussion of the Realm runtime design and implementation (2023 edition)
+  * [Runtime School 2015](https://www.youtube.com/playlist?list=PLUNK9XcztK7xjXfppL9hIpVv2ukp7A4tG): in-depth discussion of the Legion/Realm runtime design and implementation (2015 edition)

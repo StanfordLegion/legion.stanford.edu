@@ -15,7 +15,7 @@ from pygion import task
 
 @task
 def main():
-    print("Hello, Legion!")
+    print("Hello, Pygion!")
 {% endhighlight %}
 
 ## Getting Started

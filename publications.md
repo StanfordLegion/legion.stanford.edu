@@ -14,6 +14,7 @@ title: Publications
       * [Dynamic Control Replication (PPoPP 2021)](#dcr2021) \[[PDF]({{ "/pdfs/dcr2021.pdf" | relative_url }})]
       * [Index Launches (SC 2021)](#idx2021) \[[PDF]({{ "/pdfs/idx2021.pdf" | relative_url }})]
       * [Visibility Algorithms (PPoPP 2023)](#visibility2023) \[[PDF]({{ "/pdfs/visibility2023.pdf" | relative_url }})]
+      * [Automatic Tracing (ASPLOS 2025)](#autotrace2025) \[[PDF]({{ "/pdfs/autotrace2025.pdf" | relative_url }})]
   * Programming Model:
       * [Partitioning Type System (OOPSLA 2013)](#oopsla2013) \[[PDF]({{ "/pdfs/oopsla2013.pdf" | relative_url }})]
       * [Dependent Partitioning (OOPSLA 2016)](#dpl2016) \[[PDF]({{ "/pdfs/dpl2016.pdf" | relative_url }})]
@@ -35,6 +36,7 @@ title: Publications
       * [Sparse Tensor Algebra (SC 2022)](#spdistal2022) \[[PDF]({{ "/pdfs/spdistal2022.pdf" | relative_url }})]
       * [Legate Sparse (SC 2023)](#legate-sparse2023) \[[PDF](/pdfs/legate-sparse2023.pdf)]
       * [AutoMap (SC 2023)](#automap2023) \[[PDF](/pdfs/automap2023.pdf)]
+      * [Task and Kernel Fusion (ASPLOS 2025)](#fusion2025) \[[PDF]({{ "/pdfs/fusion2025.pdf" | relative_url }})]
   * Applications:
       * [S3D-Legion (2017)](#s3d2017) \[[PDF](https://www.taylorfrancis.com/books/e/9781315277400/chapters/10.1201/b21930-12)]
       * [Soleil-X (2018)](#soleilx2018) \[[PDF]({{ "/pdfs/soleilx2018.pdf" | relative_url }})]
@@ -699,6 +701,45 @@ some of the programming challenges we encountered along the way, what
 worked and what didn't, and why only the Pygion code eventually
 succeeded in running at scale.
 
+
+<a name="autotrace2025"></a>__Automatic Tracing in Task-Based Runtime Systems__ [PDF]({{ "/pdfs/autotrace2025.pdf" | relative_url }}) <br/>
+_Rohan Yadav, Michael Bauer, David Broman, Michael Garland, Alex Aiken, Fredrik Kjolstad_ <br/>
+In the Conference on Architectural Support for Programming Languages and Operating Systems ([ASPLOS 2025](https://www.asplos-conference.org/asplos2025/)) <br/>
+__Abstract:__ Implicitly parallel task-based runtime systems often perform 
+dynamic analysis to discover dependencies in and extract parallelism from 
+sequential programs. Dependence analysis becomes expensive as task granularity 
+drops below a threshold. Tracing techniques have been developed where programmers 
+annotate repeated program fragments (traces) issued by the application, and the 
+runtime system memoizes the dependence analysis for those fragments, greatly 
+reducing overhead when the fragments are executed again. However, manual trace
+annotation can be brittle and not easily applicable to complex programs built 
+through the composition of independent components. We introduce Apophenia, a 
+system that automatically traces the dependence analysis of task-based runtime
+systems, removing the burden of manual annotations from programmers and enabling
+new and complex programs to be traced. Apophenia identifies traces dynamically
+through a series of dynamic string analyses, which find repeated program 
+fragments in the stream of tasks issued to the runtime system. We show that 
+Apophenia is able to come between 0.92x–1.03x the performance of manually 
+traced programs, and is able to effectively trace previously untraced programs
+to yield speedups of between 0.91x–2.82x on the Perlmutter and Eos supercomputers.
+
+
+<a name="fusion2025"></a>__Composing Distributed Computations Through Task and Kernel Fusion__ [PDF]({{ "/pdfs/fusion2025.pdf" | relative_url }}) <br/>
+In the Conference on Architectural Support for Programming Languages and Operating Systems ([ASPLOS 2025](https://www.asplos-conference.org/asplos2025/)) <br/>
+__Abstract:__ We introduce Diffuse, a system that dynamically performs task 
+and kernel fusion in distributed, task-based runtime systems. The key component
+of Diffuse is an intermediate representation of distributed computation that
+enables the necessary analyses for the fusion of distributed tasks to be performed
+in a scalable manner. We pair task fusion with a JIT compiler to fuse together the
+kernels within fused tasks. We show empirically that Diffuse’s intermediate 
+representation is general enough to be a target for two real-world, task-based
+libraries (cuPyNumeric and Legate Sparse), letting Diffuse find optimization
+opportunities across function and library boundaries. Diffuse accelerates
+unmodified applications developed by composing task-based libraries by 1.86x
+on average (geo-mean), and by between 0.93x–10.7x on up to 128 GPUs. Diffuse
+also finds optimization opportunities missed by the original application
+developers, enabling high-level Python programs to match or exceed the 
+performance of an explicitly parallel MPI library.
 
 
 ## Theses

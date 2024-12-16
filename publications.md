@@ -725,7 +725,7 @@ to yield speedups of between 0.91x–2.82x on the Perlmutter and Eos supercomput
 
 
 <a name="fusion2025"></a>__Composing Distributed Computations Through Task and Kernel Fusion__ [PDF]({{ "/pdfs/fusion2025.pdf" | relative_url }}) <br/>
-_Rohan Yadav, Shiv Sundram, Wonchan Lee, Michael Garland, Michael Bauer, Alex Aiken, Fredrik Kjolstad_ <br/>
+_Rohan Yadav, Shiv Sundram, Wonchan Lee, Michael Garland, Michael Bauer, Alex Aiken, and Fredrik Kjolstad_ <br/>
 In the Conference on Architectural Support for Programming Languages and Operating Systems ([ASPLOS 2025](https://www.asplos-conference.org/asplos2025/)) <br/>
 __Abstract:__ We introduce Diffuse, a system that dynamically performs task 
 and kernel fusion in distributed, task-based runtime systems. The key component

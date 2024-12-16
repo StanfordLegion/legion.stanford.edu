@@ -703,7 +703,7 @@ succeeded in running at scale.
 
 
 <a name="autotrace2025"></a>__Automatic Tracing in Task-Based Runtime Systems__ [PDF]({{ "/pdfs/autotrace2025.pdf" | relative_url }}) <br/>
-_Rohan Yadav, Michael Bauer, David Broman, Michael Garland, Alex Aiken, Fredrik Kjolstad_ <br/>
+_Rohan Yadav, Michael Bauer, David Broman, Michael Garland, Alex Aiken, and Fredrik Kjolstad_ <br/>
 In the Conference on Architectural Support for Programming Languages and Operating Systems ([ASPLOS 2025](https://www.asplos-conference.org/asplos2025/)) <br/>
 __Abstract:__ Implicitly parallel task-based runtime systems often perform 
 dynamic analysis to discover dependencies in and extract parallelism from 

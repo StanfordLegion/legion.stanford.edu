@@ -11,6 +11,7 @@ useful alternative to tutorials and other documentation, for those who
 wish to learn Legion or gain a deeper understanding of the various
 system components.
 
+  * [Legion Retreat 2024]({{ "/retreat2024/" | relative_url }})
   * [Legion Retreat 2022](https://theory.stanford.edu/~aiken/LegionRetreat22/index.html)
   * [Legion Retreat 2021](https://theory.stanford.edu/~aiken/LegionRetreat21/index.html)
   * [Legion Bootcamp 2017]({{ "/bootcamp2017/" | relative_url }})

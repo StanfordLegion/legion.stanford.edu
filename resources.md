@@ -35,6 +35,7 @@ Regent:
 
   * [FleCSI: framework for multi-physics simulation](https://github.com/laristra/flecsi)
   * [Lux: distributed graph processing](https://github.com/LuxGraph/Lux)
+  * [Visualization framework/image compositor](https://github.com/StanfordLegion/image-compositor)
   * [Emacs mode for Regent](https://github.com/StanfordLegion/regent-mode)
   * [Vim mode for Regent](https://github.com/StanfordLegion/regent.vim)
 

@@ -37,6 +37,7 @@ title: Publications
       * [Legate Sparse (SC 2023)](#legate-sparse2023) \[[PDF](/pdfs/legate-sparse2023.pdf)]
       * [AutoMap (SC 2023)](#automap2023) \[[PDF](/pdfs/automap2023.pdf)]
       * [Task and Kernel Fusion (ASPLOS 2025)](#fusion2025) \[[PDF]({{ "/pdfs/fusion2025.pdf" | relative_url }})]
+      * [Checkpointing (OOPSLA 2026)](#relight2026) \[[PDF]({{ "/pdfs/relight2026.pdf" | relative_url }})]
   * Applications:
       * [S3D-Legion (2017)](#s3d2017) \[[PDF](https://www.taylorfrancis.com/books/e/9781315277400/chapters/10.1201/b21930-12)]
       * [Soleil-X (2018)](#soleilx2018) \[[PDF]({{ "/pdfs/soleilx2018.pdf" | relative_url }})]
@@ -741,6 +742,13 @@ on average (geo-mean), and by between 0.93x–10.7x on up to 128 GPUs. Diffuse
 also finds optimization opportunities missed by the original application
 developers, enabling high-level Python programs to match or exceed the 
 performance of an explicitly parallel MPI library.
+
+
+<a name="relight2026"></a>__Relight: Simple User-Level Checkpointing and Fast-Forward Replay for Distributed Task-Based Systems__ [PDF]({{ "/pdfs/relight2026.pdf" | relative_url }}) <br/>
+_Elliott Slaughter, Rupanshu Soi, Michael Bauer, and Alex Aiken_ <br/>
+In the Conference on Object-Oriented Programming, Systems, Languages, and Applications ([OOPSLA 2026](https://2026.splashcon.org/details/oopsla-2026/108/Relight-Simple-User-Level-Checkpointing-and-Fast-Forward-Replay-for-Distributed-Task)) <br/>
+__Abstract:__ Checkpointing, or periodic saving of program state to storage, is the de facto standard technique used to mitigate risks of nondeterministic bugs, hardware faults, and job wall-time limits in long-running programs.
+Traditional approaches require users to manually manage the migration of data to and from storage when capturing checkpoints and when resuming execution. However, for task-based programs, where the user has already factored the computation into tasks and the program data into collections, sufficient information is available to automatically capture and resume from checkpoints with minimal code changes. We present Relight, the first framework for automatic, distributed checkpointing of task-based programs that provides an efficient fast-forward replay for full job recovery. On a set of already-optimized benchmarks, we demonstrate that Relight delivers checkpointing performance and scalability comparable to the original, unmodified codes when running on up to 512 nodes of the Piz Daint supercomputer.
 
 
 ## Theses

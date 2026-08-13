@@ -1,6 +1,6 @@
 # Deploy locally
 .PHONY: local
-local: doxygen manual messages build
+local: doxygen manual build
 	@echo "Result is in _site"
 
 # Deploy to Sapling
@@ -72,7 +72,7 @@ build:
 	bundle exec jekyll build
 
 .PHONY: serve
-serve: doxygen manual messages
+serve: doxygen manual
 	bundle install
 	bundle exec jekyll serve --watch
 

@@ -4,6 +4,15 @@ on:
   push:
     branches:
       - master
+  workflow_dispatch:
+    inputs:
+      legion_ref:
+        description: Legion branch or tag to document
+        default: stable
+        required: false
+  repository_dispatch:
+    types:
+      - legion-release
 
 jobs:
   github-pages:
@@ -24,3 +33,4 @@ jobs:
           make github
         env:
           GIT_DEPLOY_KEY: ${{ secrets.GIT_DEPLOY_KEY }}
+          LEGION_REF: ${{ github.event.client_payload.ref || inputs.legion_ref || 'stable' }}

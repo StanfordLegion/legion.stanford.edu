@@ -1,3 +1,5 @@
+LEGION_REF ?= stable
+
 # Deploy locally
 .PHONY: local
 local: doxygen manual build
@@ -47,7 +49,11 @@ github: local
 # Build steps:
 .PHONY: doxygen
 doxygen: legion
+	rm -rf doxygen doxygen_warnings.txt
 	doxygen
+	test -s doxygen/index.html
+	test -s doxygen/annotated.html
+	test -s doxygen/class_legion_1_1_runtime.html
 
 
 .PHONY: messages
@@ -58,7 +64,12 @@ messages: legion
 
 .PHONY: legion
 legion:
-	@if [ -d _legion ]; then git -C _legion pull --ff-only; else git clone -b stable https://github.com/StanfordLegion/legion.git _legion; fi
+	@if [ ! -d _legion/.git ]; then \
+	  git init _legion && \
+	  git -C _legion remote add origin https://github.com/StanfordLegion/legion.git; \
+	fi
+	git -C _legion fetch --depth=1 origin "$(LEGION_REF)"
+	git -C _legion checkout --detach FETCH_HEAD
 
 .PHONY: manual
 manual:

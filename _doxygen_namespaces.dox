@@ -1,0 +1,9 @@
+/**
+ * \namespace Legion
+ * Namespace for all Legion runtime objects
+ */
+
+/**
+ * \namespace Legion::Mapping
+ * Namespace for the Legion mapping interface
+ */

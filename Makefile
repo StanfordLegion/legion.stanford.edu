@@ -53,7 +53,12 @@ doxygen: legion
 	doxygen
 	test -s doxygen/index.html
 	test -s doxygen/annotated.html
+	test -s doxygen/namespaces.html
 	test -s doxygen/class_legion_1_1_runtime.html
+	test -s doxygen/class_legion_1_1_future.html
+	test -s doxygen/struct_legion_1_1_region_requirement.html
+	test -s doxygen/c__bindings_8h.html
+	test -s doxygen/globals.html
 
 
 .PHONY: messages
